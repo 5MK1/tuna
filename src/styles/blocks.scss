@@ -1,0 +1,6 @@
+@use 'colors';
+
+@mixin tool-bg() {
+	background: colors.get('panel');
+	backdrop-filter: blur(100px);
+}

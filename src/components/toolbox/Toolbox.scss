@@ -1,0 +1,36 @@
+@use '../../styles/colors';
+@use '../../styles/sizes';
+@use '../../styles/blocks';
+
+.toolbox {
+	position: fixed;
+	left: sizes.$main-gap;
+	top: sizes.$main-gap;
+	bottom: sizes.$main-gap;
+	width: sizes.$toolbox-width;
+	border-radius: 3px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: #{nth(sizes.$fib, 5)}px;
+
+
+	@include blocks.tool-bg;
+
+	&__button {
+		background: transparent;
+		padding: 0;
+		margin: 0;
+		border: none;
+		cursor: pointer;
+		border-radius: 3px;
+
+		&:focus {
+			outline: 2px solid #4A90E2;
+		}
+
+		img {
+			display: block;
+		}
+	}
+}

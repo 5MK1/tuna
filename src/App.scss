@@ -1,0 +1,25 @@
+@use 'styles/colors';
+@use 'styles/sizes';
+
+.app-root {
+  background: colors.get('background');
+  overflow: auto;
+  position: absolute;
+  min-height: 100%;
+  min-width: 100%;
+  color: white;
+}
+
+.desktop {
+  padding-left: sizes.$main-gap--left;
+  padding-top: sizes.$main-gap;
+  padding-right: sizes.$properties-width;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+.wideee {
+  width: 10000px;
+}

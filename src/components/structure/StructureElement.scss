@@ -1,0 +1,30 @@
+@use '../../styles/sizes';
+
+.struct-element {
+
+	&__header {
+		background: #464646;
+		border-radius: 3px;
+		padding: #{nth(sizes.$fib, 3)}px;
+		margin-bottom: #{nth(sizes.$fib, 3)}px;
+	}
+
+	&__children {
+		padding-left: #{nth(sizes.$fib, 4)}px;
+	}
+
+	margin-bottom: #{nth(sizes.$fib, 3)}px;
+}
+
+.tag {
+	font-weight: 500;
+
+	&__brace {
+		color: #4D5CBA;
+	}
+
+	&__name {
+		color: #C99C61;
+		text-transform: lowercase;
+	}
+}

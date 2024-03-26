@@ -1,0 +1,9 @@
+$colors: (
+		'background': #1A1A1A,
+		'panel': #FFFFFF08,
+		'border-1': #FFFFFF80
+);
+
+@function get($color-name) {
+	@return map-get($colors, $color-name);
+}

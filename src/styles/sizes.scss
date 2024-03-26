@@ -1,0 +1,15 @@
+$fib: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610;
+
+$min-gap: #{nth($fib, 4)}px;
+$main-gap: #{nth($fib, 5)}px;
+$main-gap--left: #{nth($fib, 5) + nth($fib, 6) + nth($fib, 9)}px;
+
+$toolbox-width: #{nth($fib, 9)}px;
+
+$properties-width: #{nth($fib, 13)}px;
+
+
+
+
+
+
