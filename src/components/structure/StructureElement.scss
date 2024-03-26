@@ -7,6 +7,7 @@
 		border-radius: 3px;
 		padding: #{nth(sizes.$fib, 3)}px;
 		margin-bottom: #{nth(sizes.$fib, 3)}px;
+		cursor: pointer;
 	}
 
 	&__children {

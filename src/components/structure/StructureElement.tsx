@@ -1,5 +1,6 @@
 import "./StructureElement.scss"
 import {DescribedNode} from "../../services/describedNode";
+import selectedNodeService from "../../services/selectedNodeService";
 
 export type LayerProps = {
     node: DescribedNode,
@@ -8,9 +9,14 @@ export type LayerProps = {
 
 export default function StructureElement(props: LayerProps) {
     const node = props.node;
+
+    function headerClick() {
+        selectedNodeService.select(node);
+    }
+
     return (
         <div className="struct-element">
-            <div className="struct-element__header">
+            <div className="struct-element__header" onClick={headerClick}>
                 {node.name && <div className="struct-element__name">{node.name}</div>}
                 {!node.name && <div className="struct-element__name--tag-name">
                     <span className="tag">
