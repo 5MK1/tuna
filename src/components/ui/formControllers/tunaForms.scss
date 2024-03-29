@@ -1,0 +1,70 @@
+@use '../../../styles/sizes';
+
+.tuna-input {
+	display: inline-flex;
+	align-items: center;
+	border: 1px solid #333;
+	border-radius: 5px;
+	background: #1A1A1A;
+	padding: #{nth(sizes.$fib, 4)}px #{nth(sizes.$fib, 5)}px;
+
+	&--active {
+		border-color: #555;
+		background: #1B1B1B;
+	}
+
+	&__input {
+		padding: 0;
+		margin: 0;
+		background: none;
+		border: none;
+		color: white;
+		outline: none;
+		height: 1em;
+		font: {
+			weight: 500;
+		};
+		font-family: 'Fira Code';
+
+		&--hex {
+			width: 7ch;
+		}
+	}
+
+	&__color-input-wrapper {
+		border-radius: 2px;
+		overflow: hidden;
+		margin-right: #{nth(sizes.$fib, 5)}px;
+
+		input {
+			width: 1em;
+			height: 1em;
+			padding: 0;
+			margin: 0;
+			overflow: hidden;
+			border: none;
+			opacity: 0;
+			display: block;
+		}
+	}
+
+	&__select {
+		background: none;
+		outline: none;
+		border: none;
+		margin: 0;
+		padding: 0;
+		height: 1em;
+		color: white;
+		font-family: 'Fira Code';
+		font-weight: 500;
+		text-align: left;
+		vertical-align: top;
+		line-height: 1em;
+		appearance: none;
+
+		&:after {
+			content: '>';
+		}
+	}
+}

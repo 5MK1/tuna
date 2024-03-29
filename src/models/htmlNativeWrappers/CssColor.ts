@@ -146,8 +146,9 @@ enum ColorNames {
     whitesmoke = '#F5F5F5',
     yellow = '#FFFF00',
     yellowgreen = '#9ACD32',
-
 }
+
+export type ColorTemplate = 'hex3' | 'hex6' | 'rgb' | 'literal'
 
 export default class CssColor {
     red: string;
@@ -166,36 +167,57 @@ export default class CssColor {
         return `#${this.red}${this.green}${this.blue}${this.alpha}`;
     }
 
-    static parse(color: string): CssColor | undefined {
-        return CssColor.tryParseFromHex(color)
-            ?? CssColor.tryParseFromRgb(color)
-            ?? CssColor.tryParseFromLiteral(color);
+    static parse(color: string, template: ColorTemplate | undefined = undefined): CssColor | undefined {
+        switch (template) {
+            case 'hex3':
+                return CssColor.tryParseFromHex(color, 3);
+            case 'hex6':
+                return CssColor.tryParseFromHex(color, 6);
+            case 'rgb':
+                return CssColor.tryParseFromRgb(color);
+            case 'literal':
+                return CssColor.tryParseFromLiteral(color);
+            default:
+                return CssColor.tryParseFromHex(color)
+                    ?? CssColor.tryParseFromRgb(color)
+                    ?? CssColor.tryParseFromLiteral(color);
+        }
     }
 
-    private static tryParseFromHex(color: string): CssColor | undefined {
+    private static tryParseFromHex(color: string, len: 3 | 6 | undefined = undefined): CssColor | undefined {
         if (color.indexOf('#') !== 0) {
             return undefined;
         }
 
+        switch (len) {
+            case 3:
+                return CssColor.tryParseFromHex3(color);
+            case 6:
+                return CssColor.tryParseFromHex6(color);
+            default:
+                return CssColor.tryParseFromHex3(color)
+                    ?? CssColor.tryParseFromHex6(color);
+        }
+    }
+
+    private static tryParseFromHex3(color: string): CssColor | undefined {
         const shortHexMatches = /^#([a-f0-9])([a-f0-9])([a-f0-9])$/i.exec(color);
-        if (shortHexMatches) {
-            return new CssColor(
+        return shortHexMatches
+            ? new CssColor(
                 shortHexMatches[1] + shortHexMatches[1],
                 shortHexMatches[2] + shortHexMatches[2],
                 shortHexMatches[3] + shortHexMatches[3]
-            );
-        }
+            ) : undefined;
+    }
 
+    private static tryParseFromHex6(color: string): CssColor | undefined {
         const fullHexMatches = /^#([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$/i.exec(color);
-        if (fullHexMatches) {
-            return new CssColor(
+        return fullHexMatches
+            ? new CssColor(
                 fullHexMatches[1],
                 fullHexMatches[2],
                 fullHexMatches[3]
-            );
-        }
-
-        return undefined;
+            ) : undefined;
     }
 
     private static tryParseFromRgb(color: string): CssColor | undefined {
