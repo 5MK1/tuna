@@ -8,4 +8,8 @@ export class DescribedNode {
         this.name = name;
         this.children = children;
     }
+
+    public get resolvedName(): string {
+        return this.name ?? this.node.tagName;
+    }
 }

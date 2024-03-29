@@ -45,5 +45,10 @@
 		&__body {
 			padding: #{nth(sizes.$fib, 6)}px #{nth(sizes.$fib, 5)}px #{nth(sizes.$fib, 4)}px;
 		}
+
+		&__body-block {
+			border-bottom: 1px solid #00000032;
+			padding-bottom: #{nth(sizes.$fib, 5)}px;
+		}
 	}
 }

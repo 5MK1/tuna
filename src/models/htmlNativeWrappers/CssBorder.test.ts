@@ -12,7 +12,7 @@ test(
         expect(cssBorder).not.toBeUndefined();
         expect(cssBorder!.style).toBe('solid');
         expect(cssBorder!.width).toBe('1px');
-        expect(cssBorder!.color).toBe('red');
+        expect(cssBorder!.color).toBe('#FF0000');
     }
 );
 
@@ -31,7 +31,7 @@ test(
         expect(cssBorder).not.toBeUndefined();
         expect(cssBorder!.width).toBe('69px');
         expect(cssBorder!.style).toBe('solid');
-        expect(cssBorder!.color).toBe('red');
+        expect(cssBorder!.color).toBe('#FF0000');
     }
 );
 
@@ -48,7 +48,7 @@ test(
         expect(cssBorder).not.toBeUndefined();
         expect(cssBorder!.width).toBe('69px');
         expect(cssBorder!.style).toBe('solid');
-        expect(cssBorder!.color).toBe('red');
+        expect(cssBorder!.color).toBe('#FF0000');
     }
 );
 
@@ -65,7 +65,23 @@ test(
         expect(cssBorder).not.toBeUndefined();
         expect(cssBorder!.width).toBe('1px');
         expect(cssBorder!.style).toBe('solid');
-        expect(cssBorder!.color).toBe('red');
+        expect(cssBorder!.color).toBe('#FF0000');
+    }
+);
+
+test(
+    'CssBorder.createFrom should parsed correctly when border color present in rgb form',
+    () => {
+        const styles = {
+            border: '1px solid rgb(255, 0, 0)',
+        } as CSSStyleDeclaration;
+
+        const cssBorder = CssBorder.createFrom(styles);
+
+        expect(cssBorder).not.toBeUndefined();
+        expect(cssBorder!.width).toBe('1px');
+        expect(cssBorder!.style).toBe('solid');
+        expect(cssBorder!.color).toBe('#FF0000');
     }
 );
 

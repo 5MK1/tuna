@@ -40,7 +40,7 @@ export default function Board() {
         e.stopPropagation();
         if (tool === Tool.flexbox) {
             const node = document.createElement('div');
-            node.style.border = '1px dotted black';
+            node.style.border = '1px dotted magenta';
             node.style.padding = '3px';
             node.style.margin = '3px;'
             node.innerText = `${fooBarIndex++}`;

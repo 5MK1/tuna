@@ -1,14 +1,19 @@
 import {BorderStyle} from "./BorderStyle";
+import CssColor from "./CssColor";
 
 export class CssBorder {
+    private _colorObject: CssColor;
     width: string;
     style: BorderStyle;
-    color: string;
 
-    private constructor(width: string, style: BorderStyle, color: string) {
+    public get color(): string {
+        return this._colorObject.toString();
+    }
+
+    private constructor(width: string, style: BorderStyle, color: CssColor) {
         this.width = width;
         this.style = style;
-        this.color = color;
+        this._colorObject = color;
     }
 
     static createFrom(style: CSSStyleDeclaration): CssBorder | undefined {
@@ -16,7 +21,7 @@ export class CssBorder {
         const borderStyles = Object.entries(style).filter(entry => borderRules.indexOf(entry[0]) !== -1);
         let width: string | undefined;
         let borderStyle: BorderStyle | undefined;
-        let color: string | undefined;
+        let color: CssColor | undefined;
         for (let [rule, value] of borderStyles) {
             switch (rule) {
                 case 'border':
@@ -30,7 +35,7 @@ export class CssBorder {
                     }
                     width = value.substring(0, firstSpace);
                     borderStyle = value.substring(firstSpace + 1, secondSpace) as BorderStyle;
-                    color = value.substring(secondSpace + 1);
+                    color = CssColor.parse(value.substring(secondSpace + 1));
                     break;
                 case 'borderStyle':
                     borderStyle = value as BorderStyle;
@@ -39,7 +44,7 @@ export class CssBorder {
                     width = value;
                     break;
                 case 'borderColor':
-                    color = value;
+                    color = CssColor.parse(value);
                     break;
             }
         }
