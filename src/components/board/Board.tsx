@@ -2,7 +2,7 @@ import './Board.scss'
 import toolboxService, {Tool} from "../../services/toolboxService";
 import nodesService from "../../services/structureService";
 import {DescribedNode} from "../../services/describedNode";
-import {useRef} from "react";
+import {RefObject, useRef} from "react";
 
 interface InnerMouseEvent {
     target: EventTarget | null,
@@ -10,7 +10,7 @@ interface InnerMouseEvent {
 }
 
 export default function Board() {
-    const canvas = useRef(null);
+    const canvas = useRef<HTMLDivElement>(null);
     let tool: Tool | undefined;
     let fooBarIndex = 1;
 
@@ -36,15 +36,20 @@ export default function Board() {
         unselectElement(getTargetElement(e));
     }
 
+    function createDummyBlock(): HTMLElement {
+        const node = document.createElement('div');
+        node.style.border = '1px dotted magenta';
+        node.style.padding = '3px';
+        node.style.margin = '3px';
+        node.innerText = `node_${fooBarIndex++}`;
+        node.addEventListener('click', handleClickInner);
+        return node;
+    }
+
     function handleClickInner(e: InnerMouseEvent) {
         e.stopPropagation();
         if (tool === Tool.flexbox) {
-            const node = document.createElement('div');
-            node.style.border = '1px dotted magenta';
-            node.style.padding = '3px';
-            node.style.margin = '3px;'
-            node.innerText = `${fooBarIndex++}`;
-            node.addEventListener('click', handleClickInner);
+            const node = createDummyBlock();
             const target = getTargetElement(e);
             target.appendChild(node);
             toolboxService.setTool(undefined);

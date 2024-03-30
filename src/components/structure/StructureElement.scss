@@ -2,16 +2,26 @@
 
 .struct-element {
 
+	&__level-button {
+		border: none;
+		padding: 0;
+		background: transparent;
+		width: 1em;
+		margin-right: #{nth(sizes.$fib, 3)}px;
+		cursor: pointer;
+	}
+
 	&__header {
 		background: #464646;
 		border-radius: 3px;
 		padding: #{nth(sizes.$fib, 3)}px;
 		margin-bottom: #{nth(sizes.$fib, 3)}px;
 		cursor: pointer;
+		display: flex;
 	}
 
 	&__children {
-		padding-left: #{nth(sizes.$fib, 4)}px;
+		padding-left: #{nth(sizes.$fib, 7)}px;
 	}
 
 	margin-bottom: #{nth(sizes.$fib, 3)}px;

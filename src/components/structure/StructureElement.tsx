@@ -1,6 +1,8 @@
 import "./StructureElement.scss"
 import {DescribedNode} from "../../services/describedNode";
 import selectedNodeService from "../../services/selectedNodeService";
+import StructIcon, {StructIconType} from "../ui/StructIcon";
+import {useEffect, useState} from "react";
 
 export type LayerProps = {
     node: DescribedNode,
@@ -9,6 +11,11 @@ export type LayerProps = {
 
 export default function StructureElement(props: LayerProps) {
     const node = props.node;
+    const [buttonIco, setButtonIco] = useState<StructIconType>('triangleRight');
+
+    useEffect(() => {
+        setButtonIco(node.children.length !== 0 ? 'triangleDown' : 'triangleRight')
+    }, []);
 
     function headerClick() {
         selectedNodeService.select(node);
@@ -17,6 +24,9 @@ export default function StructureElement(props: LayerProps) {
     return (
         <div className="struct-element">
             <div className="struct-element__header" onClick={headerClick}>
+                <button className="struct-element__level-button">
+                    <StructIcon type={buttonIco} filled={false} />
+                </button>
                 {node.name && <div className="struct-element__name">{node.name}</div>}
                 {!node.name && <div className="struct-element__name--tag-name">
                     <span className="tag">
