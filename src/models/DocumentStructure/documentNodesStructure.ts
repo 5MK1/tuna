@@ -19,6 +19,7 @@ export default class DocumentNodesStructure {
         if (!foundTarget) {
             throw new Error('Target element was not found');
         }
+        node.parent = foundTarget;
         foundTarget.children.push(node);
         this._nodesMap.set(node.nativeNode, node);
         return this;
