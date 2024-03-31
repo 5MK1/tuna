@@ -22,6 +22,10 @@
 
 	&__children {
 		padding-left: #{nth(sizes.$fib, 7)}px;
+
+		&--collapsed {
+			display: none;
+		}
 	}
 
 	margin-bottom: #{nth(sizes.$fib, 3)}px;
