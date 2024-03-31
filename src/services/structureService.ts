@@ -17,16 +17,6 @@ export class StructureService {
         const structure = this._nodes.getValue().add(node, target);
         this._nodes.next(structure);
     }
-
-    push(node: DocumentNode) {
-        const structure = this._nodes.getValue().add(node);
-        this._nodes.next(structure); // bug?
-    }
-
-    appendTo(target: HTMLElement, node: DocumentNode) {
-        const structure = this._nodes.getValue().add(node, target);
-        this._nodes.next(structure);
-    }
 }
 
 export default new StructureService();
