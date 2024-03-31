@@ -1,5 +1,5 @@
 import './Properties.scss';
-import Structure from "../structure/Structure";
+import DocumentStructure from "../structure/DocumentStructure";
 import Border from "../styleEditors/common/Border";
 import {useEffect, useState} from "react";
 import selectedNodeService from "../../services/selectedNodeService";
@@ -33,7 +33,7 @@ export default function Properties() {
                 <div className="property-settings">
                     <p className="property-settings__title">Structure</p>
                     <div className="property-settings__body">
-                        <Structure/>
+                        <DocumentStructure/>
                     </div>
                 </div>
             </div>

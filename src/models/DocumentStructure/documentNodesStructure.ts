@@ -1,6 +1,6 @@
 import DescribedNode from './describedNode';
 
-export default class NodesStructure {
+export default class DocumentNodesStructure {
     private _nodesMap: Map<HTMLElement, DescribedNode>;
     rootNodes: DescribedNode[];
 
@@ -9,7 +9,7 @@ export default class NodesStructure {
         this.rootNodes = [];
     }
 
-    public add(node: DescribedNode, target: HTMLElement | undefined = undefined): NodesStructure {
+    public add(node: DescribedNode, target: HTMLElement | undefined = undefined): DocumentNodesStructure {
         if (!target) {
             this.rootNodes.push(node);
             this._nodesMap.set(node.node, node);

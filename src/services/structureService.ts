@@ -1,13 +1,13 @@
 import {BehaviorSubject, map, Observable} from "rxjs";
 import DescribedNode from "../models/DocumentStructure/describedNode";
-import NodesStructure from "../models/DocumentStructure/nodesStructure";
+import DocumentNodesStructure from "../models/DocumentStructure/documentNodesStructure";
 
 export class StructureService {
-    private _nodes: BehaviorSubject<NodesStructure>;
+    private _nodes: BehaviorSubject<DocumentNodesStructure>;
     public nodes$: Observable<DescribedNode[]>;
 
     constructor() {
-        this._nodes = new BehaviorSubject<NodesStructure>(new NodesStructure());
+        this._nodes = new BehaviorSubject<DocumentNodesStructure>(new DocumentNodesStructure());
         this.nodes$ = this._nodes
             .asObservable()
             .pipe(map(x => [...x.rootNodes]));

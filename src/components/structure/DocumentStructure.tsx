@@ -3,7 +3,7 @@ import nodesService from "../../services/structureService";
 import StructureElement from "./StructureElement";
 import DescribedNode from "../../models/DocumentStructure/describedNode";
 
-export default function Structure() {
+export default function DocumentStructure() {
     const [nodes, setNodes] = useState<DescribedNode[]>([]);
 
     useEffect(() => {
