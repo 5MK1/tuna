@@ -12,7 +12,7 @@ export default class DocumentNodesStructure {
     public add(node: DescribedNode, target: HTMLElement | undefined = undefined): DocumentNodesStructure {
         if (!target) {
             this.rootNodes.push(node);
-            this._nodesMap.set(node.node, node);
+            this._nodesMap.set(node.nativeNode, node);
             return this;
         }
         const foundTarget = this._nodesMap.get(target);
@@ -20,7 +20,7 @@ export default class DocumentNodesStructure {
             throw new Error('Target element was not found');
         }
         foundTarget.children.push(node);
-        this._nodesMap.set(node.node, node);
+        this._nodesMap.set(node.nativeNode, node);
         return this;
     }
 

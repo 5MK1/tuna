@@ -31,7 +31,7 @@ export default function StructureElement(props: LayerProps) {
                 {!node.name && <div className="struct-element__name--tag-name">
                     <span className="tag">
                         <span className="tag__brace">&lt;</span>
-                        <span className="tag__name">{node.node.nodeName}</span>
+                        <span className="tag__name">{node.nativeNode.tagName}</span>
                         <span className="tag__brace">&gt;</span>
                     </span>
                 </div>}

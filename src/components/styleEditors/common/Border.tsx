@@ -14,7 +14,7 @@ type BorderState = {
 };
 
 export default function Border(props: BorderProps) {
-    const nativeNode = props.selectedNode.node;
+    const nativeNode = props.selectedNode.nativeNode;
     const [form, setForm] = useState<BorderState | undefined>(undefined);
     const colorInputRef = useRef(null);
 
