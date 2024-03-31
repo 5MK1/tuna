@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import nodesService from "../../services/structureService";
 import StructureElement from "./StructureElement";
-import {DescribedNode} from "../../services/describedNode";
+import DescribedNode from "../../models/DocumentStructure/describedNode";
 
 export default function Structure() {
     const [nodes, setNodes] = useState<DescribedNode[]>([]);

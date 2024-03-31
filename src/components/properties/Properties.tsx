@@ -3,7 +3,7 @@ import Structure from "../structure/Structure";
 import Border from "../styleEditors/common/Border";
 import {useEffect, useState} from "react";
 import selectedNodeService from "../../services/selectedNodeService";
-import {DescribedNode} from "../../services/describedNode";
+import DescribedNode from "../../models/DocumentStructure/describedNode";
 
 const styleEditors = [Border];
 

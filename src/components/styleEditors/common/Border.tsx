@@ -1,5 +1,5 @@
 import {ChangeEvent, useEffect, useRef, useState} from "react";
-import {DescribedNode} from "../../../services/describedNode";
+import DescribedNode from "../../../models/DocumentStructure/describedNode";
 import {CssBorder} from "../../../models/htmlNativeWrappers/CssBorder";
 import {BorderStyle} from "../../../models/htmlNativeWrappers/BorderStyle";
 

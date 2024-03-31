@@ -1,5 +1,5 @@
 import "./StructureElement.scss"
-import {DescribedNode} from "../../services/describedNode";
+import DescribedNode from "../../models/DocumentStructure/describedNode";
 import selectedNodeService from "../../services/selectedNodeService";
 import StructIcon, {StructIconType} from "../ui/StructIcon";
 import {useEffect, useState} from "react";

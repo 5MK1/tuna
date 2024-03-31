@@ -1,7 +1,7 @@
 import './Board.scss'
 import toolboxService, {Tool} from "../../services/toolboxService";
 import nodesService from "../../services/structureService";
-import {DescribedNode} from "../../services/describedNode";
+import DescribedNode from "../../models/DocumentStructure/describedNode";
 import {RefObject, useRef} from "react";
 
 interface InnerMouseEvent {

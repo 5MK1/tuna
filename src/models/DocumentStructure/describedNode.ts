@@ -1,4 +1,4 @@
-export class DescribedNode {
+export default class DescribedNode {
     public node: HTMLElement;
     public name: string | undefined;
     public children: DescribedNode[];

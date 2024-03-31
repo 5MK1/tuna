@@ -1,5 +1,5 @@
 import {BehaviorSubject, Observable} from "rxjs";
-import {DescribedNode} from "./describedNode";
+import DescribedNode from "../models/DocumentStructure/describedNode";
 
 export class SelectedNodeService {
     private _subj: BehaviorSubject<DescribedNode | undefined>;
