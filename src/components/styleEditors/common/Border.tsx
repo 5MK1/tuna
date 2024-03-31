@@ -1,10 +1,10 @@
 import {ChangeEvent, useEffect, useRef, useState} from "react";
-import DescribedNode from "../../../models/DocumentStructure/describedNode";
+import DocumentNode from "../../../models/DocumentStructure/documentNode";
 import {CssBorder} from "../../../models/htmlNativeWrappers/CssBorder";
 import {BorderStyle} from "../../../models/htmlNativeWrappers/BorderStyle";
 
 export type BorderProps = {
-    selectedNode: DescribedNode
+    selectedNode: DocumentNode
 }
 
 type BorderState = {

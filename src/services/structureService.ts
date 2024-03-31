@@ -1,10 +1,10 @@
 import {BehaviorSubject, map, Observable} from "rxjs";
-import DescribedNode from "../models/DocumentStructure/describedNode";
+import DocumentNode from "../models/DocumentStructure/documentNode";
 import DocumentNodesStructure from "../models/DocumentStructure/documentNodesStructure";
 
 export class StructureService {
     private _nodes: BehaviorSubject<DocumentNodesStructure>;
-    public nodes$: Observable<DescribedNode[]>;
+    public nodes$: Observable<DocumentNode[]>;
 
     constructor() {
         this._nodes = new BehaviorSubject<DocumentNodesStructure>(new DocumentNodesStructure());
@@ -13,12 +13,12 @@ export class StructureService {
             .pipe(map(x => [...x.rootNodes]));
     }
 
-    push(node: DescribedNode) {
+    push(node: DocumentNode) {
         const structure = this._nodes.getValue().add(node);
         this._nodes.next(structure); // bug?
     }
 
-    appendTo(target: HTMLElement, node: DescribedNode) {
+    appendTo(target: HTMLElement, node: DocumentNode) {
         const structure = this._nodes.getValue().add(node, target);
         this._nodes.next(structure);
     }

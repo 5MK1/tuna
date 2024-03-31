@@ -1,15 +1,15 @@
-import DescribedNode from './describedNode';
+import DocumentNode from './documentNode';
 
 export default class DocumentNodesStructure {
-    private _nodesMap: Map<HTMLElement, DescribedNode>;
-    rootNodes: DescribedNode[];
+    private _nodesMap: Map<HTMLElement, DocumentNode>;
+    rootNodes: DocumentNode[];
 
     constructor() {
-        this._nodesMap = new Map<HTMLElement, DescribedNode>();
+        this._nodesMap = new Map<HTMLElement, DocumentNode>();
         this.rootNodes = [];
     }
 
-    public add(node: DescribedNode, target: HTMLElement | undefined = undefined): DocumentNodesStructure {
+    public add(node: DocumentNode, target: HTMLElement | undefined = undefined): DocumentNodesStructure {
         if (!target) {
             this.rootNodes.push(node);
             this._nodesMap.set(node.nativeNode, node);
@@ -24,7 +24,7 @@ export default class DocumentNodesStructure {
         return this;
     }
 
-    public find(nativeNode: HTMLElement): DescribedNode | undefined {
+    public find(nativeNode: HTMLElement): DocumentNode | undefined {
         return this._nodesMap.get(nativeNode);
     }
 }

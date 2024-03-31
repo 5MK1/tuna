@@ -1,7 +1,7 @@
 import './Board.scss'
 import toolboxService, {Tool} from "../../services/toolboxService";
 import nodesService from "../../services/structureService";
-import DescribedNode from "../../models/DocumentStructure/describedNode";
+import DocumentNode from "../../models/DocumentStructure/documentNode";
 import {RefObject, useRef} from "react";
 
 interface InnerMouseEvent {
@@ -55,10 +55,10 @@ export default function Board() {
             toolboxService.setTool(undefined);
             unselectElement(target);
             if (target === canvas.current!) {
-                nodesService.push(new DescribedNode(node));
+                nodesService.push(new DocumentNode(node));
             }
             else {
-                nodesService.appendTo(target, new DescribedNode(node))
+                nodesService.appendTo(target, new DocumentNode(node))
             }
             return;
         }

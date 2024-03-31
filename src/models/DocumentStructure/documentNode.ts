@@ -1,8 +1,8 @@
-export default class DescribedNode {
+export default class DocumentNode {
     private readonly _node: HTMLElement;
     private _name: string | undefined;
-    private _children: DescribedNode[];
-    private _parent: DescribedNode | undefined;
+    private _children: DocumentNode[];
+    private _parent: DocumentNode | undefined;
 
     get nativeNode(): HTMLElement {
         return this._node;
@@ -12,19 +12,19 @@ export default class DescribedNode {
         return this._name;
     }
 
-    get children(): DescribedNode[] {
+    get children(): DocumentNode[] {
         return this._children;
     }
 
-    get parent(): DescribedNode | undefined {
+    get parent(): DocumentNode | undefined {
         return this._parent;
     }
 
     constructor(
         node: HTMLElement,
         name: string | undefined = undefined,
-        children: DescribedNode[] = [],
-        parent: DescribedNode | undefined = undefined
+        children: DocumentNode[] = [],
+        parent: DocumentNode | undefined = undefined
     ) {
         this._node = node;
         this._name = name;

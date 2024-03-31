@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import nodesService from "../../services/structureService";
 import StructureElement from "./StructureElement";
-import DescribedNode from "../../models/DocumentStructure/describedNode";
+import DocumentNode from "../../models/DocumentStructure/documentNode";
 
 export default function DocumentStructure() {
-    const [nodes, setNodes] = useState<DescribedNode[]>([]);
+    const [nodes, setNodes] = useState<DocumentNode[]>([]);
 
     useEffect(() => {
         nodesService.nodes$.subscribe(nodes => {

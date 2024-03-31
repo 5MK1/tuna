@@ -3,12 +3,12 @@ import DocumentStructure from "../structure/DocumentStructure";
 import Border from "../styleEditors/common/Border";
 import {useEffect, useState} from "react";
 import selectedNodeService from "../../services/selectedNodeService";
-import DescribedNode from "../../models/DocumentStructure/describedNode";
+import DocumentNode from "../../models/DocumentStructure/documentNode";
 
 const styleEditors = [Border];
 
 export default function Properties() {
-    const [selectedNode, setSelectedNode] = useState<DescribedNode | undefined>();
+    const [selectedNode, setSelectedNode] = useState<DocumentNode | undefined>();
 
     useEffect(() => {
         const subscription = selectedNodeService.selectedNode$

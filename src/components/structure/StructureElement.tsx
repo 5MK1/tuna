@@ -1,11 +1,11 @@
 import "./StructureElement.scss"
-import DescribedNode from "../../models/DocumentStructure/describedNode";
+import DocumentNode from "../../models/DocumentStructure/documentNode";
 import selectedNodeService from "../../services/selectedNodeService";
 import StructIcon, {StructIconType} from "../ui/StructIcon";
 import {useEffect, useState} from "react";
 
 export type LayerProps = {
-    node: DescribedNode,
+    node: DocumentNode,
     parentIndex: string,
 }
 
