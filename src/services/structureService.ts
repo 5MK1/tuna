@@ -13,6 +13,11 @@ export class StructureService {
             .pipe(map(x => [...x.rootNodes]));
     }
 
+    add(node: DocumentNode, target: HTMLElement | undefined) {
+        const structure = this._nodes.getValue().add(node, target);
+        this._nodes.next(structure);
+    }
+
     push(node: DocumentNode) {
         const structure = this._nodes.getValue().add(node);
         this._nodes.next(structure); // bug?

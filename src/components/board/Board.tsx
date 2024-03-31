@@ -3,6 +3,7 @@ import toolboxService, {Tool} from "../../services/toolboxService";
 import nodesService from "../../services/structureService";
 import DocumentNode from "../../models/DocumentStructure/documentNode";
 import {RefObject, useRef} from "react";
+import selectedNodeService from "../../services/selectedNodeService";
 
 interface InnerMouseEvent {
     target: EventTarget | null,
@@ -54,12 +55,12 @@ export default function Board() {
             target.appendChild(node);
             toolboxService.setTool(undefined);
             unselectElement(target);
-            if (target === canvas.current!) {
-                nodesService.push(new DocumentNode(node));
-            }
-            else {
-                nodesService.appendTo(target, new DocumentNode(node))
-            }
+            const documentNode = new DocumentNode(node);
+            nodesService.add(
+                documentNode,
+                target === canvas.current ? undefined : target
+            );
+            selectedNodeService.select(documentNode);
             return;
         }
     }
@@ -70,7 +71,7 @@ export default function Board() {
                  ref={canvas}
                  onClick={handleClickInner}
                  onMouseOver={handleMouseOver}
-                 onMouseOut={handleMouseOut} />
+                 onMouseOut={handleMouseOut}/>
         </div>
     );
 }

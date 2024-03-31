@@ -9,18 +9,21 @@ export default class DocumentNodesStructure {
         this.rootNodes = [];
     }
 
-    public add(node: DocumentNode, target: HTMLElement | undefined = undefined): DocumentNodesStructure {
+    public add(
+        node: DocumentNode,
+        target: HTMLElement | undefined = undefined
+    ): DocumentNodesStructure {
         if (!target) {
             this.rootNodes.push(node);
             this._nodesMap.set(node.nativeNode, node);
             return this;
         }
-        const foundTarget = this._nodesMap.get(target);
-        if (!foundTarget) {
+        const parent = this._nodesMap.get(target);
+        if (!parent) {
             throw new Error('Target element was not found');
         }
-        node.parent = foundTarget;
-        foundTarget.children.push(node);
+        node.parent = parent;
+        parent.children.push(node);
         this._nodesMap.set(node.nativeNode, node);
         return this;
     }

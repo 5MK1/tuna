@@ -17,6 +17,10 @@ export class SelectedNodeService {
     unselect() {
         this._subj.next(undefined);
     }
+
+    getValue(): DocumentNode | undefined {
+        return this._subj.getValue();
+    }
 }
 
 export default new SelectedNodeService();

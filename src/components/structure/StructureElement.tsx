@@ -11,11 +11,8 @@ export type LayerProps = {
 
 export default function StructureElement(props: LayerProps) {
     const node = props.node;
-    const [buttonIco, setButtonIco] = useState<StructIconType>('triangleRight');
-
-    useEffect(() => {
-        setButtonIco(node.children.length !== 0 ? 'triangleDown' : 'triangleRight')
-    }, []);
+    const buttonIco = node.children.length !== 0 ? 'triangleDown' : 'triangleRight';
+    const filledIcon = selectedNodeService.getValue() === node;
 
     function headerClick() {
         selectedNodeService.select(node);
@@ -25,7 +22,7 @@ export default function StructureElement(props: LayerProps) {
         <div className="struct-element">
             <div className="struct-element__header" onClick={headerClick}>
                 <button className="struct-element__level-button">
-                    <StructIcon type={buttonIco} filled={false} />
+                    <StructIcon type={buttonIco} filled={filledIcon} />
                 </button>
                 {node.name && <div className="struct-element__name">{node.name}</div>}
                 {!node.name && <div className="struct-element__name--tag-name">
