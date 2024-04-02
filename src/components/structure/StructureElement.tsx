@@ -9,28 +9,42 @@ export type LayerProps = {
     parentIndex: string,
 }
 
-type CollapsedState = {
-    collapsed: boolean,
-    icon: StructIconType,
-    childrenCssClass: string
+class CollapsedState {
+    collapsed: boolean;
+    icon: StructIconType;
+
+    get childrenCssClass(): string {
+        return this.collapsed ? ' struct-element__children--collapsed' : '';
+    }
+
+    private constructor(collapsed: boolean, icon: StructIconType) {
+        this.collapsed = collapsed;
+        this.icon = icon;
+    }
+
+    createInverted(): CollapsedState {
+        return CollapsedState.collapsed(!this.collapsed);
+    }
+
+    static collapsed(collapsed: boolean): CollapsedState {
+        return new CollapsedState(collapsed, collapsed ? 'triangleRight' : 'triangleDown');
+    }
+
+    static empty(): CollapsedState {
+        return new CollapsedState(false, 'circle');
+    }
 }
 
 export default function StructureElement(props: LayerProps) {
     const node = props.node;
     const empty = node.children.length === 0;
     const filledIcon = selectedNodeService.getValue() === node;
-    const [collapsedState, setCollapsedState] = useState<CollapsedState>({
-        collapsed: false,
-        icon: empty ? 'circle' : 'triangleDown',
-        childrenCssClass: ''
-    });
+    const [collapsedState, setCollapsedState] = useState<CollapsedState>(
+        empty ? CollapsedState.empty() : CollapsedState.collapsed(false)
+    );
 
     useEffect(() => {
-        setCollapsedState({
-            collapsed: collapsedState.collapsed,
-            icon: empty ? 'circle' : collapsedState.collapsed ? 'triangleRight' : 'triangleDown',
-            childrenCssClass: collapsedState.collapsed ? ' struct-element__children--collapsed' : ''
-        });
+        setCollapsedState(empty ? CollapsedState.empty() : CollapsedState.collapsed(collapsedState.collapsed));
     }, [props]);
 
     function headerClick() {
@@ -38,22 +52,16 @@ export default function StructureElement(props: LayerProps) {
     }
 
     function levelButtonClicked() {
-        if (empty) {
-            return
+        if (!empty) {
+            setCollapsedState(collapsedState.createInverted());
         }
-        const invertedState = !collapsedState.collapsed;
-        setCollapsedState({
-            collapsed: invertedState,
-            icon: invertedState ? 'triangleRight' : 'triangleDown',
-            childrenCssClass: invertedState ? ' struct-element__children--collapsed' : ''
-        });
     }
 
     return (
         <div className="struct-element">
             <div className="struct-element__header" onClick={headerClick}>
                 <button className="struct-element__level-button" onClick={levelButtonClicked}>
-                    <StructIcon type={collapsedState.icon} filled={filledIcon} />
+                    <StructIcon type={collapsedState.icon} filled={filledIcon}/>
                 </button>
                 {node.name && <div className="struct-element__name">{node.name}</div>}
                 {!node.name && <div className="struct-element__name--tag-name">
@@ -62,14 +70,14 @@ export default function StructureElement(props: LayerProps) {
                         <span className="tag__name">{node.nativeNode.tagName}</span>
                         <span className="tag__brace">&gt;</span>
                     </span>
-                </div>}
+				</div>}
             </div>
             {!!node.children.length && <div className={'struct-element__children' + collapsedState.childrenCssClass}>
                 {node.children.map((childNode, index) =>
                     <StructureElement key={`${node.name}_${props.parentIndex}_${index}`}
                                       node={childNode}
-                                      parentIndex={`${props.parentIndex}-${index}`} />)}
-            </div>}
+                                      parentIndex={`${props.parentIndex}-${index}`}/>)}
+			</div>}
         </div>
     );
 }
