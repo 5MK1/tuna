@@ -4,8 +4,8 @@ import Border from "../styleEditors/common/Border";
 import {useEffect, useState} from "react";
 import selectedNodeService from "../../services/selectedNodeService";
 import DocumentNode from "../../models/DocumentStructure/documentNode";
-
-const styleEditors = [Border];
+import MarginEditor from "../styleEditors/common/MarginEditor";
+import DisplayEditor from "../styleEditors/common/DisplayEditor";
 
 export default function Properties() {
     const [selectedNode, setSelectedNode] = useState<DocumentNode | undefined>();
@@ -24,7 +24,17 @@ export default function Properties() {
                 <div className="property-settings">
                     <p className="property-settings__title">Common</p>
                     <div className="property-settings__body">
-                        {selectedNode && <Border selectedNode={selectedNode}/>}
+                        {selectedNode && <>
+                            <div style={{marginBottom: '1em'}}>
+                                <Border selectedNode={selectedNode}/>
+                            </div>
+                            <div style={{marginBottom: '1em'}}>
+                                <MarginEditor node={selectedNode}/>
+                            </div>
+                            <div>
+                                <DisplayEditor node={selectedNode}/>
+                            </div>
+                        </>}
                     </div>
                 </div>
             </div>

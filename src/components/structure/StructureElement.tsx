@@ -44,8 +44,9 @@ export default function StructureElement(props: LayerProps) {
     );
 
     useEffect(() => {
-        setCollapsedState(empty ? CollapsedState.empty() : CollapsedState.collapsed(collapsedState.collapsed));
-    }, [props]);
+        const value = empty ? CollapsedState.empty() : CollapsedState.collapsed(collapsedState.collapsed);
+        setCollapsedState(value);
+    }, [props.node.children]);
 
     function headerClick() {
         selectedNodeService.select(node);

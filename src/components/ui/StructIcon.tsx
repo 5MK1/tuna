@@ -19,15 +19,15 @@ export default function StructIcon(props: StructIconProps) {
         }
     )(props.type);
 
-    return (<>
+    return <>
             <svg width="9px" height="9px" viewBox="0 0 9 9" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <g stroke-width="1"
+                <g strokeWidth="1"
                    fill={fill}
-                   fill-rule="evenodd"
-                   stroke-linecap="round"
-                   stroke-linejoin="round"
+                   fillRule="evenodd"
+                   strokeLinecap="round"
+                   strokeLinejoin="round"
                    stroke="#4D5CBA">{content}</g>
             </svg>
-        </>
-    );
+        </>;
 }
+

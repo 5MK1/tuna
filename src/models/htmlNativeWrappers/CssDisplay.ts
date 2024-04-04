@@ -1,0 +1,16 @@
+export enum CssDisplay {
+    none = 'none',
+    contents = 'contents',
+    block = 'block',
+    flowRoot = 'flow-root',
+    inline = 'inline',
+    inlineBlock = 'inline-block',
+    runIn = 'run-in',
+    listItem = 'list-item',
+    flex = 'flex',
+    inlineFlex = 'inline-flex',
+    grid = 'grid',
+    inlineGrid = 'inline-grid',
+    table = 'table',
+    inlineTable = 'inline-table',
+}

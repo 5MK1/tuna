@@ -1,11 +1,13 @@
-import {ChangeEvent, InputHTMLAttributes, ReactNode, useState} from "react";
+import {InputHTMLAttributes, ReactNode, useState} from "react";
 import {InputWrapper} from "./InputWrapper";
+import TunaSelectInner from "./tunaSelectInner";
 
 export interface TunaSelectProps extends InputHTMLAttributes<HTMLSelectElement> {
     children: ReactNode
 }
 
-export default function TunaSelect(props: TunaSelectProps) {
+export default function TunaSelect(props: TunaSelectProps
+) {
     const [active, setActive] = useState<boolean>(false);
 
     function onFocus() {
@@ -17,11 +19,10 @@ export default function TunaSelect(props: TunaSelectProps) {
     }
 
     return <InputWrapper active={active}>
-        <select {...props}
-                onFocus={onFocus}
-                onBlur={onBlur}
-                className="tuna-input__select">
+        <TunaSelectInner {...props}
+                         onBlur={onBlur}
+                         onFocus={onFocus}>
             {props.children}
-        </select>
+        </TunaSelectInner>
     </InputWrapper>;
 }
