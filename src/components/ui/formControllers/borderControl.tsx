@@ -1,19 +1,19 @@
 import {InputWrapper} from "./InputWrapper";
 import TunaColorInputInner from "./TunaColorInputInner";
 import CssColor from "../../../models/htmlNativeWrappers/CssColor";
-import {CssBorder} from "../../../models/htmlNativeWrappers/CssBorder";
+import {CssBorder, ICssBorder} from "../../../models/htmlNativeWrappers/CssBorder";
 import {ChangeEvent, useEffect, useState} from "react";
 import {BorderStyle} from "../../../models/htmlNativeWrappers/BorderStyle";
 
-export type BorderEventHandler = (border: CssBorder) => void;
+export type BorderEventHandler = (border: ICssBorder) => void;
 
 export interface BorderControlProps {
-    valueBorder?: CssBorder | undefined,
+    valueBorder?: ICssBorder | undefined,
     onValueBorderChanged?: BorderEventHandler | undefined
 }
 
 export default function BorderControl(props: BorderControlProps) {
-    const [borderState, setBorderState] = useState<CssBorder>(new CssBorder());
+    const [borderState, setBorderState] = useState<ICssBorder>(new CssBorder());
     const [activeState, setActiveState] = useState<boolean>(false);
     const [widthInputWidth, setWidthInputWidth] = useState<string>('3ch');
 

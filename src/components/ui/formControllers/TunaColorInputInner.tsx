@@ -66,7 +66,6 @@ export default function TunaColorInputInner(props: TunaColorInputProps) {
 
     useEffect(() => {
         setColor(TunaColorState.parse(`${props.value}`));
-        console.log('effect colorInput', props.value);
     }, [props.value])
 
     return <>

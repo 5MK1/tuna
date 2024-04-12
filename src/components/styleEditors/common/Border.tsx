@@ -1,12 +1,6 @@
-import {ChangeEvent, useEffect, useRef, useState} from "react";
 import DocumentNode from "../../../models/DocumentStructure/documentNode";
-import {CssBorder} from "../../../models/htmlNativeWrappers/CssBorder";
-import {BorderStyle} from "../../../models/htmlNativeWrappers/BorderStyle";
-import TunaInput from "../../ui/formControllers/TunaInput";
-import TunaColorInputInner from "../../ui/formControllers/TunaColorInputInner";
-import TunaSelect from "../../ui/formControllers/tunaSelect";
+import {CssBorder, ICssBorder} from "../../../models/htmlNativeWrappers/CssBorder";
 import BorderControl from "../../ui/formControllers/borderControl";
-import {TunaColorInput} from "../../ui/formControllers/TunaColorInput";
 
 export type BorderProps = {
     selectedNode: DocumentNode
@@ -14,10 +8,9 @@ export type BorderProps = {
 
 export default function Border(props: BorderProps) {
     const nativeNode = props.selectedNode.nativeNode;
-    const valueBorder = CssBorder.createFrom(nativeNode.style);
+    const valueBorder = CssBorder.parseSidesFrom(nativeNode.style).all;
 
-    function borderValueChanged(border: CssBorder) {
-        console.log(border);
+    function borderValueChanged(border: ICssBorder) {
         if (border.width) {
             nativeNode.style.borderWidth = border.width;
         }
