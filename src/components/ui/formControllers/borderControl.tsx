@@ -77,6 +77,6 @@ export default function BorderControl(props: BorderControlProps) {
         <TunaColorInputInner value={borderState.color}
                              onBlur={handleOnBlur}
                              onFocus={handleOnFocus}
-                             onColorChanged={handleColorChanged}/>
+                             colorChanged={handleColorChanged}/>
     </InputWrapper>
 }

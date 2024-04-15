@@ -4,7 +4,7 @@ import CssColor from "../../../models/htmlNativeWrappers/CssColor";
 export type ColorChanged = (color: CssColor) => void;
 
 export interface TunaColorInputProps extends InputHTMLAttributes<HTMLInputElement> {
-    onColorChanged?: ColorChanged | undefined
+    colorChanged?: ColorChanged | undefined
 }
 
 class TunaColorState {
@@ -22,6 +22,7 @@ class TunaColorState {
 }
 
 export default function TunaColorInputInner(props: TunaColorInputProps) {
+    const { colorChanged, ...restProps } = props;
     const [color, setColor] = useState<TunaColorState>(TunaColorState.parse(`${props.value}`));
 
     function handleColorInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -32,10 +33,10 @@ export default function TunaColorInputInner(props: TunaColorInputProps) {
             props.onChange(e);
         }
 
-        if (props.onColorChanged) {
+        if (colorChanged) {
             const parsed = CssColor.parse(colorValue);
             if (parsed) {
-                props.onColorChanged(parsed);
+                colorChanged(parsed);
             }
         }
     }
@@ -48,34 +49,34 @@ export default function TunaColorInputInner(props: TunaColorInputProps) {
             props.onChange(e);
         }
 
-        if (!props.onColorChanged) {
+        if (!props.colorChanged) {
             return;
         }
 
         const parsedLiteral = CssColor.parse(hexValue, 'literal');
         if (parsedLiteral) {
-            props.onColorChanged(parsedLiteral);
+            props.colorChanged(parsedLiteral);
             return;
         }
 
         const parsed = CssColor.parse(hexValue, 'hex6');
         if (parsed) {
-            props.onColorChanged(parsed);
+            props.colorChanged(parsed);
         }
     }
 
     useEffect(() => {
         setColor(TunaColorState.parse(`${props.value}`));
-    }, [props.value])
+    }, [props.value]);
 
     return <>
         <div className="tuna-input__color-input-wrapper" style={{background: color.colorValue}}>
-            <input {...props}
+            <input {...restProps}
                    type="color"
                    value={color.colorValue}
                    onChange={handleColorInputChange}/>
         </div>
-        <input {...props}
+        <input {...restProps}
                type="text"
                value={color.hexValue}
                onChange={handleHexInputChange}
