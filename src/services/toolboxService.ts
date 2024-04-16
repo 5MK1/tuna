@@ -2,6 +2,8 @@ import {BehaviorSubject, Observable} from "rxjs";
 
 export enum Tool {
     flexbox,
+    text,
+    image
 }
 
 export class ToolboxService {

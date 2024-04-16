@@ -12,7 +12,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: #{nth(sizes.$fib, 5)}px;
+	padding: #{nth(sizes.$fib, 6)}px;
 
 
 	@include blocks.tool-bg;
@@ -20,7 +20,7 @@
 	&__button {
 		background: transparent;
 		padding: 0;
-		margin: 0;
+		margin: 0 0 #{nth(sizes.$fib, 6)}px;
 		border: none;
 		cursor: pointer;
 		border-radius: 3px;
