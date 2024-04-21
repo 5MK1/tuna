@@ -9,7 +9,7 @@ export type MarginEditorProps = {
 class GapState {
     margin: string = '';
     padding: string = ''
-};
+}
 
 export default function MarginEditor(props: MarginEditorProps) {
     const nativeNode = props.node.nativeNode;
@@ -23,7 +23,7 @@ export default function MarginEditor(props: MarginEditorProps) {
             margin: nativeNode.style.margin,
             padding: nativeNode.style.padding
         })
-    }, [nativeNode.style.margin, nativeNode.style.padding]);
+    }, [props.node]);
 
     function onMarginChange(e: ChangeEvent<HTMLInputElement>) {
         const margin = e.currentTarget.value;
