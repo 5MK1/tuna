@@ -13,8 +13,8 @@
 /.idea
 
 # .Net build artifact
-/server/Server.Api/bin
-/server/Server.Api/obj
+bin
+obj
 
 # misc
 .DS_Store
