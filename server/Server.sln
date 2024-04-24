@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Api", "Server.Api\Server.Api.csproj", "{20361610-82D5-4676-803D-B86459A03483}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuna.Model", "Tuna.Model\Tuna.Model.csproj", "{4A7CC942-4FF0-4738-8776-0C106A554532}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuna.Repository.InMemory", "Tuna.Repository.InMemory\Tuna.Repository.InMemory.csproj", "{5E2FC745-C2D7-4862-B535-84CA29C33C8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{20361610-82D5-4676-803D-B86459A03483}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20361610-82D5-4676-803D-B86459A03483}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20361610-82D5-4676-803D-B86459A03483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A7CC942-4FF0-4738-8776-0C106A554532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A7CC942-4FF0-4738-8776-0C106A554532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A7CC942-4FF0-4738-8776-0C106A554532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A7CC942-4FF0-4738-8776-0C106A554532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E2FC745-C2D7-4862-B535-84CA29C33C8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E2FC745-C2D7-4862-B535-84CA29C33C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E2FC745-C2D7-4862-B535-84CA29C33C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E2FC745-C2D7-4862-B535-84CA29C33C8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

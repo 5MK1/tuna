@@ -1,32 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
+using Tuna.Model.Dto;
+using Tuna.Model.Services.User;
 
 namespace Server.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class UsersController : ControllerBase
 {
-	private static readonly string[] Summaries = new[]
-	{
-		"Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-	};
+	private readonly ILogger<UsersController> _logger;
+	private readonly IUsersService _usersService;
 
-	private readonly ILogger<WeatherForecastController> _logger;
-
-	public WeatherForecastController(ILogger<WeatherForecastController> logger)
+	public UsersController(ILogger<UsersController> logger, IUsersService usersService)
 	{
 		_logger = logger;
+		_usersService = usersService;
 	}
 
 	[HttpGet(Name = "ReadUsers")]
-	public IEnumerable<WeatherForecast> ReadUsers()
+	public async Task<UserDto[]> ReadUsers()
 	{
-		return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-			{
-				Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-				TemperatureC = Random.Shared.Next(-20, 55),
-				Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-			})
-			.ToArray();
+		return await _usersService.FindAll();
+	}
+
+	[HttpPut(Name = "AddUser")]
+	public async Task<IActionResult> AddUser(UserDto userDto)
+	{
+		await _usersService.Save(userDto);
+		return Ok();
 	}
 }

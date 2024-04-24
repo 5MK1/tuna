@@ -16,4 +16,9 @@ public class UsersService : IUsersService
 	{
 		return repo.FindAll();
 	}
+
+	public Task Save(UserDto userDto)
+	{
+		return repo.Save(userDto);
+	}
 }

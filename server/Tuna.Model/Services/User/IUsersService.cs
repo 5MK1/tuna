@@ -1,6 +1,10 @@
+using Tuna.Model.Dto;
+
 namespace Tuna.Model.Services.User;
 
-public class IUsersService
+public interface IUsersService
 {
-	
+	Task<UserDto[]> FindAll();
+
+	Task Save(UserDto userDto);
 }
