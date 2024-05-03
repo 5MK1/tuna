@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Server.Api.Auth;
 using Tuna.Model.Dto;
 using Tuna.Model.Services.User;
 
@@ -9,24 +12,24 @@ namespace Server.Api.Controllers;
 public class UsersController : ControllerBase
 {
 	private readonly ILogger<UsersController> _logger;
-	private readonly IUsersService _usersService;
+	private readonly IUserAccountsRepository _usersService;
+	private readonly IOptions<JwtSettingsOptions> _jwtSettingsOptions;
 
-	public UsersController(ILogger<UsersController> logger, IUsersService usersService)
+	public UsersController(
+		ILogger<UsersController> logger,
+		IUserAccountsRepository usersService,
+		IOptions<JwtSettingsOptions> jwtSettingsOptions
+	)
 	{
 		_logger = logger;
 		_usersService = usersService;
+		_jwtSettingsOptions = jwtSettingsOptions;
 	}
 
 	[HttpGet(Name = "ReadUsers")]
-	public async Task<UserDto[]> ReadUsers()
+	[Authorize]
+	public async Task<UserAccountDto[]> ReadUsers()
 	{
 		return await _usersService.FindAll();
-	}
-
-	[HttpPut(Name = "AddUser")]
-	public async Task<IActionResult> AddUser(UserDto userDto)
-	{
-		await _usersService.Save(userDto);
-		return Ok();
 	}
 }

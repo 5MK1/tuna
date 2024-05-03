@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  redis:
+    image: "redislabs/redisearch:latest"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 1s
+      timeout: 2s
+      retries: 10
+  api:
+    build: "."
+    ports:
+      - "5050:5000"
+    depends_on:
+      redis:
+        condition: service_healthy
+    links:
+      - redis
