@@ -9,7 +9,7 @@ services:
       timeout: 2s
       retries: 10
   api:
-    build: "."
+    build: "./server/"
     container_name: "tuna-api"
     ports:
       - "5050:5000"
