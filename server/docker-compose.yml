@@ -2,6 +2,7 @@ version: "3.9"
 services:
   redis:
     image: "redislabs/redisearch:latest"
+    container_name: "redis-tuna"
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
       interval: 1s
@@ -9,6 +10,7 @@ services:
       retries: 10
   api:
     build: "."
+    container_name: "tuna-api"
     ports:
       - "5050:5000"
     depends_on:
