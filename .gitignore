@@ -10,7 +10,7 @@
 /front/build
 
 # JB IDE
-/.idea
+.idea
 
 # .Net build artifact
 bin
