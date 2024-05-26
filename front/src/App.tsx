@@ -9,6 +9,7 @@ import Cursor from "./components/cursor/Cursor";
 import mousePositionService from "./services/mousePositionService";
 import toolboxService from "./services/toolboxService";
 import keyboardService from "./services/keyboardService";
+import DevTools from "mobx-react-devtools";
 
 function App() {
     const appRoot = useRef(null);
@@ -30,6 +31,7 @@ function App() {
             <Toolbox/>
             <Properties/>
             <Cursor/>
+            <DevTools />
         </div>
     );
 }

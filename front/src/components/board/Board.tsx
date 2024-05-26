@@ -1,9 +1,10 @@
 import './Board.scss'
 import toolboxService, {Tool} from "../../services/toolboxService";
-import nodesService from "../../services/structureService";
-import DocumentNode from "../../models/DocumentStructure/documentNode";
+// import nodesService from "../../services/structureService";
+import {DocumentNode} from "../../models/DocumentStructure/documentNode";
 import {useRef} from "react";
-import selectedNodeService from "../../services/selectedNodeService";
+import DocumentNodesStructure from "../../models/DocumentStructure/documentNodesStructure";
+import documentNodesStructure from "../../models/DocumentStructure/documentNodesStructure";
 
 interface InnerMouseEvent {
     target: EventTarget | null,
@@ -66,11 +67,11 @@ export default function Board() {
             toolboxService.setTool(undefined);
             unselectElement(target);
             const documentNode = new DocumentNode(node);
-            nodesService.add(
+            documentNodesStructure.add(
                 documentNode,
                 target === canvas.current ? undefined : target
             );
-            selectedNodeService.select(documentNode);
+            documentNodesStructure.select(documentNode);
             return;
         }
     }

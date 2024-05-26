@@ -1,4 +1,4 @@
-import DocumentNode from "../../../models/DocumentStructure/documentNode";
+import {DocumentNode} from "../../../models/DocumentStructure/documentNode";
 import TunaInput from "../../ui/formControllers/TunaInput";
 import {ChangeEvent, useEffect, useState} from "react";
 
@@ -33,7 +33,7 @@ export default function MarginEditor(props: MarginEditorProps) {
 
     function onPaddingChange(e: ChangeEvent<HTMLInputElement>) {
         const padding = e.currentTarget.value;
-        setState({...state, padding });
+        setState({...state, padding});
         nativeNode.style.padding = padding;
     }
 

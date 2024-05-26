@@ -5,7 +5,7 @@ export type StructIconProps = {
     filled: boolean
 }
 
-export default function StructIcon(props: StructIconProps) {
+export function StructIcon(props: StructIconProps) {
     const fill = props.filled ? '#4D5CBA60' : 'none';
     const content = ((type) => {
             switch (type) {

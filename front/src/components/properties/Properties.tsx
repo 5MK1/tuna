@@ -1,23 +1,13 @@
 import './Properties.scss';
 import DocumentStructure from "../structure/DocumentStructure";
 import Border from "../styleEditors/common/Border";
-import {useEffect, useState} from "react";
-import selectedNodeService from "../../services/selectedNodeService";
-import DocumentNode from "../../models/DocumentStructure/documentNode";
 import MarginEditor from "../styleEditors/common/MarginEditor";
 import DisplayEditor from "../styleEditors/common/DisplayEditor";
+import {observer} from "mobx-react-lite";
+import documentNodesStructure from "../../models/DocumentStructure/documentNodesStructure";
 
-export default function Properties() {
-    const [selectedNode, setSelectedNode] = useState<DocumentNode | undefined>();
-
-    useEffect(() => {
-        const subscription = selectedNodeService.selectedNode$
-            .subscribe(selectedNode => {
-                setSelectedNode(selectedNode);
-            });
-        return () => subscription.unsubscribe();
-    }, []);
-
+const Properties = observer(() => {
+    const selectedNode = documentNodesStructure.selectedNode;
     return (
         <aside className="properties">
             <div className="settings">
@@ -49,4 +39,6 @@ export default function Properties() {
             </div>
         </aside>
     );
-}
+});
+
+export default Properties;

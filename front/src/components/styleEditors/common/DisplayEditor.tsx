@@ -1,6 +1,6 @@
 import TunaSelect from "../../ui/formControllers/tunaSelect";
 import {CssDisplay} from "../../../models/htmlNativeWrappers/CssDisplay";
-import DocumentNode from "../../../models/DocumentStructure/documentNode";
+import {DocumentNode} from "../../../models/DocumentStructure/documentNode";
 import {ChangeEvent, useEffect, useState} from "react";
 
 export type DisplayEditorProps = {

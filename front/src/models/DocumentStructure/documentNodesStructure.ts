@@ -1,12 +1,16 @@
-import DocumentNode from './documentNode';
+import {DocumentNode} from './documentNode';
+import {makeAutoObservable} from "mobx";
 
-export default class DocumentNodesStructure {
+export class DocumentNodesStructure {
     private _nodesMap: Map<HTMLElement, DocumentNode>;
+    selectedNode: DocumentNode | undefined;
     rootNodes: DocumentNode[];
 
     constructor() {
+        makeAutoObservable(this);
         this._nodesMap = new Map<HTMLElement, DocumentNode>();
         this.rootNodes = [];
+        this.selectedNode = undefined;
     }
 
     public add(
@@ -28,7 +32,14 @@ export default class DocumentNodesStructure {
         return this;
     }
 
-    public find(nativeNode: HTMLElement): DocumentNode | undefined {
-        return this._nodesMap.get(nativeNode);
+    public select(storedNode: DocumentNode) {
+        if (this.selectedNode !== undefined) {
+            this.selectedNode.unselect();
+        }
+        storedNode.select();
+        this.selectedNode = storedNode;
     }
 }
+
+const documentNodesStructure = new DocumentNodesStructure();
+export default documentNodesStructure;

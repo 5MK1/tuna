@@ -1,4 +1,4 @@
-import DocumentNode from "../../../models/DocumentStructure/documentNode";
+import {DocumentNode} from "../../../models/DocumentStructure/documentNode";
 import {CssBorder, ICssBorder} from "../../../models/htmlNativeWrappers/CssBorder";
 import BorderControl from "../../ui/formControllers/borderControl";
 
