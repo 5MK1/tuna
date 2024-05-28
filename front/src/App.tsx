@@ -4,7 +4,6 @@ import Toolbox from './components/toolbox/Toolbox';
 import Properties from "./components/properties/Properties";
 import Board from "./components/board/Board";
 import Cursor from "./components/cursor/Cursor";
-import DevTools from "mobx-react-devtools";
 import toolboxContext from "./models/ToolboxContext/toolboxContext";
 import Coordinates from "./models/htmlNativeWrappers/coordinates";
 
@@ -29,7 +28,6 @@ function App() {
             <Toolbox/>
             <Properties/>
             <Cursor/>
-            <DevTools/>
         </div>
     );
 }
