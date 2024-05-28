@@ -12,7 +12,6 @@ const Cursor = observer(() => {
             case ToolboxTool.text:
                 return 'txt--compact.svg';
             case ToolboxTool.image:
-                return '';
             default:
                 return '';
         }

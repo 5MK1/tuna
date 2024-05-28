@@ -9,6 +9,15 @@ import toolboxContext from "./models/ToolboxContext/toolboxContext";
 import Coordinates from "./services/coordinates";
 
 function App() {
+
+    useEffect(() => {
+        document.body.addEventListener('keydown',({key}:{key: string}) => {
+            if (key.toLocaleLowerCase() === 'escape') {
+                toolboxContext.setTool(undefined);
+            }
+        });
+    }, []);
+
     return (
         <div className="app-root"
              onMouseMove={(e) => {

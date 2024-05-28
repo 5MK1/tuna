@@ -38,6 +38,7 @@ export class DocumentNodesStructure {
         }
         storedNode.select();
         this.selectedNode = storedNode;
+        return this;
     }
 
     public tryGet(nativeNode: HTMLElement): DocumentNode | undefined {
