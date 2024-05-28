@@ -6,7 +6,7 @@ import Board from "./components/board/Board";
 import Cursor from "./components/cursor/Cursor";
 import DevTools from "mobx-react-devtools";
 import toolboxContext from "./models/ToolboxContext/toolboxContext";
-import Coordinates from "./services/coordinates";
+import Coordinates from "./models/htmlNativeWrappers/coordinates";
 
 function App() {
 

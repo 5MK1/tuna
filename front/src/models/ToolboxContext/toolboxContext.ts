@@ -1,6 +1,6 @@
 import {makeAutoObservable} from "mobx";
 import {ToolboxTool} from "./toolboxTool";
-import Coordinates from "../../services/coordinates";
+import Coordinates from "../htmlNativeWrappers/coordinates";
 
 export class ToolboxContext
 {
