@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import './App.scss';
 import Toolbox from './components/toolbox/Toolbox';
 import Properties from "./components/properties/Properties";
