@@ -39,6 +39,10 @@ export class DocumentNodesStructure {
         storedNode.select();
         this.selectedNode = storedNode;
     }
+
+    public tryGet(nativeNode: HTMLElement): DocumentNode | undefined {
+        return this._nodesMap.get(nativeNode);
+    }
 }
 
 const documentNodesStructure = new DocumentNodesStructure();

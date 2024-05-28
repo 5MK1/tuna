@@ -1,30 +1,25 @@
 import './Board.scss'
-import toolboxService, {Tool} from "../../services/toolboxService";
-// import nodesService from "../../services/structureService";
 import {DocumentNode} from "../../models/DocumentStructure/documentNode";
 import {useRef} from "react";
-import DocumentNodesStructure from "../../models/DocumentStructure/documentNodesStructure";
 import documentNodesStructure from "../../models/DocumentStructure/documentNodesStructure";
+import {ToolboxTool} from "../../models/ToolboxContext/toolboxTool";
+import {observer} from "mobx-react-lite";
+import toolboxContext from "../../models/ToolboxContext/toolboxContext";
 
 interface InnerMouseEvent {
     target: EventTarget | null,
     stopPropagation: () => void
 }
 
-export default function Board() {
-    const canvas = useRef<HTMLDivElement>(null);
-    let tool: Tool | undefined;
-
-    toolboxService.selectedTool$.subscribe((selectedTool) => {
-        tool = selectedTool;
-    });
+const Board = observer(() => {
+    const canvas = useRef<HTMLDivElement>({} as unknown as HTMLDivElement);
 
     function getTargetElement(e: InnerMouseEvent): HTMLElement {
-        return e.target! as HTMLDivElement;
+        return e.target! as HTMLElement;
     }
 
     function handleMouseOver(e: InnerMouseEvent) {
-        if (tool !== undefined) {
+        if (toolboxContext.tool !== undefined) {
             getTargetElement(e).style.outline = "2px solid #4A90E2";
         }
     }
@@ -37,20 +32,20 @@ export default function Board() {
         unselectElement(getTargetElement(e));
     }
 
-    function createDummyBlock(tool: Tool): HTMLElement {
+    function createDummyBlock(tool: ToolboxTool): HTMLElement {
         let node;
         switch (tool) {
-            case Tool.flexbox:
+            case ToolboxTool.flexbox:
                 node = document.createElement('div');
                 node.style.padding = '10px';
                 break;
-            case Tool.text:
+            case ToolboxTool.text:
                 node = document.createElement('p');
                 node.innerText = 'Click to edit';
                 node.style.margin = '0 0 1em';
                 node.contentEditable = 'true';
                 break;
-            case Tool.image:
+            case ToolboxTool.image:
                 throw new Error('Image not implemented');
         }
         node.style.border = '1px dotted grey';
@@ -60,12 +55,16 @@ export default function Board() {
 
     function handleClickInner(e: InnerMouseEvent) {
         e.stopPropagation();
-        if (tool !== undefined) {
-            const node = createDummyBlock(tool);
+        if (toolboxContext.tool !== undefined) {
+            const node = createDummyBlock(toolboxContext.tool!);
             const target = getTargetElement(e);
             target.appendChild(node);
-            toolboxService.setTool(undefined);
+
+            toolboxContext.setTool(undefined);
+
             unselectElement(target);
+
+
             const documentNode = new DocumentNode(node);
             documentNodesStructure.add(
                 documentNode,
@@ -73,6 +72,11 @@ export default function Board() {
             );
             documentNodesStructure.select(documentNode);
             return;
+        } else {
+            const documentNode = documentNodesStructure.tryGet(getTargetElement(e));
+            if (documentNode) {
+                documentNodesStructure.select(documentNode);
+            }
         }
     }
 
@@ -85,4 +89,6 @@ export default function Board() {
                  onMouseOut={handleMouseOut}/>
         </div>
     );
-}
+});
+
+export default Board;

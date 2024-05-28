@@ -1,49 +1,34 @@
 import './Cursor.scss';
-import mousePositionService from "../../services/mousePositionService";
-import {useEffect, useState} from "react";
-import Coordinates from "../../services/coordinates";
-import toolboxService, {Tool} from "../../services/toolboxService";
-import {Subscription} from "rxjs";
+import {ToolboxTool} from "../../models/ToolboxContext/toolboxTool";
+import toolboxContext from "../../models/ToolboxContext/toolboxContext";
+import {observer} from "mobx-react-lite";
 
-export default function Cursor() {
-    const [coordinates, setCoordinates] = useState<Coordinates>();
-    const [cursorImage, setCursorImage] = useState<string | undefined>();
+const Cursor = observer(() => {
 
-    useEffect(() => {
-        let mouseSubscription: Subscription | undefined;
-        const toolboxSubscription = toolboxService.selectedTool$.subscribe(tool => {
-            if (tool !== undefined) {
-                setCursorImage(getToolBoxCursorImage(tool));
-                mouseSubscription = mousePositionService.coordinates$
-                    .subscribe(x => {
-                        setCoordinates(x);
-                    });
-            } else {
-                setCursorImage(undefined);
-                mouseSubscription && mouseSubscription.unsubscribe();
-            }
-        });
-        return () => {
-            mouseSubscription && mouseSubscription.unsubscribe();
-            toolboxSubscription.unsubscribe();
-        }
-    }, []);
-
-    function getToolBoxCursorImage(tool: Tool): string {
+    function toolBoxCursorImage(tool: ToolboxTool): string {
         switch (tool) {
-            case Tool.flexbox:
+            case ToolboxTool.flexbox:
                 return 'flex-box--compact.svg';
-            case Tool.text:
+            case ToolboxTool.text:
                 return 'txt--compact.svg';
-            case Tool.image:
+            case ToolboxTool.image:
+                return '';
+            default:
                 return '';
         }
     }
 
-    return cursorImage
+    return toolboxContext.tool !== undefined
         ? <div className="cursor"
-                 style={{left: (coordinates?.x ?? 0) + 10, top: (coordinates?.y ?? 0) + 12}}>
-                <img src={cursorImage} alt="cursor"/>
-            </div>
+               style={
+                   {
+                       left: (toolboxContext.cursorPosition?.x ?? 0) + 10,
+                       top: (toolboxContext.cursorPosition?.y ?? 0) + 12
+                   }
+               }>
+            <img src={toolBoxCursorImage(toolboxContext.tool!)} alt="cursor"/>
+        </div>
         : <></>;
-}
+});
+
+export default Cursor;
