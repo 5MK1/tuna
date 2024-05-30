@@ -1,14 +1,13 @@
-import React, {InputHTMLAttributes, useState} from "react";
+import React, {InputHTMLAttributes, useEffect, useState} from "react";
 import './tunaForms.scss';
 import {InputWrapper} from "./InputWrapper";
 
 export interface TunaInputProps extends InputHTMLAttributes<HTMLInputElement> {
-    foo?: string
+    invalid?: boolean | undefined
 }
 
 export default function TunaInput(props: TunaInputProps) {
     const [active, setActive] = useState<boolean>(false);
-
     function onFocus() {
         setActive(true);
     }
@@ -18,7 +17,7 @@ export default function TunaInput(props: TunaInputProps) {
     }
 
     return (
-        <InputWrapper active={active}>
+        <InputWrapper active={active} invalid={props.invalid}>
             <input {...props}
                    onFocus={onFocus}
                    onBlur={onBlur}
