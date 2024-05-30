@@ -1,9 +1,11 @@
 import React from 'react';
 import './App.scss';
-import TunaEditor from "./pages/tunaEditor";
+import AppRoutes from "./pages/routes/appRoutes";
 
 function App() {
-    return (<TunaEditor />);
+    return (
+        <AppRoutes />
+    );
 }
 
 export default App;

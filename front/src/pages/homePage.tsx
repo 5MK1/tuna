@@ -1,5 +1,9 @@
 function HomePage() {
-    return <p>homepage</p>
+    return (
+        <div className="app-root">
+            <p>homepage</p>
+        </div>
+    );
 }
 
 export default HomePage;
