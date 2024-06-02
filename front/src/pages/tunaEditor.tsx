@@ -5,6 +5,7 @@ import Board from "../components/board/Board";
 import Toolbox from "../components/toolbox/Toolbox";
 import Properties from "../components/properties/Properties";
 import Cursor from "../components/cursor/Cursor";
+import "./tunaEditor.scss";
 
 
 function TunaEditor() {
@@ -16,12 +17,11 @@ function TunaEditor() {
         });
     }, []);
 
-
     return (
-        <div className="app-root"
-             onMouseMove={(e) => {
-                 toolboxContext.setCursorPosition(Coordinates.from(e))
-             }}>
+        <div className="app-editor"
+            onMouseMove={(e) => {
+                toolboxContext.setCursorPosition(Coordinates.from(e))
+            }}>
             <main className="desktop">
                 <Board/>
             </main>

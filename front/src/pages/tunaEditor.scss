@@ -1,0 +1,8 @@
+@use "../styles/sizes";
+
+.app-editor {
+	position: absolute;
+	min-width: 100%;
+	min-height: 100%;
+	padding-top: sizes.$top-bar-height-px;
+}

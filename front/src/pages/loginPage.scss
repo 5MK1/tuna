@@ -1,0 +1,27 @@
+@use '../styles/sizes';
+
+.login-page {
+	box-shadow: 3px 3px 0 #11111110;
+
+
+	&__row {
+		margin-bottom: #{sizes.$fib--8}px;
+
+		input {
+			width: 140px;
+		}
+	}
+
+	&__row-label {
+		margin-right: #{sizes.$fib--3}px;
+	}
+
+	&__btn-row {
+		padding-top: #{sizes.$fib--13}px;
+
+		&--centred {
+			display: flex;
+			justify-content: center;
+		}
+	}
+}
