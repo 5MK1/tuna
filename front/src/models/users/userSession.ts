@@ -17,6 +17,10 @@ export interface IAuthService {
 export class UserSession {
     token: UserToken | undefined;
 
+    get authenticated() {
+        return this.token !== undefined;
+    }
+
     constructor() {
         makeAutoObservable(this);
         this.token = undefined;
