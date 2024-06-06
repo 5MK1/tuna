@@ -1,4 +1,35 @@
-$fib: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610;
+$fib--1: 1;
+$fib--2: 2;
+$fib--3: 3;
+$fib--5: 5;
+$fib--8: 8;
+$fib--13: 13;
+$fib--21: 21;
+$fib--34: 34;
+$fib--55: 55;
+$fib--89: 89;
+$fib--144: 144;
+$fib--233: 233;
+$fib--377: 377;
+$fib--610: 610;
+
+$fib: (
+		$fib--1,
+		$fib--2,
+		$fib--3,
+		$fib--5,
+		$fib--8,
+		$fib--13,
+		$fib--21,
+		$fib--34,
+		$fib--55,
+		$fib--89,
+		$fib--144,
+		$fib--233,
+		$fib--377,
+		$fib--610
+);
+
 
 $min-gap: #{nth($fib, 4)}px;
 $main-gap: #{nth($fib, 5)}px;
@@ -6,10 +37,12 @@ $main-gap--left: #{nth($fib, 5) + nth($fib, 6) + nth($fib, 9)}px;
 
 $toolbox-width: #{nth($fib, 9)}px;
 
+$top-bar-height: 24;
+$top-bar-height-px: #{$top-bar-height}px;
+
 $properties-width: #{nth($fib, 13)}px;
 
-
-
-
-
-
+$full-page__max-width: 800;
+$full-page__max-width-px: #{$full-page__max-width}px;
+$full-page__min-width: 300;
+$full-page__min-width-px: #{$full-page__min-width}px;

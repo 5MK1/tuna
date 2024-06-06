@@ -1,6 +1,11 @@
 @use 'colors';
 
 @mixin tool-bg() {
-	background: colors.get('panel');
+	background: colors.$panel;
+	backdrop-filter: blur(100px);
+}
+
+@mixin top-bar-bg() {
+	background: colors.$top-bar;
 	backdrop-filter: blur(100px);
 }

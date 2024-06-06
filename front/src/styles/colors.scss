@@ -1,9 +1,6 @@
-$colors: (
-		'background': #1A1A1A,
-		'panel': #FFFFFF08,
-		'border-1': #FFFFFF80
-);
+$background: #1A1A1A;
+$panel: #FFFFFF08;
+$top-bar: #22222280;
+$border-1: #FFFFFF80;
 
-@function get($color-name) {
-	@return map-get($colors, $color-name);
-}
+$content-background: #111111
