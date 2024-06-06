@@ -73,3 +73,25 @@
 		}
 	}
 }
+
+.tuna-button {
+	border: none;
+	padding: #{sizes.$fib--5}px #{sizes.$fib--13}px;
+	font-weight: 500;
+
+	&--rebeccapurple {
+		background: rebeccapurple;
+		color: #FFFFFFCC;
+		box-shadow: 2px 2px #66339966;
+
+		&:focus {
+			color: #FFFFFF;
+			background: #742EB9;
+		}
+	}
+
+	&:focus {
+		box-shadow: 2px 2px #66339933;
+		outline: none;
+	}
+}
