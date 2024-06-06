@@ -1,0 +1,51 @@
+@use '../../styles/sizes';
+@use '../../styles/colors';
+
+.app-root {
+	&--content-pages {
+		padding-top: sizes.$top-bar-height-px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&--full-size {
+		.page {
+			flex: 1 1 auto;
+			min-width: sizes.$full-page__min-width-px;
+			max-width: sizes.$full-page__max-width-px;
+		}
+
+		.top-navigation__items {
+			max-width: sizes.$full-page__max-width-px;
+		}
+	}
+
+	&--simple-form {
+		.app-main {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.page {
+			flex: unset;
+			padding: #{sizes.$fib--21}px;
+		}
+	}
+}
+
+.app-main {
+	flex: 1 1 auto;
+	display: flex;
+}
+
+.page {
+	padding: #{sizes.$fib--8}px;
+	margin: 0 auto;
+	background: colors.$content-background;
+}
+
+.txt-header--1 {
+	font-size: 1.6rem;
+	margin: 0 0 1.6rem;
+}

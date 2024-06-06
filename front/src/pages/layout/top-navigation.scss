@@ -1,0 +1,36 @@
+@use '../../styles/colors';
+@use '../../styles/sizes';
+@use '../../styles/blocks';
+
+.top-navigation {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: sizes.$top-bar-height-px;
+	box-shadow: 0 3px 0 #11111110;
+	@include blocks.top-bar-bg;
+
+	.top-navigation__items {
+		margin: 0 auto;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		padding: 0 #{sizes.$fib--8}px;
+	}
+
+	&__link {
+		&, &:visited {
+			color: #C0C0C7;
+		}
+		text-decoration: none;
+		margin-right: #{sizes.$fib--21}px;
+		font-weight: 500;
+
+		&--current {
+			&, &:visited {
+				color: white;
+			}
+		}
+	}
+}
