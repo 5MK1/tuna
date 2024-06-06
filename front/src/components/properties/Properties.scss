@@ -4,7 +4,7 @@
 
 .properties {
 	position: fixed;
-	top: 0;
+	top: sizes.$top-bar-height-px;
 	right: 0;
 	bottom: 0;
 	width: sizes.$properties-width;
@@ -37,7 +37,7 @@
 	.property-settings {
 		&__title {
 			margin: 0;
-			background: colors.get(panel);
+			background: colors.$panel;
 			border-bottom: 1px solid #00000032;
 			padding: #{nth(sizes.$fib, 4)}px #{nth(sizes.$fib, 5)}px;
 		}

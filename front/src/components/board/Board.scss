@@ -7,7 +7,7 @@
 	padding: sizes.$min-gap;
 	box-sizing: content-box;
 	border-radius: 3px;
-	border: 1px solid colors.get('border-1');
+	border: 1px solid colors.$border-1;
 
 	&__canvas {
 		width: 100%;

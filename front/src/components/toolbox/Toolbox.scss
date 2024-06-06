@@ -5,14 +5,14 @@
 .toolbox {
 	position: fixed;
 	left: sizes.$main-gap;
-	top: sizes.$main-gap;
+	top: #{sizes.$fib--8 + sizes.$top-bar-height}px;
 	bottom: sizes.$main-gap;
 	width: sizes.$toolbox-width;
 	border-radius: 3px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: #{nth(sizes.$fib, 6)}px;
+	padding: #{sizes.$fib--13}px;
 
 
 	@include blocks.tool-bg;
