@@ -1,0 +1,39 @@
+$layers: (
+	'backdrop',
+	'main',
+	('side-menu', 'top-bar'),
+	'overlay',
+	('popup-backdrop', 'popup')
+);
+
+@function getLayerIndexInner($list, $name, $accum) {
+	@each $l in $list {
+		$t: type-of($l);
+		@if $t=='list' {
+			$child: getLayerIndexInner($l, $name, $accum);
+			@if (nth($child, 1)==true) {
+				@return (true, nth($child, 2));
+			}
+			$accum: nth($child, 2);
+		}
+		@else if($t=='string') {
+			@if $l==$name {
+				@return (true, $accum);
+			}
+			$accum: $accum+1;
+		}
+	}
+	@return (false, $accum);
+}
+
+@function getLayerIndex($name) {
+	$result: getLayerIndexInner($layers, $name, -1);
+	@if nth($result, 1)==false {
+		@error 'Unknown layer #{$name}';
+	}
+	@return nth($result, 2);
+}
+
+@mixin zIndex($name) {
+	z-index: getLayerIndex($name);
+}
