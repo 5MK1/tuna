@@ -43,7 +43,7 @@
 		}
 
 		&__body {
-			padding: #{nth(sizes.$fib, 6)}px #{nth(sizes.$fib, 5)}px #{nth(sizes.$fib, 4)}px;
+			padding: #{sizes.$fib--13}px #{sizes.$fib--8}px;
 		}
 
 		&__body-block {
@@ -51,4 +51,12 @@
 			padding-bottom: #{nth(sizes.$fib, 5)}px;
 		}
 	}
+}
+
+.properties-group {
+	margin-bottom: #{sizes.$fib--13}px;
+}
+
+.sidebar-form-item {
+	margin-bottom: #{sizes.$fib--8};
 }

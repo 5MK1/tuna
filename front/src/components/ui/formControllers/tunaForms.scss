@@ -1,12 +1,17 @@
 @use '../../../styles/sizes';
+@use '../../../styles/colors';
+
+@mixin _input-container($vertical-padding, $horizontal-padding) {
+	border: 1px solid #333;
+	border-radius: 5px;
+	background: #1A1A1A;
+	padding: #{$vertical-padding} #{$horizontal-padding};
+}
 
 .tuna-input {
 	display: inline-flex;
 	align-items: center;
-	border: 1px solid #333;
-	border-radius: 5px;
-	background: #1A1A1A;
-	padding: 0 #{nth(sizes.$fib, 5)}px;
+	@include _input-container(0, #{nth(sizes.$fib, 5)}px);
 
 	&--active {
 		border-color: #555;
@@ -93,5 +98,36 @@
 	&:focus {
 		box-shadow: 2px 2px #66339933;
 		outline: none;
+	}
+}
+
+.pic-radio-group {
+	display: flex;
+
+	&__item {
+		margin: 0 #{sizes.$fib--8}px;
+		@include _input-container(#{nth(sizes.$fib, 3)}px, #{nth(sizes.$fib, 3)}px);
+
+		&--selected {
+			border-color: #FFEE00;
+		}
+	}
+
+	& &__item:first-child {
+		margin-left: 0;
+	}
+
+	& &__item:last-child {
+		margin-right: 0;
+	}
+
+	&__item-label {
+		display: block;
+
+		color: white;
+		text-transform: uppercase;
+		font-weight: 600;
+		font-size: 0.5rem;
+		margin-top: #{sizes.$fib--3}px;
 	}
 }

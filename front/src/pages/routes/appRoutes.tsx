@@ -25,9 +25,9 @@ function AppRoutes() {
             </Route>
             <Route path={routesPaths.editor}
                    element={
-                       <RequireAuth>
                            <EditorPagesLayout/>
-                       </RequireAuth>
+                       // <RequireAuth>
+                       // </RequireAuth>
                    }>
                 <Route path={routesPaths.editor}
                        element={<TunaEditor/>}/>

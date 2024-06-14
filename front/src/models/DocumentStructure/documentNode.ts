@@ -1,7 +1,12 @@
 import {makeAutoObservable} from "mobx";
+import {EditorSupportedCssDisplay} from "../htmlNativeWrappers/EditorSupportedCssDisplay";
+
+export type StyleKey =
+    'display';
 
 export class DocumentNode {
     private readonly _node: HTMLElement;
+    public readonly style: NodeStyles;
     name: string | undefined;
     children: DocumentNode[];
     parent: DocumentNode | undefined;
@@ -22,6 +27,7 @@ export class DocumentNode {
     ) {
         makeAutoObservable(this);
         this._node = node;
+        this.style = new NodeStyles(node);
         this.name = name;
         this.children = children;
         this.parent = parent;
@@ -54,5 +60,24 @@ export class DocumentNode {
         } else {
             this.collapse();
         }
+    }
+}
+
+
+export class NodeStyles {
+    private readonly _node: HTMLElement;
+
+    get display(): EditorSupportedCssDisplay | undefined {
+        const actualCssDisplayValue = getComputedStyle(this._node).getPropertyValue('display');
+        return EditorSupportedCssDisplay[actualCssDisplayValue as keyof typeof EditorSupportedCssDisplay];
+    }
+
+    set display(value: EditorSupportedCssDisplay | undefined) {
+        this._node.style.setProperty('display', value ?? null);
+    }
+
+    constructor(node: HTMLElement) {
+        makeAutoObservable(this);
+        this._node = node;
     }
 }

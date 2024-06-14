@@ -6,8 +6,7 @@ export interface TunaSelectProps extends InputHTMLAttributes<HTMLSelectElement> 
     children: ReactNode
 }
 
-export default function TunaSelect(props: TunaSelectProps
-) {
+export default function TunaSelect(props: TunaSelectProps) {
     const [active, setActive] = useState<boolean>(false);
 
     function onFocus() {

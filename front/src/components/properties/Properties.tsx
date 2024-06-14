@@ -1,10 +1,10 @@
-import './Properties.scss';
+import "./Properties.scss";
 import DocumentStructure from "../structure/DocumentStructure";
 import Border from "../styleEditors/common/Border";
 import MarginEditor from "../styleEditors/common/MarginEditor";
-import DisplayEditor from "../styleEditors/common/DisplayEditor";
 import {observer} from "mobx-react-lite";
 import documentNodesStructure from "../../models/DocumentStructure/documentNodesStructure";
+import BlockProperties from "../styleEditors/block/BlockProperties";
 
 const Properties = observer(() => {
     const selectedNode = documentNodesStructure.selectedNode;
@@ -12,6 +12,13 @@ const Properties = observer(() => {
         <aside className="properties">
             <div className="settings">
                 <div className="property-settings">
+                    {selectedNode && <>
+                        <p className="property-settings__title">Properties</p>
+                        <div className="property-settings__body">
+                            <BlockProperties />
+                        </div>
+                    </>}
+
                     <p className="property-settings__title">Common</p>
                     <div className="property-settings__body">
                         {selectedNode && <>
@@ -20,9 +27,6 @@ const Properties = observer(() => {
                             </div>
                             <div style={{marginBottom: '1em'}}>
                                 <MarginEditor node={selectedNode}/>
-                            </div>
-                            <div>
-                                <DisplayEditor node={selectedNode}/>
                             </div>
                         </>}
                     </div>
