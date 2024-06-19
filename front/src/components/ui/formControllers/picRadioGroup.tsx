@@ -9,7 +9,8 @@ type ValueChangedFn = (value: string) => void;
 type PicRadioGroupProps = {
     items: PicRadioGroupItem[],
     value?: string | undefined,
-    onChange?: ValueChangedFn | undefined
+    onChange?: ValueChangedFn | undefined,
+    showLabel?: boolean
 };
 
 const PicRadioGroup = function (props: PicRadioGroupProps) {
@@ -34,9 +35,13 @@ const PicRadioGroup = function (props: PicRadioGroupProps) {
                         onClick={() => {
                             onButtonClick(item)
                         }}>
-                    <img src={item.path} alt={item.value}/>
-                    <label htmlFor={`radio_${item.value}`}
-                           className="pic-radio-group__item-label">{item.text ?? item.value}</label>
+                    <img src={item.path}
+                         alt={item.value}
+                         className="pic-radio-group__item-pic"/>
+                    {props.showLabel &&
+						<label htmlFor={`radio_${item.value}`}
+						       className="pic-radio-group__item-label">{item.text ?? item.value}</label>
+                    }
                 </button>
             ))}
         </div>

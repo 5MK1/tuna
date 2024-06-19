@@ -2,15 +2,11 @@ import {
     EditorSupportedCssDisplay,
     tryParseEditorSupportedCssDisplay
 } from "../../../models/htmlNativeWrappers/EditorSupportedCssDisplay";
-import {DocumentNode} from "../../../models/DocumentStructure/documentNode";
+import {DocumentNode, NodeStyles} from "../../../models/DocumentStructure/documentNode";
 import {ChangeEvent, useEffect, useState} from "react";
 import PicRadioGroup from "../../ui/formControllers/picRadioGroup";
-
-export type DisplayEditorProps = {
-    node: DocumentNode
-}
-
-
+import {StyleEditorProps} from "./StyleEditorProps";
+import {observer} from "mobx-react-lite";
 
 const displayOptions = [
     {path: 'display--block.svg', value: EditorSupportedCssDisplay.block},
@@ -19,22 +15,23 @@ const displayOptions = [
     {path: 'display--grid.svg', value: EditorSupportedCssDisplay.grid}
 ];
 
-export default function DisplayEditor(props: DisplayEditorProps) {
-    const [display, setDisplay] = useState<EditorSupportedCssDisplay | ''>('');
-
-    useEffect(() => {
-        setDisplay(props.node.style.display ?? '');
-    }, [props.node.style.display]);
-
+const DisplayEditor = observer((props: StyleEditorProps) => {
     function valueChanged(value: string) {
-        const convertedValue = tryParseEditorSupportedCssDisplay(value);
-        setDisplay(convertedValue ?? '');
-        props.node.style.display = convertedValue;
+        props.style.display = tryParseEditorSupportedCssDisplay(value);
     }
 
     return (<>
-        <PicRadioGroup items={displayOptions}
-                       value={display}
-                       onChange={valueChanged}/>
+
+        <div className="sidebar-form-item">
+            <label className="sidebar-form-item__label">display:</label>
+            <strong className="sidebar-form-item__value">{props.style.display}</strong>
+            <div className="sidebar-item__editor">
+                <PicRadioGroup items={displayOptions}
+                               value={props.style.display}
+                               onChange={valueChanged}/>
+            </div>
+        </div>
     </>);
-}
+});
+
+export default DisplayEditor;

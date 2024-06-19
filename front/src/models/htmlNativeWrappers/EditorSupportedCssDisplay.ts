@@ -1,3 +1,5 @@
+import {getEnumKeyByValue} from "./getEnumKeyByValue";
+
 export enum EditorSupportedCssDisplay {
     none = 'none',
     contents = 'contents',
@@ -7,6 +9,9 @@ export enum EditorSupportedCssDisplay {
     grid = 'grid',
 }
 
-export function tryParseEditorSupportedCssDisplay(key: string): EditorSupportedCssDisplay | undefined {
-    return EditorSupportedCssDisplay[key as keyof typeof EditorSupportedCssDisplay];
+export function tryParseEditorSupportedCssDisplay(value: string): EditorSupportedCssDisplay | undefined {
+    const key = getEnumKeyByValue(EditorSupportedCssDisplay, value);
+    return key === undefined
+        ? undefined
+        : EditorSupportedCssDisplay[key];
 }

@@ -2,7 +2,7 @@
 <svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Artboard Copy 9</title>
     <g id="Artboard-Copy-9" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M3,3 L27,3 L27,27 L3,27 L3,3 Z M10.6666667,2.92857143 L10.6666667,27.0714286 M19.3333333,2.92857143 L19.3333333,27.0714286 M2.92857143,10.6666667 L27.0714286,10.6666667 M2.92857143,19.3333333 L27.0714286,19.3333333" id="Rectangle-Copy-5" stroke-opacity="0.8" stroke="#FFFFFF"></path>
-        <rect id="Rectangle-Copy-4" stroke="#9013FE" x="1" y="1" width="28" height="28"></rect>
+        <path d="M3,3 L27,3 L27,27 L3,27 L3,3 Z M3,11 L27,11 M3,19 L27,19 M19,3 L19,27 M11,3 L11,27" id="Rectangle-Copy-6" stroke-opacity="0.8" stroke="#FFFFFF"></path>
+        <rect id="PARENT" stroke="#9013FE" x="0.5" y="0.5" width="29" height="29"></rect>
     </g>
 </svg>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Artboard Copy 18</title>
+    <g id="Artboard-Copy-18" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="PARENT" stroke="#9013FE" x="0.5" y="0.5" width="29" height="29"></rect>
+        <polyline id="Path" stroke-opacity="0.8" stroke="#FFFFFF" points="20.5 14 20.5 2.5 27.5 2.5 27.5 27.5 20.5 27.5 20.5 17"></polyline>
+        <path d="M11.5,14 L11.5,2.5 L18.5,2.5 L18.5,14 M18.5,17 L18.5,27.5 L11.5,27.5 L11.5,17" id="Path-2" stroke-opacity="0.8" stroke="#FFFFFF"></path>
+        <polyline id="Path" stroke-opacity="0.8" stroke="#FFFFFF" points="9.5 17 9.5 27.5 2.5 27.5 2.5 2.5 9.5 2.5 9.5 14.0384615"></polyline>
+        <polygon id="Path-3" fill-opacity="0.8" fill="#FFFFFF" points="4 15.5 8 17.5 8 16.0033326 25 16.0033326 25 15 8 15 8 13.5"></polygon>
+    </g>
+</svg>
