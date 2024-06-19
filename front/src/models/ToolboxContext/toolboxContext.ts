@@ -2,8 +2,7 @@ import {makeAutoObservable} from "mobx";
 import {ToolboxTool} from "./toolboxTool";
 import Coordinates from "../htmlNativeWrappers/coordinates";
 
-export class ToolboxContext
-{
+export class ToolboxContext {
     tool: ToolboxTool | undefined;
     cursorPosition: Coordinates;
 
