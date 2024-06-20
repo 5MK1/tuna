@@ -9,6 +9,11 @@ export enum EditorSupportedJustifyContent {
 }
 
 export function tryParseEditorSupportedJustifyContent(value: string): EditorSupportedJustifyContent | undefined {
+    // Chrome return this value as initial, fix it
+    if (value === 'normal') {
+        return EditorSupportedJustifyContent.flexStart;
+    }
+
     const key = getEnumKeyByValue(EditorSupportedJustifyContent, value);
     return key === undefined
         ? undefined
