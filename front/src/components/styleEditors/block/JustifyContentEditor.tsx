@@ -19,7 +19,7 @@ const JustifyContentEditor = observer((props: StyleEditorProps) => {
         props.style.justifyContent = tryParseEditorSupportedJustifyContent(value);
     }
 
-    return (<>
+    return (
         <div className="sidebar-form-item">
             <label className="sidebar-form-item__label">justify&nbsp;content:</label>
             <strong className="sidebar-form-item__value">{props.style.justifyContent}</strong>
@@ -29,7 +29,7 @@ const JustifyContentEditor = observer((props: StyleEditorProps) => {
                                onChange={valueChanged}/>
             </div>
         </div>
-    </>)
+    )
 });
 
 export default JustifyContentEditor;
