@@ -4,6 +4,7 @@ import documentNodesStructure from "../../../models/DocumentStructure/documentNo
 import "./BlockPorperties.scss"
 import {EditorSupportedCssDisplay} from "../../../models/htmlNativeWrappers/EditorSupportedCssDisplay";
 import FlexDirectionEditor from "./FlexDirectionEditor";
+import JustifyContentEditor from "./JustifyContentEditor";
 
 const BlockProperties = observer(() => {
     const selectedNode = documentNodesStructure.selectedNode;
@@ -16,9 +17,10 @@ const BlockProperties = observer(() => {
         <div className="properties-group">
             <DisplayEditor style={selectedNode.style}/>
             {selectedNode.style.display === EditorSupportedCssDisplay.flex
-                && (
-                    <FlexDirectionEditor style={selectedNode.style}/>
-                )
+                && <>
+					<FlexDirectionEditor style={selectedNode.style}/>
+					<JustifyContentEditor style={selectedNode.style}/>
+				</>
             }
         </div>
     );
