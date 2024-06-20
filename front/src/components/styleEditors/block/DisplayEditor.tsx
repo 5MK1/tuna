@@ -2,11 +2,12 @@ import {
     EditorSupportedCssDisplay,
     tryParseEditorSupportedCssDisplay
 } from "../../../models/htmlNativeWrappers/EditorSupportedCssDisplay";
-import {DocumentNode, NodeStyles} from "../../../models/DocumentStructure/documentNode";
+import {DocumentNode} from "../../../models/DocumentStructure/documentNode";
 import {ChangeEvent, useEffect, useState} from "react";
 import PicRadioGroup from "../../ui/formControllers/picRadioGroup";
 import {StyleEditorProps} from "./StyleEditorProps";
 import {observer} from "mobx-react-lite";
+import {NodeStyles} from "../../../models/DocumentStructure/nodeStyles";
 
 const displayOptions = [
     {path: 'display--block.svg', value: EditorSupportedCssDisplay.block},
