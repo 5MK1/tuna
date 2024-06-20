@@ -21,7 +21,7 @@ const DisplayEditor = observer((props: StyleEditorProps) => {
         props.style.display = tryParseEditorSupportedCssDisplay(value);
     }
 
-    return (<>
+    return (
         <div className="sidebar-form-item">
             <label className="sidebar-form-item__label">display:</label>
             <strong className="sidebar-form-item__value">{props.style.display}</strong>
@@ -31,7 +31,7 @@ const DisplayEditor = observer((props: StyleEditorProps) => {
                                onChange={valueChanged}/>
             </div>
         </div>
-    </>);
+    );
 });
 
 export default DisplayEditor;
