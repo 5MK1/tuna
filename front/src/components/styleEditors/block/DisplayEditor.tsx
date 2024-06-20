@@ -22,7 +22,6 @@ const DisplayEditor = observer((props: StyleEditorProps) => {
     }
 
     return (<>
-
         <div className="sidebar-form-item">
             <label className="sidebar-form-item__label">display:</label>
             <strong className="sidebar-form-item__value">{props.style.display}</strong>

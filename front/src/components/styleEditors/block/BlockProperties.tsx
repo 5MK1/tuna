@@ -16,11 +16,9 @@ const BlockProperties = observer(() => {
         <div className="properties-group">
             <DisplayEditor style={selectedNode.style}/>
             {selectedNode.style.display === EditorSupportedCssDisplay.flex
-                &&
-				<div className="sidebar-form-item">
-					<label className="sidebar-form-item__label">flex direction:</label>
-					<FlexDirectionEditor style={selectedNode.style}/>
-				</div>
+                && (
+                    <FlexDirectionEditor style={selectedNode.style}/>
+                )
             }
         </div>
     );
