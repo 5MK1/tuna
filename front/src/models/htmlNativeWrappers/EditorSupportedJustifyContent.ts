@@ -9,7 +9,7 @@ export enum EditorSupportedJustifyContent {
 }
 
 export function tryParseEditorSupportedJustifyContent(value: string): EditorSupportedJustifyContent | undefined {
-    // Chrome return this value as initial, fix it
+    // browsers uses `normal` value as initial, replace it with W3C `initial value`
     if (value === 'normal') {
         return EditorSupportedJustifyContent.flexStart;
     }
