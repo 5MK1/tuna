@@ -11,12 +11,17 @@ import {
     EditorSupportedJustifyContent,
     tryParseEditorSupportedJustifyContent
 } from "../htmlNativeWrappers/EditorSupportedJustifyContent";
+import {
+    EditorSupportedAlignItems,
+    tryParseEditorSupportedAlignItems
+} from "../htmlNativeWrappers/EditorSupportedAlignItems";
 
 export class NodeStyles {
     private readonly _node: HTMLElement;
     private _cssDisplay: EditorSupportedCssDisplay | undefined;
     private _flexDirection: EditorSupportedFlexDirection | undefined;
     private _justifyContent: EditorSupportedJustifyContent | undefined;
+    private _alignItems: EditorSupportedAlignItems | undefined;
 
     get display(): EditorSupportedCssDisplay | undefined {
         return this._cssDisplay;
@@ -24,10 +29,9 @@ export class NodeStyles {
 
     set display(value: EditorSupportedCssDisplay | undefined) {
         this._cssDisplay = value;
-        this._node.style.setProperty('display', value ?? null);
+        this.setProperty('display', value);
         if (value === EditorSupportedCssDisplay.flex && this._flexDirection === undefined) {
-            this._flexDirection = this.extractStyle('flex-direction', tryParseEditorSupportedFlexDirection);
-            this._justifyContent = this.extractStyle('justify-content', tryParseEditorSupportedJustifyContent);
+            this.initFlexBox();
         }
     }
 
@@ -37,7 +41,7 @@ export class NodeStyles {
 
     set flexDirection(value: EditorSupportedFlexDirection | undefined) {
         this._flexDirection = value;
-        this._node.style.setProperty('flex-direction', value ?? null);
+        this.setProperty('flex-direction', value);
     }
 
     get justifyContent(): EditorSupportedJustifyContent | undefined {
@@ -46,15 +50,33 @@ export class NodeStyles {
 
     set justifyContent(value: EditorSupportedJustifyContent | undefined) {
         this._justifyContent = value;
-        this._node.style.setProperty('justify-content', value ?? null);
+        this.setProperty('justify-content', value);
+    }
+
+    get alignItems(): EditorSupportedAlignItems | undefined {
+        return this._alignItems;
+    }
+
+    set alignItems(value: EditorSupportedAlignItems | undefined) {
+        this._alignItems = value;
+        this.setProperty('align-items', value);
     }
 
     constructor(node: HTMLElement) {
         makeAutoObservable(this);
         this._node = node;
         this._cssDisplay = this.extractStyle('display', tryParseEditorSupportedCssDisplay);
+        this.initFlexBox();
+    }
+
+    private setProperty(propertyName: string, value: string | undefined) {
+        this._node.style.setProperty(propertyName, value ?? null);
+    }
+
+    private initFlexBox() {
         this._flexDirection = this.extractStyle('flex-direction', tryParseEditorSupportedFlexDirection);
         this._justifyContent = this.extractStyle('justify-content', tryParseEditorSupportedJustifyContent);
+        this._alignItems = this.extractStyle('align-items', tryParseEditorSupportedAlignItems);
     }
 
     private extractStyle<T>(key: string, parseFn: (val: string) => T | undefined): T | undefined {

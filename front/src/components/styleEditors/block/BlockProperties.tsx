@@ -5,6 +5,7 @@ import "./BlockPorperties.scss"
 import {EditorSupportedCssDisplay} from "../../../models/htmlNativeWrappers/EditorSupportedCssDisplay";
 import FlexDirectionEditor from "./FlexDirectionEditor";
 import JustifyContentEditor from "./JustifyContentEditor";
+import AlignItemsEditor from "./AlignItemsEditor";
 
 const BlockProperties = observer(() => {
     const selectedNode = documentNodesStructure.selectedNode;
@@ -20,6 +21,7 @@ const BlockProperties = observer(() => {
                 && <>
 					<FlexDirectionEditor style={selectedNode.style}/>
 					<JustifyContentEditor style={selectedNode.style}/>
+					<AlignItemsEditor style={selectedNode.style}/>
 				</>
             }
         </div>
