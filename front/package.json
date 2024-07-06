@@ -24,6 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "generate-clients": "openapi --input ./swagger.json --output ./src/api --name Api",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "openapi-typescript-codegen": "^0.29.0"
   }
 }
