@@ -8,6 +8,8 @@ services:
       interval: 1s
       timeout: 2s
       retries: 10
+    volumes:
+      - redis_data:/data
   api:
     build: "./server/"
     container_name: "tuna-api"
@@ -18,3 +20,5 @@ services:
         condition: service_healthy
     links:
       - redis
+volumes:
+  redis_data:
