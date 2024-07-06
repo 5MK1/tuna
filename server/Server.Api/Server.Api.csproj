@@ -10,12 +10,18 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.18" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
+		<PackageReference Include="RedLock.net" Version="2.3.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Tuna.Model\Tuna.Model.csproj" />
 	  <ProjectReference Include="..\Tuna.Repository.InMemory\Tuna.Repository.InMemory.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Models\MyProfile.cs" />
+	  <Compile Remove="Controllers\UsersController.cs" />
 	</ItemGroup>
 
 </Project>

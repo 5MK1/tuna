@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Server.Api.AppSettings;
 
 namespace Server.Api.Auth;
 

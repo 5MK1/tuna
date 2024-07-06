@@ -3,17 +3,15 @@ using Redis.OM.Modeling;
 namespace Tuna.Repository.InMemory.Users;
 
 [Document(
-	IndexName = "UsersIndex",
-	StorageType = StorageType.Json,
-	Prefixes = new string[] { "account" }
+	StorageType = StorageType.Hash,
+	Prefixes = new[] { "account" }
 )]
 public class UserAccountDocument
 {
-	[Indexed]
-	public string Id { get; set; } = string.Empty;
-
-	[Indexed]
+	[RedisIdField]
 	public string Name { get; set; } = string.Empty;
+
+	public string UserId { get; set; } = string.Empty;
 
 	public string PasswordHash { get; set; } = string.Empty;
 

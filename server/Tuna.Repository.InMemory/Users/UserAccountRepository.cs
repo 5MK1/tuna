@@ -14,36 +14,32 @@ public class UserAccountRepository : IUserAccountsRepository
 		_usersAccountsCollection = connectionProvider.RedisCollection<UserAccountDocument>();
 	}
 
-	public async Task<UserAccountDto?> SearchByName(string name)
+	public async Task<UserAccountDto?> TryGet(string name)
 	{
-		var document = await _usersAccountsCollection
-			.FirstOrDefaultAsync(doc => doc.Name == name);
-
+		var document = await _usersAccountsCollection.FindByIdAsync(name);
 		return document is null ? null : Map(document);
 	}
 
-	public async Task<UserAccountDto[]> FindAll()
+	public Task Create(UserAccountDto dto)
 	{
-		var documents = await _usersAccountsCollection.ToListAsync();
-		return documents.Select(Map).ToArray();
+		return _usersAccountsCollection.InsertAsync(Map(dto));
 	}
 
-	public Task Crate(UserAccountDto dto)
+	private static UserAccountDocument Map(UserAccountDto dto)
 	{
-		return _usersAccountsCollection.InsertAsync(
-			new UserAccountDocument
-			{
-				Id = dto.Id.ToString(),
-				Name = dto.Name,
-				PasswordHash = Convert.ToBase64String(dto.PasswordHash),
-				PasswordSalt = Convert.ToBase64String(dto.PasswordSalt)
-			});
+		return new UserAccountDocument
+		{
+			Name = dto.Name,
+			UserId = dto.Id.ToString(),
+			PasswordHash = Convert.ToBase64String(dto.PasswordHash),
+			PasswordSalt = Convert.ToBase64String(dto.PasswordSalt)
+		};
 	}
 
 	private static UserAccountDto Map(UserAccountDocument document)
 	{
 		return new UserAccountDto(
-			Guid.Parse(document.Id),
+			Guid.Parse(document.UserId),
 			document.Name,
 			Convert.FromBase64String(document.PasswordHash),
 			Convert.FromBase64String(document.PasswordSalt)

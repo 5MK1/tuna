@@ -31,7 +31,7 @@ public class AccountPassword
 
 		var salt = Guid.NewGuid().ToByteArray();
 		var passwordHash = HashBytesFrom(passwordString, salt);
-		return new PasswordCreateResult(
+		return new PasswordCreatedResult(
 			new AccountPassword(passwordHash, salt)
 		);
 	}
@@ -44,34 +44,5 @@ public class AccountPassword
 			.ToArray();
 
 		return SHA256.HashData(passwordBytes);
-	}
-}
-
-public interface ICreatePasswordResult
-{
-}
-
-public class PasswordCreateResult : ICreatePasswordResult
-{
-	public AccountPassword Password { get; }
-
-	public PasswordCreateResult(AccountPassword password)
-	{
-		Password = password;
-	}
-}
-
-public class CreatePasswordFailedResult : ICreatePasswordResult
-{
-	public string ErrorMessage { get; }
-
-	public CreatePasswordFailedResult(string errorMessage)
-	{
-		ErrorMessage = errorMessage;
-	}
-
-	public static CreatePasswordFailedResult DueToNotEnoughLength(byte minimumLength)
-	{
-		return new CreatePasswordFailedResult($"Password length must be at least {minimumLength} characters");
 	}
 }
