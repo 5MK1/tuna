@@ -8,8 +8,8 @@ const HomePage = observer(() => {
     return (
         <div className="page home-page">
             <h1 className="txt-header--1">Tuna!</h1>
-            {userSession.token
-                ? <p>Hello {userSession.token.userName} 👋</p>
+            {userSession.authenticationInfo
+                ? <p>Hello {userSession.authenticationInfo.userName} 👋</p>
                 : <p>Please <Link to={routesPaths.login}>sign up</Link> and enjoy using Tuna</p>}
         </div>
     );

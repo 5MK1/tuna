@@ -1,39 +1,23 @@
-import {autorun, makeAutoObservable} from "mobx";
-
-export interface UserToken {
-    userName: string;
-    token: string;
-}
-
-export interface Password {
-    userName: string;
-    password: string;
-}
-
-export interface IAuthService {
-    auth(password: Password): Promise<string>;
-}
+import {makeAutoObservable, runInAction} from "mobx";
+import {authService} from "../../api/custom/AuthService";
 
 export class UserSession {
-    token: UserToken | undefined;
+    authenticationInfo: { userName: string, token: string } | undefined;
 
     get authenticated() {
-        return this.token !== undefined;
+        return this.authenticationInfo !== undefined;
     }
 
     constructor() {
         makeAutoObservable(this);
-        this.token = undefined;
+        this.authenticationInfo = undefined;
     }
 
-    * auth(service: IAuthService, password: Password): any {
-        const token = yield service.auth(password);
-        this.token = {userName: password.userName, token};
+    async auth(userName: string, password: string) {
+        const token = await authService.auth(userName, password);
+        runInAction(() => this.authenticationInfo = {userName, token});
     }
 }
 
 const userSession = new UserSession();
-autorun(() => {
-    //
-});
 export {userSession};

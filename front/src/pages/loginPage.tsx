@@ -3,10 +3,10 @@ import TunaInput from "../components/ui/formControllers/TunaInput";
 import {useReducer} from "react";
 import {Navigate} from "react-router-dom"
 import {userSession} from "../models/users/userSession";
-import authApi from "../api/authApi";
 import routesPaths from "./routes/routesPaths";
 import "./loginPage.scss";
 import TunaButton from "../components/ui/formControllers/tunaButton";
+import {ApiError} from "../api";
 
 interface LoginForm {
     userName: string,
@@ -117,13 +117,22 @@ const LoginPage = observer(() => {
         return !passwordInvalid;
     }
 
-    function submit() {
+    async function submit() {
         const formValid = validateUsername() && validatePassword();
         if (!formValid) {
             return;
         }
-
-        userSession.auth(authApi, state);
+        try {
+            await userSession.auth(state.userName, state.password);
+        } catch (error: any) {
+            if (error instanceof ApiError) {
+                if (error.status === 400) {
+                    dispatch(LoginFormAction.setPasswordValidity(true));
+                    return;
+                }
+            }
+            console.error(error);
+        }
     }
 
     function keyPressed({code}: { code: string | undefined }) {
@@ -132,7 +141,7 @@ const LoginPage = observer(() => {
         }
     }
 
-    if (userSession.token) {
+    if (userSession.authenticated) {
         return (<Navigate to={routesPaths.home}/>);
     }
 
