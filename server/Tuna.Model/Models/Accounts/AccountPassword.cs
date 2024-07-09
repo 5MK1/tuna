@@ -1,11 +1,11 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Tuna.Model.DomainObjects.Accounts;
+namespace Tuna.Model.Models.Accounts;
 
-public class AccountPassword
+internal class AccountPassword
 {
-	public const byte MIN_PASSWORD_LENGTH = 3;
+	internal const byte MIN_PASSWORD_LENGTH = 3;
 
 	public byte[] PasswordHash { get; }
 
@@ -22,18 +22,11 @@ public class AccountPassword
 		return HashBytesFrom(passwordString, PasswordSalt).SequenceEqual(PasswordHash);
 	}
 
-	public static ICreatePasswordResult TryCrateFrom(string passwordString)
+	public static AccountPassword CrateFrom(string passwordString)
 	{
-		if (passwordString.Length < MIN_PASSWORD_LENGTH)
-		{
-			return CreatePasswordFailedResult.DueToNotEnoughLength(MIN_PASSWORD_LENGTH);
-		}
-
 		var salt = Guid.NewGuid().ToByteArray();
 		var passwordHash = HashBytesFrom(passwordString, salt);
-		return new PasswordCreatedResult(
-			new AccountPassword(passwordHash, salt)
-		);
+		return new AccountPassword(passwordHash, salt);
 	}
 
 	private static byte[] HashBytesFrom(string passwordString, byte[] salt)

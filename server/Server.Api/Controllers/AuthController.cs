@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Server.Api.AppSettings;
 using Server.Api.Auth;
 using Server.Api.Models;
+using Tuna.Model.Models.Accounts;
 using Tuna.Model.Services.User;
 
 namespace Server.Api.Controllers;
@@ -15,26 +16,26 @@ namespace Server.Api.Controllers;
 public class AuthController : ControllerBase
 {
 	private readonly IOptions<JwtSettingsOptions> _jwtSettingsOptions;
-	private readonly IUserAccountService _accountService;
+	private readonly IUserAccountsRepository _repository;
 
 	public AuthController(
 		IOptions<JwtSettingsOptions> jwtSettingsOptions,
-		IUserAccountService accountService
+		IUserAccountsRepository repository
 	)
 	{
 		_jwtSettingsOptions = jwtSettingsOptions;
-		_accountService = accountService;
+		_repository = repository;
 	}
 
 	[HttpPost("login-or-register")]
 	[ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
 	public async Task<IActionResult> Login(LoginRequestDto requestDto)
 	{
-		var loginResult = await _accountService.Login(requestDto.UserName, requestDto.Password);
+		var loginResult = await Account.Login(_repository, requestDto.UserName, requestDto.Password);
 		return loginResult switch
 		{
 			LoginFailedResult res => BadRequest(res.FailureMessage),
-			LoginSuccessResult res => Ok(CreateJwtSecurityToken(res.UserName, res.UserId)),
+			LoginSuccessResult { Account: var account } => Ok(CreateJwtSecurityToken(account.Name, account.Id)),
 			_ => throw new InvalidOperationException()
 		};
 	}

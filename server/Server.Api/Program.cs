@@ -27,7 +27,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IUserAccountService, UserAccountService>();
 builder.Services.AddSingleton<IUserAccountsRepository, UserAccountRepository>();
 
 builder.Services.AddAuth(cfg);
