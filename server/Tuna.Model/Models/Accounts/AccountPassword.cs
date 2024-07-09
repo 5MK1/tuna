@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Tuna.Model.Models.Accounts;
 
-internal class AccountPassword
+public class AccountPassword
 {
 	internal const byte MIN_PASSWORD_LENGTH = 3;
 

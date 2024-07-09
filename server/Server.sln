@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuna.Model", "Tuna.Model\Tu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuna.Repository.InMemory", "Tuna.Repository.InMemory\Tuna.Repository.InMemory.csproj", "{5E2FC745-C2D7-4862-B535-84CA29C33C8A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuna.Model.Tests", "Tuna.Model.Tests\Tuna.Model.Tests.csproj", "{DF5382BB-46F2-46D6-AA3E-C5C3B193EC31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{5E2FC745-C2D7-4862-B535-84CA29C33C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E2FC745-C2D7-4862-B535-84CA29C33C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E2FC745-C2D7-4862-B535-84CA29C33C8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF5382BB-46F2-46D6-AA3E-C5C3B193EC31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF5382BB-46F2-46D6-AA3E-C5C3B193EC31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF5382BB-46F2-46D6-AA3E-C5C3B193EC31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF5382BB-46F2-46D6-AA3E-C5C3B193EC31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
