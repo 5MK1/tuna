@@ -12,5 +12,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=publish /app/publish .
 EXPOSE 5000
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=https://+:5000
 ENTRYPOINT ["dotnet", "Server.Api.dll", "--server.urls", "http://+:5000"]
