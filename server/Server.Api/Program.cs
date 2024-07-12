@@ -28,9 +28,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 {
 	app.UseCors(MyAllowSpecificOrigins);
+}
+
+if (app.Environment.IsDevelopment())
+{
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
