@@ -9,7 +9,7 @@ const HomePage = observer(() => {
         <div className="page home-page">
             <h1 className="txt-header--1">Tuna!</h1>
             {userSession.authenticationInfo
-                ? <p>Hello {userSession.authenticationInfo.userName} 👋</p>
+                ? <p data-tid="greeting-message">Hello {userSession.authenticationInfo.userName} 👋</p>
                 : <p>Please <Link to={routesPaths.login}>sign up</Link> and enjoy using Tuna</p>}
         </div>
     );

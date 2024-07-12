@@ -156,7 +156,8 @@ const LoginPage = observer(() => {
                            onKeyDown={keyPressed}
                            invalid={state.userNameInvalid}
                            id="userName"
-                           inputFocused={state.userNameFocused}/>
+                           inputFocused={state.userNameFocused}
+                           tid="userName"/>
             </div>
             <div className="login-page__row">
                 <label className="login-page__row-label" htmlFor="password">Password:</label>
@@ -166,10 +167,11 @@ const LoginPage = observer(() => {
                            onKeyDown={keyPressed}
                            invalid={state.passwordInvalid}
                            id="password"
-                           inputFocused={state.passwordFocused}/>
+                           inputFocused={state.passwordFocused}
+                           tid="password"/>
             </div>
             <div className="login-page__btn-row login-page__btn-row--centred">
-                <TunaButton type="button" onClick={submit}>Login / Register</TunaButton>
+                <TunaButton type="button" onClick={submit} tid='submitLoginForm'>Login / Register</TunaButton>
             </div>
         </div>
     );

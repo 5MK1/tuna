@@ -18,11 +18,11 @@ const ContentPagesLayout = observer(({className}: {className?: string | undefine
         <div className={getClassName()}>
             <div className="top-navigation">
                 <nav className="top-navigation__items">
-                    <TopNavigationLink to={routesPaths.home}>home</TopNavigationLink>
+                    <TopNavigationLink to={routesPaths.home} tid="tn__home-link">home</TopNavigationLink>
                     {userSession.authenticated
-                        && <TopNavigationLink to={routesPaths.editor}>editor</TopNavigationLink>}
+                        && <TopNavigationLink to={routesPaths.editor} tid="tn__editor-link">editor</TopNavigationLink>}
                     {!userSession.authenticated
-                        && <TopNavigationLink to={routesPaths.login}>login</TopNavigationLink>}
+                        && <TopNavigationLink to={routesPaths.login} tid="tn__login-link">login</TopNavigationLink>}
                 </nav>
             </div>
             <main className="app-main">

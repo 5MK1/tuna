@@ -7,7 +7,7 @@ const EditorPagesLayout = function () {
     return (
         <div className="app-root app-root--editor-pages">
             <div className="top-navigation">
-                <TopNavigationLink to={routesPaths.editor}>x</TopNavigationLink>
+                <TopNavigationLink to={routesPaths.editor} tid="tn__editor-link">editor</TopNavigationLink>
             </div>
             <Outlet/>
         </div>

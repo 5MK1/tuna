@@ -17,6 +17,7 @@ type TunaInputProps = Pick<InputHTMLAttributes<HTMLInputElement>,
     'onKeyDown'> & {
     invalid?: boolean | undefined,
     inputFocused?: boolean | undefined,
+    tid?: string | undefined
 };
 
 export default function TunaInput(props: TunaInputProps) {
@@ -41,7 +42,7 @@ export default function TunaInput(props: TunaInputProps) {
     }
 
     return (
-        <InputWrapper active={active} invalid={props.invalid}>
+        <InputWrapper active={active} invalid={props.invalid} tid={`${props.tid}--wrapper`}>
             <input onFocus={onFocus}
                    onBlur={onBlur}
                    className="tuna-input__input"
@@ -57,7 +58,8 @@ export default function TunaInput(props: TunaInputProps) {
                    multiple={props.multiple}
                    name={props.name}
                    onChange={props.onChange}
-                   onKeyDown={props.onKeyDown} />
+                   onKeyDown={props.onKeyDown}
+                   data-tid={props.tid} />
         </InputWrapper>
     )
 }

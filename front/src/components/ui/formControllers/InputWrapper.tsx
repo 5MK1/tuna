@@ -4,12 +4,13 @@ import './tunaForms.scss';
 export type InputWrapperProps = {
     children: React.ReactNode,
     active: boolean,
-    invalid?: boolean | undefined
+    invalid?: boolean | undefined,
+    tid?: string | undefined
 }
 
 const blockCssClass = 'tuna-input';
 
-export function InputWrapper({children, active, invalid}: InputWrapperProps) {
+export function InputWrapper({children, active, invalid, tid}: InputWrapperProps) {
     const [cssClass, setCssClass] = useState<string>(blockCssClass);
 
     useEffect(
@@ -26,7 +27,7 @@ export function InputWrapper({children, active, invalid}: InputWrapperProps) {
         [active, invalid]
     );
 
-    return <div className={cssClass} role="textbox">
+    return <div className={cssClass} data-tid={tid} role="textbox">
         {children}
     </div>;
 }
