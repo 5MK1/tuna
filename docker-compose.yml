@@ -13,6 +13,12 @@ services:
   api:
     build: "./server/"
     container_name: "tuna-api"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Staging
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=superPassword
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
     ports:
       - "5050:5000"
     depends_on:
