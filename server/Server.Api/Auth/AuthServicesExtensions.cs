@@ -14,7 +14,8 @@ public static class AuthServicesExtensions
 		var cfg = configuration.ExtractJwtConfig();
 		serviceCollection
 			.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-			.AddJwtBearer(bearerOptions => {
+			.AddJwtBearer(bearerOptions =>
+			{
 				bearerOptions.TokenValidationParameters = new TokenValidationParameters
 				{
 					ValidIssuer = cfg.Issuer,
@@ -24,6 +25,19 @@ public static class AuthServicesExtensions
 					ValidateAudience = true,
 					ValidateLifetime = true,
 					ValidateIssuerSigningKey = true,
+				};
+				bearerOptions.Events = new JwtBearerEvents
+				{
+					OnMessageReceived = context =>
+					{
+						var accessToken = context.Request.TryReadAccessToken();
+						if (accessToken is not null)
+						{
+							context.Token = accessToken;
+						}
+
+						return Task.CompletedTask;
+					}
 				};
 			});
 	}

@@ -1,23 +1,39 @@
-import {makeAutoObservable, runInAction} from "mobx";
+import {autorun, makeAutoObservable, runInAction} from "mobx";
 import {authService} from "../../api/custom/AuthService";
+import {userAccountService} from "../../api/custom/UserAccountService";
 
 export class UserSession {
-    authenticationInfo: { userName: string, token: string } | undefined;
+    private _userName: string | undefined;
 
     get authenticated() {
-        return this.authenticationInfo !== undefined;
+        return this._userName !== undefined;
+    }
+
+    get userName(): string | undefined {
+        return this._userName;
+    }
+
+    set userName(name: string | undefined) {
+        this._userName = name;
     }
 
     constructor() {
         makeAutoObservable(this);
-        this.authenticationInfo = undefined;
+        this._userName = undefined;
     }
 
     async auth(userName: string, password: string) {
         const token = await authService.auth(userName, password);
-        runInAction(() => this.authenticationInfo = {userName, token});
+        runInAction(() => this._userName);
     }
 }
 
 const userSession = new UserSession();
+autorun(async () => {
+    try {
+        userSession.userName = await userAccountService.getAccountInfo();
+    } catch {
+        userSession.userName = undefined;
+    }
+});
 export {userSession};

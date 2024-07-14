@@ -1,8 +1,8 @@
-import {api} from "./ApiOrWithToken";
+import {createApi} from "./createApi";
 
 export class AuthService {
     auth(userName: string, password: string): Promise<string> {
-        return api()
+        return createApi()
             .auth
             .postAuthLoginOrRegister({userName: userName, password: password});
     }

@@ -11,7 +11,9 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { LoginRequestDto } from './models/LoginRequestDto';
+export type { MyAccountInfoDto } from './models/MyAccountInfoDto';
 
+export { AccountService } from './services/AccountService';
 export { AuthService } from './services/AuthService';
 export { HealthService } from './services/HealthService';
 export { ProjectService } from './services/ProjectService';

@@ -35,27 +35,31 @@ public class AuthController : ControllerBase
 		return loginResult switch
 		{
 			LoginFailedResult res => BadRequest(res.FailureMessage),
-			LoginSuccessResult { Account: var account } => Ok(CreateJwtSecurityToken(account.Name, account.Id)),
+			LoginSuccessResult { Account: var account } => GrantAccessTo(account),
 			_ => throw new InvalidOperationException()
 		};
 	}
 
-	private string CreateJwtSecurityToken(string userName, Guid userId)
+	private IActionResult GrantAccessTo(Account account)
 	{
+		var expires = DateTime.UtcNow.AddDays(2);
 		var jwt = new JwtSecurityToken(
 			issuer: _jwtSettingsOptions.Value.Issuer,
 			audience: _jwtSettingsOptions.Value.Audience,
 			claims: new List<Claim>
 			{
-				new(ClaimTypes.Name, userName),
-				new(ClaimTypes.Sid, userId.ToString())
+				new(ClaimTypes.Name, account.Name),
+				new(ClaimTypes.Sid, account.Id.ToString())
 			},
-			expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
+			expires: expires,
 			signingCredentials: new SigningCredentials(
 				_jwtSettingsOptions.Value.GetSymmetricSecurityKey(),
 				algorithm: SecurityAlgorithms.HmacSha256
 			)
 		);
-		return new JwtSecurityTokenHandler().WriteToken(jwt);
+		var tokenString = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+		HttpContext.Response.WriteAccessToken(tokenString, expires);
+		return Ok();
 	}
 }
