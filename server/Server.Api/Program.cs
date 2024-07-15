@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
 	);
 });
 builder.Services.AddControllers();
-builder.Services.Scan(selector => selector.AddRepositories());
+builder.Services.AddScanners(ServicesRepositoriesExtensions.AddRepositories);
 builder.Services.AddAuth(cfg);
 builder.Services.AddRedis(RedisSettings.ReadFrom(cfg));
 builder.Services.AddEndpointsApiExplorer();
