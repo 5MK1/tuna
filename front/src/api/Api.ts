@@ -17,18 +17,6 @@ export class Api {
     public readonly project: ProjectService;
     public readonly request: BaseHttpRequest;
     constructor(config?: Partial<OpenAPIConfig>, HttpRequest: HttpRequestConstructor = FetchHttpRequest) {
-        const C = {
-            BASE: config?.BASE ?? '',
-            VERSION: config?.VERSION ?? '1',
-            WITH_CREDENTIALS: config?.WITH_CREDENTIALS ?? false,
-            CREDENTIALS: config?.CREDENTIALS ?? 'include',
-            TOKEN: config?.TOKEN,
-            USERNAME: config?.USERNAME,
-            PASSWORD: config?.PASSWORD,
-            HEADERS: config?.HEADERS,
-            ENCODE_PATH: config?.ENCODE_PATH,
-        };
-        console.log(C);
         this.request = new HttpRequest({
             BASE: config?.BASE ?? '',
             VERSION: config?.VERSION ?? '1',
