@@ -1,6 +1,8 @@
+using System.Reflection;
 using Server.Api.AppSettings;
 using Server.Api.Auth;
 using Server.Api.WebAppBuilderExtensions;
+using Tuna.Model.EventHandlers;
 
 const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +25,9 @@ builder.Services.AddCors(options =>
 	);
 });
 builder.Services.AddControllers();
+builder.Services.AddMediatR(
+	mediatrCfg => mediatrCfg.RegisterServicesFromAssembly(typeof(ModelEventHandlersAssemblyMark).Assembly)
+);
 builder.Services.AddScanners(ServicesRepositoriesExtensions.AddRepositories);
 builder.Services.AddAuth(cfg);
 builder.Services.AddRedis(RedisSettings.ReadFrom(cfg));

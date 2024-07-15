@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="MediatR" Version="12.3.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.18" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
 		<PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.6.3" />
@@ -17,6 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Tuna.Model.EventHandlers\Tuna.Model.EventHandlers.csproj" />
 	  <ProjectReference Include="..\Tuna.Model\Tuna.Model.csproj" />
 	  <ProjectReference Include="..\Tuna.Repository.InMemory\Tuna.Repository.InMemory.csproj" />
 	</ItemGroup>

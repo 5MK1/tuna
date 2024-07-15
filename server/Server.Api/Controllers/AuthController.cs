@@ -1,11 +1,13 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Server.Api.AppSettings;
 using Server.Api.Auth;
 using Server.Api.Models;
+using Tuna.Model.EventHandlers.RequestHandlers;
 using Tuna.Model.Models.Accounts;
 using Tuna.Model.Services.User;
 
@@ -16,22 +18,19 @@ namespace Server.Api.Controllers;
 public class AuthController : ControllerBase
 {
 	private readonly IOptions<JwtSettingsOptions> _jwtSettingsOptions;
-	private readonly IUserAccountsRepository _repository;
+	private readonly IMediator _mediator;
 
-	public AuthController(
-		IOptions<JwtSettingsOptions> jwtSettingsOptions,
-		IUserAccountsRepository repository
-	)
+	public AuthController(IOptions<JwtSettingsOptions> jwtSettingsOptions, IMediator mediator)
 	{
 		_jwtSettingsOptions = jwtSettingsOptions;
-		_repository = repository;
+		_mediator = mediator;
 	}
 
 	[HttpPost("login-or-register")]
 	[ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
 	public async Task<IActionResult> Login(LoginRequestDto requestDto)
 	{
-		var loginResult = await Account.Login(_repository, requestDto.UserName, requestDto.Password);
+		var loginResult = await _mediator.Send(new LoginOrRegisterRequest(requestDto.UserName, requestDto.Password));
 		return loginResult switch
 		{
 			LoginFailedResult res => BadRequest(res.FailureMessage),
