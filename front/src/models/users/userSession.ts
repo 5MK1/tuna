@@ -23,8 +23,8 @@ export class UserSession {
     }
 
     async auth(userName: string, password: string) {
-        const token = await authService.auth(userName, password);
-        runInAction(() => this._userName);
+        await authService.auth(userName, password);
+        runInAction(() => this._userName = userName);
     }
 }
 
