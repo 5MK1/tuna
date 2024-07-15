@@ -12,6 +12,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
 		<PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.6.3" />
 		<PackageReference Include="RedLock.net" Version="2.3.2" />
+		<PackageReference Include="Scrutor.AspNetCore" Version="3.3.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	</ItemGroup>
 
