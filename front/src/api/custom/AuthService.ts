@@ -6,6 +6,10 @@ export class AuthService {
             .auth
             .postAuthLoginOrRegister({userName: userName, password: password});
     }
+
+    logout(): Promise<void> {
+        return createApi().auth.postAuthLogout();
+    }
 }
 
 const authService = new AuthService();

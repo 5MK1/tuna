@@ -26,6 +26,11 @@ export class UserSession {
         await authService.auth(userName, password);
         runInAction(() => this._userName = userName);
     }
+
+    async unAuth() {
+        await authService.logout();
+        runInAction(() => this._userName = undefined);
+    }
 }
 
 const userSession = new UserSession();

@@ -39,6 +39,13 @@ public class AuthController : ControllerBase
 		};
 	}
 
+	[HttpPost("logout")]
+	public IActionResult LogOut()
+	{
+		HttpContext.Response.ExpireCookieAccessToken();
+		return Ok();
+	}
+
 	private IActionResult GrantAccessTo(Account account)
 	{
 		var expires = DateTime.UtcNow.AddDays(2);
@@ -58,7 +65,7 @@ public class AuthController : ControllerBase
 		);
 		var tokenString = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-		HttpContext.Response.WriteAccessToken(tokenString, expires);
+		HttpContext.Response.WriteAccessTokenToCookie(tokenString, expires);
 		return Ok();
 	}
 }

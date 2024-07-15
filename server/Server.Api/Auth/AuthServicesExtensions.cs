@@ -30,7 +30,7 @@ public static class AuthServicesExtensions
 				{
 					OnMessageReceived = context =>
 					{
-						var accessToken = context.Request.TryReadAccessToken();
+						var accessToken = context.Request.TryReadTokenFromCookie();
 						if (accessToken is not null)
 						{
 							context.Token = accessToken;

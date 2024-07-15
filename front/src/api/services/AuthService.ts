@@ -22,4 +22,14 @@ export class AuthService {
             mediaType: 'application/json',
         });
     }
+    /**
+     * @returns any Success
+     * @throws ApiError
+     */
+    public postAuthLogout(): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/auth/logout',
+        });
+    }
 }

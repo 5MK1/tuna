@@ -6,12 +6,18 @@ import "./content-pages.scss";
 import TopNavigationLink from "./TopNavigationLink";
 import {observer} from "mobx-react-lite";
 import {userSession} from "../../models/users/userSession";
+import {MouseEvent} from "react/index";
 
 const ContentPagesLayout = observer(({className}: {className?: string | undefined}) => {
     function getClassName(blockCssClass: string = 'app-root') {
         return className === undefined
             ? blockCssClass
             : `${blockCssClass} ${className}`;
+    }
+
+    async function logout(e: MouseEvent<any>) {
+        e.preventDefault();
+        await userSession.unAuth();
     }
 
     return (
@@ -23,6 +29,8 @@ const ContentPagesLayout = observer(({className}: {className?: string | undefine
                         && <TopNavigationLink to={routesPaths.editor} tid="tn__editor-link">editor</TopNavigationLink>}
                     {!userSession.authenticated
                         && <TopNavigationLink to={routesPaths.login} tid="tn__login-link">login</TopNavigationLink>}
+                    {userSession.authenticated
+                        && <a href="#" className="top-navigation__link" onClick={logout}>logout</a> }
                 </nav>
             </div>
             <main className="app-main">
