@@ -8,6 +8,7 @@ using Server.Api.AppSettings;
 using Server.Api.Auth;
 using Server.Api.Models;
 using Tuna.Model.EventHandlers.RequestHandlers;
+using Tuna.Model.EventHandlers.RequestHandlers.LoginOrRegister;
 using Tuna.Model.Models.Accounts;
 using Tuna.Model.Services.User;
 

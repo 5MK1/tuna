@@ -4,9 +4,9 @@ using Server.Api.Auth;
 
 namespace Server.Api.Controllers;
 
-[Route("project")]
+[Route("documents")]
 [Authorize]
-public class ProjectController : Controller
+public class DocumentsController : Controller
 {
 	[HttpGet("read-all")]
 	public IActionResult ReadAll()

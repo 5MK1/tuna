@@ -6,7 +6,7 @@ import routesPaths from "./routes/routesPaths";
 
 const HomePage = observer(() => {
     return (
-        <div className="page home-page">
+        <div className="home-page">
             <h1 className="txt-header--1">Tuna!</h1>
             {userSession.userName
                 ? <p data-tid="greeting-message">Hello {userSession.userName} 👋</p>

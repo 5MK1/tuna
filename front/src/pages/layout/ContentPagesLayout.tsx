@@ -9,7 +9,9 @@ const ContentPagesLayout = observer(({className}: {className?: string | undefine
         <div className={`app-root ${className}`}>
             <ContentPagesNavigation />
             <main className="app-main">
-                <Outlet />
+                <div className="page">
+                    <Outlet />
+                </div>
             </main>
         </div>
     );

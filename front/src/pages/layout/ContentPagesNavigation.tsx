@@ -17,14 +17,17 @@ const ContentPagesNavigation = observer(() => {
             <nav className="top-navigation__items">
                 <TopNavigationLink to={routesPaths.home} tid="tn__home-link">home</TopNavigationLink>
                 {userSession.authenticated
-                    && <TopNavigationLink to={routesPaths.editor} tid="tn__editor-link">editor</TopNavigationLink>}
+                    && <>
+						<TopNavigationLink to={routesPaths.myDocuments} tid="tn__my-documents">my
+							documents</TopNavigationLink>
+						<TopNavigationLink to={routesPaths.editor} tid="tn__editor-link">editor</TopNavigationLink>
+						<a href="#"
+						   onClick={logout}
+						   className="top-navigation__link"
+						   data-tid="tn__logout-link">logout</a>
+					</>}
                 {!userSession.authenticated
                     && <TopNavigationLink to={routesPaths.login} tid="tn__login-link">login</TopNavigationLink>}
-                {userSession.authenticated
-                    && <a href="#"
-                          onClick={logout}
-                          className="top-navigation__link"
-                          data-tid="tn__logout-link">logout</a>}
             </nav>
         </div>
     );

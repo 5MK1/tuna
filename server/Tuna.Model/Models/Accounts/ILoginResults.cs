@@ -32,9 +32,11 @@ public class LoginFailedResult : ILoginResult
 public class LoginSuccessResult : ILoginResult
 {
 	public Account Account { get; }
+	public bool AccountJustCrated { get; }
 
-	public LoginSuccessResult(Account account)
+	public LoginSuccessResult(Account account, bool accountJustCrated)
 	{
 		Account = account;
+		AccountJustCrated = accountJustCrated;
 	}
 }

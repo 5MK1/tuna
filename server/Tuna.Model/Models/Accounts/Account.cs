@@ -42,7 +42,7 @@ public class Account
 	{
 		var account = FromDto(dto);
 		return account.Password.EqualsTo(password)
-			? new LoginSuccessResult(account)
+			? new LoginSuccessResult(account, accountJustCrated: false)
 			: LoginFailedResult.DueToPasswordNotMatch();
 	}
 
@@ -63,7 +63,7 @@ public class Account
 		var accountPassword = AccountPassword.CrateFrom(password);
 		var newAccount = new Account(userName, accountPassword);
 		await repo.Create(newAccount.ToDto());
-		return new LoginSuccessResult(newAccount);
+		return new LoginSuccessResult(newAccount, accountJustCrated: true);
 	}
 
 	private static Account FromDto(UserAccountDto dto)

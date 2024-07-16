@@ -1,7 +1,7 @@
 using MediatR;
 using Tuna.Model.Models.Accounts;
 
-namespace Tuna.Model.EventHandlers.RequestHandlers;
+namespace Tuna.Model.EventHandlers.RequestHandlers.LoginOrRegister;
 
 public class LoginOrRegisterRequest : IRequest<ILoginResult>
 {
