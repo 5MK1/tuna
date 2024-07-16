@@ -2,6 +2,7 @@ import {expect, test as base} from "@playwright/test";
 import {HomePage, LoginPage} from "../pages/LoginPage";
 import {goToCustomPage} from "../pages/GoToCustomPage";
 
+const correctLogin = 'myLongUserName_12345';
 
 const test = base.extend<{ loginPage: LoginPage }>({
     loginPage: async ({page}, use) => {
@@ -10,6 +11,13 @@ const test = base.extend<{ loginPage: LoginPage }>({
     }
 })
 
+async function doCorrectLogin(loginPage: LoginPage): Promise<HomePage> {
+    await loginPage.userNameInput.fill(correctLogin);
+    await loginPage.passwordInput.fill('$$goodPassword_12345##');
+
+    await loginPage.submitButton.click();
+    return await loginPage.toPage(HomePage);
+}
 
 test.describe('Login page', () => {
     test(
@@ -19,7 +27,7 @@ test.describe('Login page', () => {
 
             await loginPage.submitButton.click();
 
-            const userNameBorderColorAfterSubmit =  await loginPage.userNameInput.getBorderColor();
+            const userNameBorderColorAfterSubmit = await loginPage.userNameInput.getBorderColor();
             await expect(userNameBorderColorAfterSubmit).not.toBe(userNameBorderColorBeforeSubmit);
         }
     );
@@ -32,7 +40,7 @@ test.describe('Login page', () => {
 
             await loginPage.submitButton.click();
 
-            const userNameBorderColorAfterSubmit =  await loginPage.userNameInput.getBorderColor();
+            const userNameBorderColorAfterSubmit = await loginPage.userNameInput.getBorderColor();
             await expect(userNameBorderColorAfterSubmit).not.toBe(userNameBorderColorBeforeSubmit);
         }
     );
@@ -40,12 +48,12 @@ test.describe('Login page', () => {
     test(
         'Should change password border color when password is empty',
         async ({loginPage}) => {
-            await loginPage.userNameInput.fill('myLongUserName_12345');
+            await loginPage.userNameInput.fill(correctLogin);
             const userNameBorderColorBeforeSubmit = await loginPage.passwordInput.getBorderColor();
 
             await loginPage.submitButton.click();
 
-            const userNameBorderColorAfterSubmit =  await loginPage.passwordInput.getBorderColor();
+            const userNameBorderColorAfterSubmit = await loginPage.passwordInput.getBorderColor();
             await expect(userNameBorderColorAfterSubmit).not.toBe(userNameBorderColorBeforeSubmit);
         }
     );
@@ -53,13 +61,13 @@ test.describe('Login page', () => {
     test(
         'Should change password border color when password is too short',
         async ({loginPage}) => {
-            await loginPage.userNameInput.fill('myLongUserName_12345');
+            await loginPage.userNameInput.fill(correctLogin);
             await loginPage.passwordInput.fill('a');
             const userNameBorderColorBeforeSubmit = await loginPage.passwordInput.getBorderColor();
 
             await loginPage.submitButton.click();
 
-            const userNameBorderColorAfterSubmit =  await loginPage.passwordInput.getBorderColor();
+            const userNameBorderColorAfterSubmit = await loginPage.passwordInput.getBorderColor();
             await expect(userNameBorderColorAfterSubmit).not.toBe(userNameBorderColorBeforeSubmit);
         }
     );
@@ -67,15 +75,25 @@ test.describe('Login page', () => {
     test(
         'Should redirect to home page when login successfully',
         async ({loginPage}) => {
-            await loginPage.userNameInput.fill('myLongUserName_12345');
-            await loginPage.passwordInput.fill('$$goodPassword_12345##');
+            const homePage = await doCorrectLogin(loginPage);
 
-            await loginPage.submitButton.click();
-
-            const homePage = await loginPage.toPage(HomePage);
             await expect(homePage.greetingMessage).toBeVisible();
-            await expect(homePage.greetingMessage).toContainText('myLongUserName_12345');
+            await expect(homePage.greetingMessage).toContainText(correctLogin);
             await expect(homePage.topNavigation.editorLink).toBeVisible();
+            await expect(homePage.topNavigation.logoutLink).toBeVisible();
         }
-    )
+    );
+
+    test(
+        'Should keep logged in after successful login and page reloaded',
+        async ({loginPage}) => {
+            const homePage = await doCorrectLogin(loginPage);
+            await homePage.page.reload();
+
+            await expect(homePage.greetingMessage).toBeVisible();
+            await expect(homePage.greetingMessage).toContainText(correctLogin);
+            await expect(homePage.topNavigation.editorLink).toBeVisible();
+            await expect(homePage.topNavigation.logoutLink).toBeVisible();
+        }
+    );
 });
