@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  redis:
+    image: "redislabs/redisearch:latest"
+    container_name: "redis-tuna"
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+  postgres:
+    image: postgres:16.3
+    environment:
+      POSTGRES_DB: "tunadb"
+      POSTGRES_USER: "tunausr"
+      POSTGRES_PASSWORD: "ilovetuna"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
+    volumes:
+      - tunadb-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+volumes:
+  redis_data:
+  tunadb-data:

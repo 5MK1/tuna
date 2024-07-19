@@ -1,1 +1,0 @@
-docker run -it --rm --name redis-search -p 6379:6379 -p 8001:8001 -v redis_data:/data redis/redis-stack:latest
