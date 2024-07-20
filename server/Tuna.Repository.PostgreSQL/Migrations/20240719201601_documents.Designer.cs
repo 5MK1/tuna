@@ -8,6 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tuna.Repository.PostgreSQL;
 
 #nullable disable
+#pragma warning disable CS8981
 
 namespace Tuna.Repository.PostgreSQL.Migrations
 {
