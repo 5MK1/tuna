@@ -4,9 +4,14 @@ import {userAccountService} from "../../api/custom/UserAccountService";
 
 export class UserSession {
     private _userName: string | undefined;
+    private _pendingAuth: boolean;
 
-    get authenticated() {
+    get authenticated(): boolean {
         return this._userName !== undefined;
+    }
+
+    get pendingAuth(): boolean {
+        return this._pendingAuth;
     }
 
     get userName(): string | undefined {
@@ -20,11 +25,15 @@ export class UserSession {
     constructor() {
         makeAutoObservable(this);
         this._userName = undefined;
+        this._pendingAuth = true;
     }
 
     async auth(userName: string, password: string) {
         await authService.auth(userName, password);
-        runInAction(() => this._userName = userName);
+        runInAction(() => {
+            this._userName = userName;
+            this._pendingAuth = false;
+        });
     }
 
     async unAuth() {

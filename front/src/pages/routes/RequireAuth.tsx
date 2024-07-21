@@ -6,7 +6,7 @@ import {useLocation, Navigate} from "react-router-dom";
 
 const RequireAuth = observer(({children}: {children: React.ReactNode}) => {
     const location = useLocation();
-    return userSession.authenticated
+    return userSession.authenticated || userSession.pendingAuth
         ? <>{children}</>
         : <Navigate to={routesPaths.login} state={{from: location}} />;
 });
