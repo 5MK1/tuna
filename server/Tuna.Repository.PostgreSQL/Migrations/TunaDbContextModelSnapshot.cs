@@ -45,7 +45,11 @@ namespace Tuna.Repository.PostgreSQL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Document");
+                    b.HasIndex("AuthorId");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("AuthorId"), "hash");
+
+                    b.ToTable("document");
                 });
 #pragma warning restore 612, 618
         }

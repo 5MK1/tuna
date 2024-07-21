@@ -29,6 +29,16 @@ services:
       retries: 10
       start_period: 10s
     restart: unless-stopped
+  postgres-migrations:
+    build:
+      context: "./server"
+      dockerfile: "PgMigrations.Dockerfile"
+    container_name: "tuna-pg-migrations"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Staging
+    depends_on:
+      postgres:
+        condition: service_healthy
   api:
     build:
       context: "./server"
@@ -45,10 +55,10 @@ services:
     depends_on:
       redis:
         condition: service_healthy
+      postgres-migrations:
+        condition: service_completed_successfully
       postgres:
         condition: service_healthy
-    links:
-      - redis
 volumes:
   redis_data:
   tunadb-data:

@@ -2,18 +2,17 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
-#pragma warning disable CS8981
 
 namespace Tuna.Repository.PostgreSQL.Migrations
 {
     /// <inheritdoc />
-    public partial class documents : Migration
+    public partial class Documents : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Document",
+                name: "document",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -24,15 +23,21 @@ namespace Tuna.Repository.PostgreSQL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Document", x => x.Id);
+                    table.PrimaryKey("PK_document", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_document_AuthorId",
+                table: "document",
+                column: "AuthorId")
+                .Annotation("Npgsql:IndexMethod", "hash");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Document");
+                name: "document");
         }
     }
 }

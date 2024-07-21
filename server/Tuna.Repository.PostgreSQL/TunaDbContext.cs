@@ -11,4 +11,9 @@ public class TunaDbContext : DbContext
 		: base(options)
 	{
 	}
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	{
+		modelBuilder.ApplyConfigurationsFromAssembly(typeof(TunaDbContext).Assembly);
+	}
 }

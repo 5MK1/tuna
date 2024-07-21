@@ -8,13 +8,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tuna.Repository.PostgreSQL;
 
 #nullable disable
-#pragma warning disable CS8981
 
 namespace Tuna.Repository.PostgreSQL.Migrations
 {
     [DbContext(typeof(TunaDbContext))]
-    [Migration("20240719201601_documents")]
-    partial class documents
+    [Migration("20240721102708_Documents")]
+    partial class Documents
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,7 +48,11 @@ namespace Tuna.Repository.PostgreSQL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Document");
+                    b.HasIndex("AuthorId");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("AuthorId"), "hash");
+
+                    b.ToTable("document");
                 });
 #pragma warning restore 612, 618
         }
