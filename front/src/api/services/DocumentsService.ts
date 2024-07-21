@@ -2,18 +2,19 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { DocumentDto } from '../models/DocumentDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
-export class ProjectService {
+export class DocumentsService {
     constructor(public readonly httpRequest: BaseHttpRequest) {}
     /**
-     * @returns any Success
+     * @returns DocumentDto Success
      * @throws ApiError
      */
-    public getProjectReadAll(): CancelablePromise<any> {
+    public getDocumentsReadAll(): CancelablePromise<Array<DocumentDto>> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/project/read-all',
+            url: '/documents/read-all',
         });
     }
 }

@@ -1,6 +1,9 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.Api.Auth;
+using Tuna.Model.Dto;
+using Tuna.Model.EventHandlers.RequestHandlers.GetMyDocuments;
 
 namespace Server.Api.Controllers;
 
@@ -8,11 +11,17 @@ namespace Server.Api.Controllers;
 [Authorize]
 public class DocumentsController : Controller
 {
-	[HttpGet("read-all")]
-	public IActionResult ReadAll()
-	{
-		var uid = User.UserId();
+	private readonly IMediator _mediator;
 
-		return Ok();
+	public DocumentsController(IMediator mediator)
+	{
+		_mediator = mediator;
+	}
+
+	[HttpGet("read-all")]
+	[ProducesResponseType(typeof(DocumentDto[]), StatusCodes.Status200OK)]
+	public async Task<DocumentDto[]> ReadAll()
+	{
+		return await _mediator.Send(new GetMyDocumentsRequest(User.UserId()));
 	}
 }

@@ -7,14 +7,14 @@ import type { OpenAPIConfig } from './core/OpenAPI';
 import { FetchHttpRequest } from './core/FetchHttpRequest';
 import { AccountService } from './services/AccountService';
 import { AuthService } from './services/AuthService';
+import { DocumentsService } from './services/DocumentsService';
 import { HealthService } from './services/HealthService';
-import { ProjectService } from './services/ProjectService';
 type HttpRequestConstructor = new (config: OpenAPIConfig) => BaseHttpRequest;
 export class Api {
     public readonly account: AccountService;
     public readonly auth: AuthService;
+    public readonly documents: DocumentsService;
     public readonly health: HealthService;
-    public readonly project: ProjectService;
     public readonly request: BaseHttpRequest;
     constructor(config?: Partial<OpenAPIConfig>, HttpRequest: HttpRequestConstructor = FetchHttpRequest) {
         this.request = new HttpRequest({
@@ -30,8 +30,8 @@ export class Api {
         });
         this.account = new AccountService(this.request);
         this.auth = new AuthService(this.request);
+        this.documents = new DocumentsService(this.request);
         this.health = new HealthService(this.request);
-        this.project = new ProjectService(this.request);
     }
 }
 

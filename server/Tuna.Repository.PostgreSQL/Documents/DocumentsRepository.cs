@@ -21,6 +21,18 @@ public class DocumentsRepository : IDocumentsRepository
 		return document is null ? null : Map(document);
 	}
 
+	public async Task<DocumentDto[]> SearchByAuthorId(Guid authorId)
+	{
+		var storageElements = await _dbContext
+			.Documents
+			.Where(se => se.AuthorId == authorId)
+			.ToArrayAsync();
+
+		return storageElements
+			.Select(Map)
+			.ToArray();
+	}
+
 	public async Task Create(DocumentDto dto)
 	{
 		var se = Map(dto);
