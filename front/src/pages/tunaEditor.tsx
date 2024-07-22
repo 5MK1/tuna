@@ -7,7 +7,6 @@ import Properties from "../components/properties/Properties";
 import Cursor from "../components/cursor/Cursor";
 import "./tunaEditor.scss";
 
-
 function TunaEditor() {
     useEffect(() => {
         document.body.addEventListener('keydown', ({key}: { key: string }) => {

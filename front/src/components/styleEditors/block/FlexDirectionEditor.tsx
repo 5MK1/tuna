@@ -7,10 +7,10 @@ import {
 import {observer} from "mobx-react-lite";
 
 const flexDirectionOptions = [
-    {path: 'flex-direction--row.svg', value: EditorSupportedFlexDirection.row},
-    {path: 'flex-direction--row-reverse.svg', value: EditorSupportedFlexDirection.rowReverse},
-    {path: 'flex-direction--column.svg', value: EditorSupportedFlexDirection.column},
-    {path: 'flex-direction--column-reverse.svg', value: EditorSupportedFlexDirection.columnReverse},
+    {path: '/flex-direction--row.svg', value: EditorSupportedFlexDirection.row},
+    {path: '/flex-direction--row-reverse.svg', value: EditorSupportedFlexDirection.rowReverse},
+    {path: '/flex-direction--column.svg', value: EditorSupportedFlexDirection.column},
+    {path: '/flex-direction--column-reverse.svg', value: EditorSupportedFlexDirection.columnReverse},
 ];
 
 const FlexDirectionEditor = observer((props: StyleEditorProps) => {

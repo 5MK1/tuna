@@ -10,10 +10,10 @@ import {observer} from "mobx-react-lite";
 import {NodeStyles} from "../../../models/DocumentStructure/nodeStyles";
 
 const displayOptions = [
-    {path: 'display--block.svg', value: EditorSupportedCssDisplay.block},
-    {path: 'display--inline.svg', value: EditorSupportedCssDisplay.inline},
-    {path: 'display--flex.svg', value: EditorSupportedCssDisplay.flex},
-    {path: 'display--grid.svg', value: EditorSupportedCssDisplay.grid}
+    {path: '/display--block.svg', value: EditorSupportedCssDisplay.block},
+    {path: '/display--inline.svg', value: EditorSupportedCssDisplay.inline},
+    {path: '/display--flex.svg', value: EditorSupportedCssDisplay.flex},
+    {path: '/display--grid.svg', value: EditorSupportedCssDisplay.grid}
 ];
 
 const DisplayEditor = observer((props: StyleEditorProps) => {

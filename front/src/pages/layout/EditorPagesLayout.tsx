@@ -1,13 +1,11 @@
 import {Outlet} from "react-router-dom";
-import routesPaths from "../routes/routesPaths";
 import React from "react";
-import TopNavigationLink from "./TopNavigationLink";
 
 const EditorPagesLayout = function () {
     return (
         <div className="app-root app-root--editor-pages">
             <div className="top-navigation">
-                <TopNavigationLink to={routesPaths.editor} tid="tn__editor-link">editor</TopNavigationLink>
+                <pre style={{margin: 0, padding: 0}}>// todo: add navigation</pre>
             </div>
             <Outlet/>
         </div>

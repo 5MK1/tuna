@@ -20,7 +20,7 @@ const ContentPagesNavigation = observer(() => {
                     && <>
 						<TopNavigationLink to={routesPaths.myDocuments} tid="tn__my-documents">my
 							documents</TopNavigationLink>
-						<TopNavigationLink to={routesPaths.editor} tid="tn__editor-link">editor</TopNavigationLink>
+						<TopNavigationLink to={routesPaths.editor.template} tid="tn__editor-link">editor</TopNavigationLink>
 						<a href="#"
 						   onClick={logout}
 						   className="top-navigation__link"

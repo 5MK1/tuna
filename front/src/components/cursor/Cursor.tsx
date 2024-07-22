@@ -8,9 +8,9 @@ const Cursor = observer(() => {
     function toolBoxCursorImage(tool: ToolboxTool): string {
         switch (tool) {
             case ToolboxTool.flexbox:
-                return 'flex-box--compact.svg';
+                return '/flex-box--compact.svg';
             case ToolboxTool.text:
-                return 'txt--compact.svg';
+                return '/txt--compact.svg';
             case ToolboxTool.image:
             default:
                 return '';

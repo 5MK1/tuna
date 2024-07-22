@@ -7,10 +7,10 @@ import {
 } from "../../../models/htmlNativeWrappers/EditorSupportedAlignItems";
 
 const options = [
-    {path: 'align-items--stretch.svg', value: EditorSupportedAlignItems.stretch},
-    {path: 'align-items--flex-start.svg', value: EditorSupportedAlignItems.flexStart},
-    {path: 'align-items--flex-end.svg', value: EditorSupportedAlignItems.flexEnd},
-    {path: 'align-items--center.svg', value: EditorSupportedAlignItems.center},
+    {path: '/align-items--stretch.svg', value: EditorSupportedAlignItems.stretch},
+    {path: '/align-items--flex-start.svg', value: EditorSupportedAlignItems.flexStart},
+    {path: '/align-items--flex-end.svg', value: EditorSupportedAlignItems.flexEnd},
+    {path: '/align-items--center.svg', value: EditorSupportedAlignItems.center},
 ];
 
 const AlignItemsEditor = observer((props: StyleEditorProps) => {

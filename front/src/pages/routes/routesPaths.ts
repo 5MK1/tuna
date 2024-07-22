@@ -2,7 +2,10 @@ const routesPaths = {
     home: '/',
     login: '/login',
     myDocuments: '/docs',
-    editor: '/x',
+    editor: {
+        template: '/x/:docId',
+        createPath: (docId: string) => `/x/${docId}`
+    },
 };
 
 export default routesPaths;

@@ -7,11 +7,11 @@ import {
 import PicRadioGroup from "../../ui/formControllers/picRadioGroup";
 
 const options = [
-    {path: 'justify-content--flex-start.svg', value: EditorSupportedJustifyContent.flexStart},
-    {path: 'justify-content--flex-end.svg', value: EditorSupportedJustifyContent.flexEnd},
-    {path: 'justify-content--center.svg', value: EditorSupportedJustifyContent.center},
-    {path: 'justify-content--space-between.svg', value: EditorSupportedJustifyContent.spaceBetween},
-    {path: 'justify-content--space-around.svg', value: EditorSupportedJustifyContent.spaceAround}
+    {path: '/justify-content--flex-start.svg', value: EditorSupportedJustifyContent.flexStart},
+    {path: '/justify-content--flex-end.svg', value: EditorSupportedJustifyContent.flexEnd},
+    {path: '/justify-content--center.svg', value: EditorSupportedJustifyContent.center},
+    {path: '/justify-content--space-between.svg', value: EditorSupportedJustifyContent.spaceBetween},
+    {path: '/justify-content--space-around.svg', value: EditorSupportedJustifyContent.spaceAround}
 ];
 
 const JustifyContentEditor = observer((props: StyleEditorProps) => {
