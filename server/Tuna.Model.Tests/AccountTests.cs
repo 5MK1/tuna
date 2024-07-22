@@ -44,7 +44,7 @@ public class AccountTests
 		_repo.TryGet(name)!
 			.Returns(
 				Task.FromResult(
-					new UserAccountDto(Guid.Empty, name, userPassword.PasswordHash, userPassword.PasswordSalt)
+					new UserAccountDto(Ulid.Empty, name, userPassword.PasswordHash, userPassword.PasswordSalt)
 				)
 			);
 
@@ -63,7 +63,7 @@ public class AccountTests
 	{
 		const string name = "user";
 		const string password = "password";
-		var id = Guid.NewGuid();
+		var id = Ulid.NewUlid();
 		var userPassword = AccountPassword.CrateFrom(password);
 		_repo.TryGet(name)!
 			.Returns(
@@ -87,8 +87,7 @@ public class AccountTests
 	{
 		const string name = "user";
 		const string password = "password";
-		_repo.TryGet(name)!
-			.Returns(Task.FromResult<UserAccountDto?>(null));
+		_repo.TryGet(name).Returns(Task.FromResult<UserAccountDto?>(null));
 
 		var loginResult = await Account.Login(_repo, name, password);
 

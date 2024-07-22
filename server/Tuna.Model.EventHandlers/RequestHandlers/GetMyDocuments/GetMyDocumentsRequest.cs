@@ -5,9 +5,9 @@ namespace Tuna.Model.EventHandlers.RequestHandlers.GetMyDocuments;
 
 public class GetMyDocumentsRequest : IRequest<DocumentDto[]>
 {
-	public Guid AuthorId { get; }
+	public Ulid AuthorId { get; }
 
-	public GetMyDocumentsRequest(Guid authorId)
+	public GetMyDocumentsRequest(Ulid authorId)
 	{
 		AuthorId = authorId;
 	}

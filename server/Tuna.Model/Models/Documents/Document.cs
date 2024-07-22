@@ -7,38 +7,35 @@ public class Document
 {
 	private readonly IDocumentsRepository _repo;
 
-	public Guid Id { get; }
+	public Ulid Id { get; }
 
-	public Guid AuthorId { get; }
+	public Ulid AuthorId { get; }
 
-	public Guid[] ContributorsIds { get; }
+	public Ulid[] ContributorsIds { get; }
 
-	public string Content { get; }
+	public string Title { get; }
 
-	internal Document(IDocumentsRepository repo, Guid id, string content,
-		Guid authorId, Guid[] contributorsIds)
+	internal Document(IDocumentsRepository repo, Ulid id, Ulid authorId,
+		Ulid[] contributorsIds, string title)
 	{
 		_repo = repo;
 		Id = id;
-		Content = content;
 		AuthorId = authorId;
 		ContributorsIds = contributorsIds;
+		Title = title;
 	}
 
-	private Document(IDocumentsRepository repo, Guid authorId)
-		: this(repo, id: Guid.NewGuid(), content: string.Empty, authorId, new[] { authorId })
+	private Document(IDocumentsRepository repo, Ulid authorId)
+		: this(repo, id: Ulid.NewUlid(), authorId, contributorsIds: new[] { authorId }, title: string.Empty)
 	{
 	}
 
-	public static async Task<IDocumentCreateResult> CreateNewDocument(IDocumentsRepository repo, Guid authorId)
+	public static async Task<IDocumentCreateResult> CreateNewDocument(IDocumentsRepository repo, Ulid authorId)
 	{
 		var document = new Document(repo, authorId);
 		await repo.Create(document.ToDto());
 		return new DocumentCreatedResult(document);
 	}
 
-	private DocumentDto ToDto()
-	{
-		return new DocumentDto(Id, AuthorId, ContributorsIds, Content);
-	}
+	private DocumentDto ToDto() => new(Id, AuthorId, ContributorsIds, Title);
 }

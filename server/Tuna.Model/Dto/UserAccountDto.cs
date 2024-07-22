@@ -1,7 +1,7 @@
 namespace Tuna.Model.Dto;
 
 public record UserAccountDto(
-	Guid Id,
+	Ulid Id,
 	string Name,
 	byte[] PasswordHash,
 	byte[] PasswordSalt

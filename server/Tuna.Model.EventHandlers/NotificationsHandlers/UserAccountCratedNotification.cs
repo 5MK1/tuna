@@ -4,9 +4,9 @@ namespace Tuna.Model.EventHandlers.NotificationsHandlers;
 
 public class UserAccountCratedNotification : INotification
 {
-	public Guid CratedAccountId { get; }
+	public Ulid CratedAccountId { get; }
 
-	public UserAccountCratedNotification(Guid cratedAccountId)
+	public UserAccountCratedNotification(Ulid cratedAccountId)
 	{
 		CratedAccountId = cratedAccountId;
 	}

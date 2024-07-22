@@ -13,7 +13,7 @@ public class DocumentsRepository : IDocumentsRepository
 		_dbContext = dbContext;
 	}
 
-	public async Task<DocumentDto?> TryGet(Guid documentId)
+	public async Task<DocumentDto?> TryGet(Ulid documentId)
 	{
 		var document = await _dbContext
 			.Documents
@@ -21,7 +21,7 @@ public class DocumentsRepository : IDocumentsRepository
 		return document is null ? null : Map(document);
 	}
 
-	public async Task<DocumentDto[]> SearchByAuthorId(Guid authorId)
+	public async Task<DocumentDto[]> SearchByAuthorId(Ulid authorId)
 	{
 		var storageElements = await _dbContext
 			.Documents
@@ -42,7 +42,7 @@ public class DocumentsRepository : IDocumentsRepository
 
 	private static DocumentDto Map(DocumentStorageElement se)
 	{
-		return new DocumentDto(se.Id, se.AuthorId, se.ContributorsIds, se.Content);
+		return new DocumentDto(se.Id, se.AuthorId, se.ContributorsIds, se.Title ?? string.Empty);
 	}
 
 	private static DocumentStorageElement Map(DocumentDto dto)
@@ -52,8 +52,7 @@ public class DocumentsRepository : IDocumentsRepository
 			Id = dto.Id,
 			AuthorId = dto.AuthorId,
 			ContributorsIds = dto.Contributors,
-			Name = string.Empty,
-			Content = dto.Content
+			Title = "New document"
 		};
 	}
 }

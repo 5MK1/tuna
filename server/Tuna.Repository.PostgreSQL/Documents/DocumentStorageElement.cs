@@ -5,15 +5,13 @@ namespace Tuna.Repository.PostgreSQL.Documents;
 
 public class DocumentStorageElement
 {
-	public Guid Id { get; set; }
+	public Ulid Id { get; set; }
 
-	public Guid AuthorId { get; set; }
+	public Ulid AuthorId { get; set; }
 
-	public Guid[] ContributorsIds { get; set; } = Array.Empty<Guid>();
+	public Ulid[] ContributorsIds { get; set; } = Array.Empty<Ulid>();
 
-	public string? Name { get; set; }
-
-	public string Content { get; set; } = string.Empty;
+	public string? Title { get; set; }
 }
 
 public class DocumentConfiguration : IEntityTypeConfiguration<DocumentStorageElement>
@@ -23,6 +21,6 @@ public class DocumentConfiguration : IEntityTypeConfiguration<DocumentStorageEle
 		builder.Metadata.SetTableName("document");
 		builder.HasKey(se => se.Id);
 		builder.HasIndex(se => se.AuthorId).HasMethod("hash");
-		builder.Property(se => se.Name).HasMaxLength(100);
+		builder.Property(se => se.Title).HasMaxLength(100);
 	}
 }

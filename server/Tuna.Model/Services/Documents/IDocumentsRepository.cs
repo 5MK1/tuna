@@ -4,9 +4,9 @@ namespace Tuna.Model.Services.Documents;
 
 public interface IDocumentsRepository
 {
-	Task<DocumentDto?> TryGet(Guid documentId);
+	Task<DocumentDto?> TryGet(Ulid documentId);
 
-	Task<DocumentDto[]> SearchByAuthorId(Guid authorId);
+	Task<DocumentDto[]> SearchByAuthorId(Ulid authorId);
 
 	Task Create(DocumentDto dto);
 }

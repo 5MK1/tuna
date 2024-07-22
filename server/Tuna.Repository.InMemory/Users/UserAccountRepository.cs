@@ -39,10 +39,10 @@ public class UserAccountRepository : IUserAccountsRepository
 	private static UserAccountDto Map(UserAccountDocument document)
 	{
 		return new UserAccountDto(
-			Guid.Parse(document.UserId),
-			document.Name,
-			Convert.FromBase64String(document.PasswordHash),
-			Convert.FromBase64String(document.PasswordSalt)
+			Id: Ulid.Parse(document.UserId),
+			Name: document.Name,
+			PasswordHash: Convert.FromBase64String(document.PasswordHash),
+			PasswordSalt: Convert.FromBase64String(document.PasswordSalt)
 		);
 	}
 }

@@ -9,9 +9,9 @@ public static class ClaimsPrincipalExtensions
 		return user.FindFirst(ClaimTypes.Name)?.Value ?? string.Empty;
 	}
 
-	public static Guid UserId(this ClaimsPrincipal user)
+	public static Ulid UserId(this ClaimsPrincipal user)
 	{
 		var claimValue = user.FindFirst(ClaimTypes.Sid)?.Value;
-		return claimValue == null ? Guid.Empty : Guid.Parse(claimValue);
+		return claimValue == null ? Ulid.Empty : Ulid.Parse(claimValue);
 	}
 }

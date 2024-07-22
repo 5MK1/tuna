@@ -7,13 +7,13 @@ public class Account
 {
 	internal const byte MIN_USER_NAME_LENGTH = 3;
 
-	public Guid Id { get; }
+	public Ulid Id { get; }
 
 	public string Name { get; }
 
 	internal AccountPassword Password { get; }
 
-	internal Account(Guid id, string name, AccountPassword password)
+	internal Account(Ulid id, string name, AccountPassword password)
 	{
 		Id = id;
 		Name = name;
@@ -21,14 +21,11 @@ public class Account
 	}
 
 	private Account(string name, AccountPassword password)
-		: this(Guid.NewGuid(), name, password)
+		: this(Ulid.NewUlid(), name, password)
 	{
 	}
 
-	private UserAccountDto ToDto()
-	{
-		return new UserAccountDto(Id, Name, Password.PasswordHash, Password.PasswordSalt);
-	}
+	private UserAccountDto ToDto() => new(Id, Name, Password.PasswordHash, Password.PasswordSalt);
 
 	public static async Task<ILoginResult> Login(IUserAccountsRepository repo, string userName, string password)
 	{
@@ -66,8 +63,6 @@ public class Account
 		return new LoginSuccessResult(newAccount, accountJustCrated: true);
 	}
 
-	private static Account FromDto(UserAccountDto dto)
-	{
-		return new Account(dto.Id, dto.Name, new AccountPassword(dto.PasswordHash, dto.PasswordSalt));
-	}
+	private static Account FromDto(UserAccountDto dto) =>
+		new(dto.Id, dto.Name, new AccountPassword(dto.PasswordHash, dto.PasswordSalt));
 }
