@@ -11,6 +11,7 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { DocumentDto } from './models/DocumentDto';
+export type { DocumentNodeDto } from './models/DocumentNodeDto';
 export type { LoginRequestDto } from './models/LoginRequestDto';
 export type { MyAccountInfoDto } from './models/MyAccountInfoDto';
 

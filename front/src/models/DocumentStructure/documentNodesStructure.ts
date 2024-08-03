@@ -1,5 +1,6 @@
 import {DocumentNode} from './documentNode';
 import {makeAutoObservable} from "mobx";
+import documentsService from "../../api/custom/DocumentsService";
 
 export class DocumentNodesStructure {
     private _nodesMap: Map<HTMLElement, DocumentNode>;
@@ -11,6 +12,13 @@ export class DocumentNodesStructure {
         this._nodesMap = new Map<HTMLElement, DocumentNode>();
         this.rootNodes = [];
         this.selectedNode = undefined;
+    }
+
+    public async fetchDocument(documentId: string) {
+        if (documentId.length != 26) {
+            return;
+        }
+        const document = await documentsService.getDocument(documentId);
     }
 
     public add(

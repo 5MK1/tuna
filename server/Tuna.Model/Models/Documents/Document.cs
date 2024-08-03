@@ -1,41 +1,52 @@
 using Tuna.Model.Dto;
-using Tuna.Model.Services.Documents;
 
 namespace Tuna.Model.Models.Documents;
 
-public class Document
+public class TunaDocument
 {
-	private readonly IDocumentsRepository _repo;
-
 	public Ulid Id { get; }
 
 	public Ulid AuthorId { get; }
 
-	public Ulid[] ContributorsIds { get; }
-
 	public string Title { get; }
 
-	internal Document(IDocumentsRepository repo, Ulid id, Ulid authorId,
-		Ulid[] contributorsIds, string title)
+	public DocumentNode[] Nodes { get; private set; }
+
+	public TunaDocument(
+		Ulid id,
+		Ulid authorId,
+		string title
+	)
 	{
-		_repo = repo;
 		Id = id;
 		AuthorId = authorId;
-		ContributorsIds = contributorsIds;
 		Title = title;
+		Nodes = Array.Empty<DocumentNode>();
 	}
 
-	private Document(IDocumentsRepository repo, Ulid authorId)
-		: this(repo, id: Ulid.NewUlid(), authorId, contributorsIds: new[] { authorId }, title: string.Empty)
+
+	public TunaDocument WithNodes(DocumentNode[] documentNods)
 	{
+		Nodes = documentNods;
+		return this;
 	}
 
-	public static async Task<IDocumentCreateResult> CreateNewDocument(IDocumentsRepository repo, Ulid authorId)
+	public static TunaDocument CrateFirstDocument(Ulid authorId)
 	{
-		var document = new Document(repo, authorId);
-		await repo.Create(document.ToDto());
-		return new DocumentCreatedResult(document);
+		return new TunaDocument(
+			id: Ulid.NewUlid(),
+			authorId,
+			title: "My first document"
+		);
 	}
 
-	private DocumentDto ToDto() => new(Id, AuthorId, ContributorsIds, Title);
+	public DocumentDto Dto()
+	{
+		return new DocumentDto(
+			Id,
+			AuthorId,
+			Title,
+			Nodes.Select(node => node.Dto()).ToArray()
+		);
+	}
 }

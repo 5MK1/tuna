@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Server.Api.Controllers;
 
-[Route("health")]
 public class HealthController : Controller
 {
 	private readonly ILogger<HealthController> _logger;

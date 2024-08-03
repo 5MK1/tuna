@@ -2,10 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { DocumentNodeDto } from './DocumentNodeDto';
 export type DocumentDto = {
     id?: string;
     authorId?: string;
-    contributors?: Array<string> | null;
-    content?: string | null;
+    title?: string | null;
+    nodes?: Array<DocumentNodeDto> | null;
 };
 

@@ -7,10 +7,10 @@ public interface IDocumentCreateResult
 public class DocumentCreatedResult
 	: IDocumentCreateResult
 {
-	public Document CratedDocument { get; }
+	public TunaDocument CratedTunaDocument { get; }
 
-	public DocumentCreatedResult(Document cratedDocument)
+	public DocumentCreatedResult(TunaDocument cratedTunaDocument)
 	{
-		CratedDocument = cratedDocument;
+		CratedTunaDocument = cratedTunaDocument;
 	}
 }

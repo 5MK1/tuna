@@ -1,12 +1,12 @@
-using Tuna.Model.Dto;
+using Tuna.Model.Models.Documents;
 
 namespace Tuna.Model.Services.Documents;
 
 public interface IDocumentsRepository
 {
-	Task<DocumentDto?> TryGet(Ulid documentId);
+	Task<TunaDocument?> TryGetForAuthorId(Ulid authorId, Ulid documentId);
 
-	Task<DocumentDto[]> SearchByAuthorId(Ulid authorId);
+	Task<TunaDocument[]> ReadByAuthorId(Ulid authorId);
 
-	Task Create(DocumentDto dto);
+	Task Create(TunaDocument dto);
 }

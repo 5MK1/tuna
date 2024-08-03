@@ -6,8 +6,18 @@ import Toolbox from "../components/toolbox/Toolbox";
 import Properties from "../components/properties/Properties";
 import Cursor from "../components/cursor/Cursor";
 import "./tunaEditor.scss";
+import {useParams} from "react-router-dom";
+import documentNodesStructure from "../models/DocumentStructure/documentNodesStructure";
 
 function TunaEditor() {
+    const {docId} = useParams();
+
+    useEffect(() => {
+        if (docId !== undefined) {
+            documentNodesStructure.fetchDocument(docId).then();
+        }
+    }, []);
+
     useEffect(() => {
         document.body.addEventListener('keydown', ({key}: { key: string }) => {
             if (key.toLocaleLowerCase() === 'escape') {
@@ -23,6 +33,7 @@ function TunaEditor() {
             }}>
             <main className="desktop">
                 <Board/>
+                {docId}
             </main>
             <Toolbox/>
             <Properties/>

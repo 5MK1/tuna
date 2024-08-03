@@ -17,4 +17,20 @@ export class DocumentsService {
             url: '/documents/read-all',
         });
     }
+    /**
+     * @param documentId
+     * @returns DocumentDto Success
+     * @throws ApiError
+     */
+    public getDocumentsRead(
+        documentId: string,
+    ): CancelablePromise<DocumentDto> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/documents/read/{documentId}',
+            path: {
+                'documentId': documentId,
+            },
+        });
+    }
 }

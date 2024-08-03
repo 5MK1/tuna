@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Tuna.Model.EventHandlers.NotificationsHandlers;
+namespace Tuna.Model.EventHandlers.NotificationsHandlers.UserCreatedHandlers;
 
 public class UserAccountCratedNotification : INotification
 {

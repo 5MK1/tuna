@@ -7,15 +7,11 @@ using Microsoft.IdentityModel.Tokens;
 using Server.Api.AppSettings;
 using Server.Api.Auth;
 using Server.Api.Models;
-using Tuna.Model.EventHandlers.RequestHandlers;
 using Tuna.Model.EventHandlers.RequestHandlers.LoginOrRegister;
 using Tuna.Model.Models.Accounts;
-using Tuna.Model.Services.User;
 
 namespace Server.Api.Controllers;
 
-[ApiController]
-[Route("auth")]
 public class AuthController : ControllerBase
 {
 	private readonly IOptions<JwtSettingsOptions> _jwtSettingsOptions;
@@ -27,9 +23,9 @@ public class AuthController : ControllerBase
 		_mediator = mediator;
 	}
 
-	[HttpPost("login-or-register")]
+	[HttpPost]
 	[ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-	public async Task<IActionResult> Login(LoginRequestDto requestDto)
+	public async Task<IActionResult> Login([FromBody] LoginRequestDto requestDto)
 	{
 		var loginResult = await _mediator.Send(new LoginOrRegisterRequest(requestDto.UserName, requestDto.Password));
 		return loginResult switch
@@ -40,7 +36,7 @@ public class AuthController : ControllerBase
 		};
 	}
 
-	[HttpPost("logout")]
+	[HttpPost]
 	public IActionResult LogOut()
 	{
 		HttpContext.Response.ExpireCookieAccessToken();

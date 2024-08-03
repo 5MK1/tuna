@@ -1,6 +1,6 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import {DocumentDto} from "../../api";
-import myDocumentsService from "../../api/custom/MyDocumentsService";
+import myDocumentsService from "../../api/custom/DocumentsService";
 
 export class MyDocuments {
     private _documents: DocumentDto[];

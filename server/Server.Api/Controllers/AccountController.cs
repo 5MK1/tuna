@@ -5,12 +5,11 @@ using Server.Api.Models;
 
 namespace Server.Api.Controllers;
 
-[ApiController]
-[Route("account")]
 [Authorize]
+[Controller]
 public class AccountController : ControllerBase
 {
-	[HttpGet("info")]
+	[HttpGet]
 	[ProducesResponseType(typeof(MyAccountInfoDto), StatusCodes.Status200OK)]
 	public MyAccountInfoDto Index()
 	{

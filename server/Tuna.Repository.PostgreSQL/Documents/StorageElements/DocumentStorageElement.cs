@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Tuna.Repository.PostgreSQL.Documents;
+namespace Tuna.Repository.PostgreSQL.Documents.StorageElements;
 
 public class DocumentStorageElement
 {
@@ -9,9 +9,9 @@ public class DocumentStorageElement
 
 	public Ulid AuthorId { get; set; }
 
-	public Ulid[] ContributorsIds { get; set; } = Array.Empty<Ulid>();
-
 	public string? Title { get; set; }
+
+	public IList<DocumentNodeStorageElement> Nodes { get; set; } = Array.Empty<DocumentNodeStorageElement>();
 }
 
 public class DocumentConfiguration : IEntityTypeConfiguration<DocumentStorageElement>
@@ -22,5 +22,8 @@ public class DocumentConfiguration : IEntityTypeConfiguration<DocumentStorageEle
 		builder.HasKey(se => se.Id);
 		builder.HasIndex(se => se.AuthorId).HasMethod("hash");
 		builder.Property(se => se.Title).HasMaxLength(100);
+		builder.HasMany(se => se.Nodes)
+			.WithOne()
+			.HasForeignKey(nodeSe => nodeSe.DocumentId);
 	}
 }

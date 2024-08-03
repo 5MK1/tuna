@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tuna.Repository.PostgreSQL;
+using Tuna.Repository.PostgreSQL.Documents.StorageElements;
 
 #nullable disable
 
@@ -22,24 +23,77 @@ namespace Tuna.Repository.PostgreSQL.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Tuna.Repository.PostgreSQL.Documents.DocumentStorageElement", b =>
+            modelBuilder.Entity("Tuna.Repository.PostgreSQL.Documents.StorageElements.DocumentNodeActionStorageElement", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<string>("Id")
+                        .HasColumnType("character varying(26)");
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Content")
+                    b.Property<string>("ActionType")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
-                    b.Property<Guid[]>("ContributorsIds")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DocumentNodeActionData>("Data")
                         .IsRequired()
-                        .HasColumnType("uuid[]");
+                        .HasColumnType("jsonb");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("DocumentNodeId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("UserId"), "hash");
+
+                    b.HasIndex("DocumentNodeId", "CreatedAt");
+
+                    b.ToTable("documentNodeAction");
+                });
+
+            modelBuilder.Entity("Tuna.Repository.PostgreSQL.Documents.StorageElements.DocumentNodeStorageElement", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<DocumentNodeData>("Data")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
+
+                    b.Property<string>("DocumentId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("ParentNodeId")
+                        .HasColumnType("character varying(26)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocumentId");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("DocumentId"), "hash");
+
+                    b.ToTable("documentNode");
+                });
+
+            modelBuilder.Entity("Tuna.Repository.PostgreSQL.Documents.StorageElements.DocumentStorageElement", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("Title")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
@@ -50,6 +104,34 @@ namespace Tuna.Repository.PostgreSQL.Migrations
                     NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("AuthorId"), "hash");
 
                     b.ToTable("document");
+                });
+
+            modelBuilder.Entity("Tuna.Repository.PostgreSQL.Documents.StorageElements.DocumentNodeActionStorageElement", b =>
+                {
+                    b.HasOne("Tuna.Repository.PostgreSQL.Documents.StorageElements.DocumentNodeStorageElement", null)
+                        .WithMany("Actions")
+                        .HasForeignKey("DocumentNodeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Tuna.Repository.PostgreSQL.Documents.StorageElements.DocumentNodeStorageElement", b =>
+                {
+                    b.HasOne("Tuna.Repository.PostgreSQL.Documents.StorageElements.DocumentStorageElement", null)
+                        .WithMany("Nodes")
+                        .HasForeignKey("DocumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Tuna.Repository.PostgreSQL.Documents.StorageElements.DocumentNodeStorageElement", b =>
+                {
+                    b.Navigation("Actions");
+                });
+
+            modelBuilder.Entity("Tuna.Repository.PostgreSQL.Documents.StorageElements.DocumentStorageElement", b =>
+                {
+                    b.Navigation("Nodes");
                 });
 #pragma warning restore 612, 618
         }

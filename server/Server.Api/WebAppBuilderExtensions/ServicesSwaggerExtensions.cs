@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen.ConventionalRouting;
 
 namespace Server.Api.WebAppBuilderExtensions;
 
@@ -6,19 +7,9 @@ public static class ServicesSwaggerExtensions
 {
 	public static IServiceCollection AddCustomSwaggerGen(this IServiceCollection services)
 	{
-		return services.AddSwaggerGen(option =>
+		services.AddSwaggerGen(option =>
 		{
 			option.SwaggerDoc("v1", new OpenApiInfo { Title = "Tuna API", Version = "v1" });
-			option.AddSecurityDefinition("Bearer",
-				new OpenApiSecurityScheme
-				{
-					In = ParameterLocation.Header,
-					Description = "Please enter a valid token",
-					Name = "Authorization",
-					Type = SecuritySchemeType.Http,
-					BearerFormat = "JWT",
-					Scheme = "Bearer"
-				});
 			option.AddSecurityRequirement(new OpenApiSecurityRequirement
 			{
 				{
@@ -33,6 +24,14 @@ public static class ServicesSwaggerExtensions
 					Array.Empty<string>()
 				}
 			});
+			option.SchemaGeneratorOptions.CustomTypeMappings.Add(
+				typeof(Ulid),
+				() => new OpenApiSchema() { Type = "string" }
+			);
 		});
+
+		services.AddSwaggerGenWithConventionalRoutes();
+
+		return services;
 	}
 }

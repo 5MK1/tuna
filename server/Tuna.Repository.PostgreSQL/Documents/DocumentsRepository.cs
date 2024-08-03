@@ -1,58 +1,46 @@
 using Microsoft.EntityFrameworkCore;
-using Tuna.Model.Dto;
+using Tuna.Model.Models.Documents;
 using Tuna.Model.Services.Documents;
+using Tuna.Repository.PostgreSQL.Abstract;
+using Tuna.Repository.PostgreSQL.Documents.StorageElements;
 
 namespace Tuna.Repository.PostgreSQL.Documents;
 
 public class DocumentsRepository : IDocumentsRepository
 {
 	private readonly TunaDbContext _dbContext;
+	private readonly IRepositoryMapper<TunaDocument, DocumentStorageElement> _documentsMapper;
 
-	public DocumentsRepository(TunaDbContext dbContext)
+	public DocumentsRepository(TunaDbContext dbContext,
+		IRepositoryMapper<TunaDocument, DocumentStorageElement> documentsMapper
+	)
 	{
 		_dbContext = dbContext;
+		_documentsMapper = documentsMapper;
 	}
 
-	public async Task<DocumentDto?> TryGet(Ulid documentId)
+	public async Task<TunaDocument?> TryGetForAuthorId(Ulid authorId, Ulid documentId)
 	{
 		var document = await _dbContext
 			.Documents
-			.FirstOrDefaultAsync(se => se.Id == documentId);
-		return document is null ? null : Map(document);
+			.FirstOrDefaultAsync(se => se.AuthorId == authorId && se.Id == documentId);
+		return document is null ? null : _documentsMapper.Map(document);
 	}
 
-	public async Task<DocumentDto[]> SearchByAuthorId(Ulid authorId)
+	public async Task<TunaDocument[]> ReadByAuthorId(Ulid authorId)
 	{
 		var storageElements = await _dbContext
 			.Documents
 			.Where(se => se.AuthorId == authorId)
 			.ToArrayAsync();
 
-		return storageElements
-			.Select(Map)
-			.ToArray();
+		return storageElements.Select(_documentsMapper.Map).ToArray();
 	}
 
-	public async Task Create(DocumentDto dto)
+	public async Task Create(TunaDocument dto)
 	{
-		var se = Map(dto);
+		var se = _documentsMapper.Map(dto);
 		await _dbContext.Documents.AddAsync(se);
 		await _dbContext.SaveChangesAsync();
-	}
-
-	private static DocumentDto Map(DocumentStorageElement se)
-	{
-		return new DocumentDto(se.Id, se.AuthorId, se.ContributorsIds, se.Title ?? string.Empty);
-	}
-
-	private static DocumentStorageElement Map(DocumentDto dto)
-	{
-		return new DocumentStorageElement
-		{
-			Id = dto.Id,
-			AuthorId = dto.AuthorId,
-			ContributorsIds = dto.Contributors,
-			Title = "New document"
-		};
 	}
 }

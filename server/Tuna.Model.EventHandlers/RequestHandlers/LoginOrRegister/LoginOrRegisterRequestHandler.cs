@@ -1,10 +1,10 @@
 using MediatR;
 using Tuna.Model.EventHandlers.NotificationsHandlers;
-using Tuna.Model.EventHandlers.RequestHandlers.LoginOrRegister;
+using Tuna.Model.EventHandlers.NotificationsHandlers.UserCreatedHandlers;
 using Tuna.Model.Models.Accounts;
 using Tuna.Model.Services.User;
 
-namespace Tuna.Model.EventHandlers.RequestHandlers;
+namespace Tuna.Model.EventHandlers.RequestHandlers.LoginOrRegister;
 
 public class LoginOrRegisterRequestHandler : IRequestHandler<LoginOrRegisterRequest, ILoginResult>
 {

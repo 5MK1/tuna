@@ -1,5 +1,6 @@
 using MediatR;
 using Tuna.Model.Dto;
+using Tuna.Model.Models.Documents;
 using Tuna.Model.Services.Documents;
 
 namespace Tuna.Model.EventHandlers.RequestHandlers.GetMyDocuments;
@@ -15,6 +16,7 @@ public class GetMyDocumentsRequestHandler : IRequestHandler<GetMyDocumentsReques
 
 	public async Task<DocumentDto[]> Handle(GetMyDocumentsRequest request, CancellationToken cancellationToken)
 	{
-		return await _repo.SearchByAuthorId(request.AuthorId);
+		var documents = await _repo.ReadByAuthorId(request.AuthorId);
+		return documents.Select(doc => doc.Dto()).ToArray();
 	}
 }

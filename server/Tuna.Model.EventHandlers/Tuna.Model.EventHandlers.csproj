@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Tuna.Model\Tuna.Model.csproj" />
+	  <ProjectReference Include="..\Tuna.Repository.PostgreSQL\Tuna.Repository.PostgreSQL.csproj" />
 	</ItemGroup>
 
 </Project>

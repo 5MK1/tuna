@@ -2,7 +2,7 @@ using MediatR;
 using Tuna.Model.Models.Documents;
 using Tuna.Model.Services.Documents;
 
-namespace Tuna.Model.EventHandlers.NotificationsHandlers;
+namespace Tuna.Model.EventHandlers.NotificationsHandlers.UserCreatedHandlers;
 
 public class CreateFirstDocumentNotificationHandler : INotificationHandler<UserAccountCratedNotification>
 {
@@ -15,6 +15,7 @@ public class CreateFirstDocumentNotificationHandler : INotificationHandler<UserA
 
 	public async Task Handle(UserAccountCratedNotification notification, CancellationToken cancellationToken)
 	{
-		await Document.CreateNewDocument(_documentsRepository, notification.CratedAccountId);
+		var document = TunaDocument.CrateFirstDocument(authorId: notification.CratedAccountId);
+		await _documentsRepository.Create(document);
 	}
 }
