@@ -1,21 +1,17 @@
 import {StyleEditorProps} from "./StyleEditorProps";
 import PicRadioGroup from "../../ui/formControllers/picRadioGroup";
-import {
-    EditorSupportedFlexDirection,
-    tryParseEditorSupportedFlexDirection
-} from "../../../models/htmlNativeWrappers/EditorSupportedFlexDirection";
 import {observer} from "mobx-react-lite";
 
 const flexDirectionOptions = [
-    {path: '/flex-direction--row.svg', value: EditorSupportedFlexDirection.row},
-    {path: '/flex-direction--row-reverse.svg', value: EditorSupportedFlexDirection.rowReverse},
-    {path: '/flex-direction--column.svg', value: EditorSupportedFlexDirection.column},
-    {path: '/flex-direction--column-reverse.svg', value: EditorSupportedFlexDirection.columnReverse},
+    {path: '/flex-direction--row.svg', value: 'row'},
+    {path: '/flex-direction--row-reverse.svg', value: 'row-reverse'},
+    {path: '/flex-direction--column.svg', value: 'column'},
+    {path: '/flex-direction--column-reverse.svg', value: 'column-reverse'},
 ];
 
 const FlexDirectionEditor = observer((props: StyleEditorProps) => {
     function valueChanged(value: string) {
-        props.style.flexDirection = tryParseEditorSupportedFlexDirection(value);
+        props.style.flexDirection = value;
     }
 
     return (

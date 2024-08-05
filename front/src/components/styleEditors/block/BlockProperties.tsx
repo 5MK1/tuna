@@ -2,7 +2,6 @@ import {observer} from "mobx-react-lite";
 import DisplayEditor from "./DisplayEditor";
 import documentNodesStructure from "../../../models/DocumentStructure/documentNodesStructure";
 import "./BlockPorperties.scss"
-import {EditorSupportedCssDisplay} from "../../../models/htmlNativeWrappers/EditorSupportedCssDisplay";
 import FlexDirectionEditor from "./FlexDirectionEditor";
 import JustifyContentEditor from "./JustifyContentEditor";
 import AlignItemsEditor from "./AlignItemsEditor";
@@ -17,7 +16,7 @@ const BlockProperties = observer(() => {
     return (
         <div className="properties-group">
             <DisplayEditor style={selectedNode.style}/>
-            {selectedNode.style.display === EditorSupportedCssDisplay.flex
+            {selectedNode.style.display === 'flex'
                 && <>
 					<FlexDirectionEditor style={selectedNode.style}/>
 					<JustifyContentEditor style={selectedNode.style}/>

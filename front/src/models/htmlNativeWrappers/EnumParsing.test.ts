@@ -1,34 +1,33 @@
-import {EditorSupportedCssDisplay, tryParseEditorSupportedCssDisplay} from "./EditorSupportedCssDisplay";
-import {EditorSupportedFlexDirection, tryParseEditorSupportedFlexDirection} from "./EditorSupportedFlexDirection";
+import {EditorSupportedCssDisplay, EditorSupportedFlexDirection, isAllowedCssRule} from "./editorSupportedCssValues";
 
 test(
-    'tryParseEditorSupportedCssDisplay return correct key by existing value',
+    'isAllowedCssRule for "display" rule return correct value by correct input',
     () => {
-        const enumKey = tryParseEditorSupportedCssDisplay('flex');
-        expect(enumKey).toBe(EditorSupportedCssDisplay.flex);
+        const enumKey = isAllowedCssRule<EditorSupportedCssDisplay>('display', 'flex');
+        expect(enumKey).toBe('flex');
     }
 );
 
 test(
-    'tryParseEditorSupportedCssDisplay return undefined by not existing value',
+    'isAllowedCssRule for "display" rule return undefined by incorrect input',
     () => {
-        const enumKey = tryParseEditorSupportedCssDisplay('WRONG_CSS_DISPLAY_VALUE');
+        const enumKey = isAllowedCssRule<EditorSupportedCssDisplay>('display', 'WRONG_CSS_DISPLAY_VALUE');
         expect(enumKey).toBeUndefined();
     }
 );
 
 test(
-    'tryParseEditorSupportedFlexDirection return correct key by existing single word value',
+    'isAllowedCssRule for "flex-direction" rule return correct value by correct input',
     () => {
-        const enumKey = tryParseEditorSupportedFlexDirection('row');
-        expect(enumKey).toBe(EditorSupportedFlexDirection.row);
+        const enumKey = isAllowedCssRule<EditorSupportedFlexDirection>('flexDirection', 'row');
+        expect(enumKey).toBe('row');
     }
 );
 
 test(
-    'tryParseEditorSupportedFlexDirection return correct key by existing two word value',
+    'isAllowedCssRule for "flex-direction" rule return undefined by incorrect input',
     () => {
-        const enumKey = tryParseEditorSupportedFlexDirection('row-reverse');
-        expect(enumKey).toBe(EditorSupportedFlexDirection.rowReverse);
+        const enumKey = isAllowedCssRule<EditorSupportedFlexDirection>('flexDirection', 'row-reverse');
+        expect(enumKey).toBe('row-reverse');
     }
 );

@@ -1,27 +1,18 @@
-import {
-    EditorSupportedCssDisplay,
-    tryParseEditorSupportedCssDisplay
-} from "../htmlNativeWrappers/EditorSupportedCssDisplay";
-import {
-    EditorSupportedFlexDirection,
-    tryParseEditorSupportedFlexDirection
-} from "../htmlNativeWrappers/EditorSupportedFlexDirection";
 import {makeAutoObservable} from "mobx";
 import {
-    EditorSupportedJustifyContent,
-    tryParseEditorSupportedJustifyContent
-} from "../htmlNativeWrappers/EditorSupportedJustifyContent";
-import {
-    EditorSupportedAlignItems,
-    tryParseEditorSupportedAlignItems
-} from "../htmlNativeWrappers/EditorSupportedAlignItems";
+    EditorAllowedCssKey, EditorSupportedAlignItems,
+    EditorSupportedCssDisplay, EditorSupportedFlexDirection, EditorSupportedJustifyContent,
+    isAllowedCssRule
+} from "../htmlNativeWrappers/editorSupportedCssValues";
+import kebabCase from "kebab-case";
 
 export class NodeStyles {
     private readonly _node: HTMLElement;
+
     private _cssDisplay: EditorSupportedCssDisplay | undefined;
     private _flexDirection: EditorSupportedFlexDirection | undefined;
-    private _justifyContent: EditorSupportedJustifyContent | undefined;
     private _alignItems: EditorSupportedAlignItems | undefined;
+    private _justifyContent: EditorSupportedJustifyContent | undefined;
 
     get display(): EditorSupportedCssDisplay | undefined {
         return this._cssDisplay;
@@ -30,7 +21,7 @@ export class NodeStyles {
     set display(value: EditorSupportedCssDisplay | undefined) {
         this._cssDisplay = value;
         this.setProperty('display', value);
-        if (value === EditorSupportedCssDisplay.flex && this._flexDirection === undefined) {
+        if (value === 'flex' && this._flexDirection === undefined) {
             this.initFlexBox();
         }
     }
@@ -65,7 +56,7 @@ export class NodeStyles {
     constructor(node: HTMLElement) {
         makeAutoObservable(this);
         this._node = node;
-        this._cssDisplay = this.extractStyle('display', tryParseEditorSupportedCssDisplay);
+        this._cssDisplay = this.extractStyle('display');
         this.initFlexBox();
     }
 
@@ -74,12 +65,26 @@ export class NodeStyles {
     }
 
     private initFlexBox() {
-        this._flexDirection = this.extractStyle('flex-direction', tryParseEditorSupportedFlexDirection);
-        this._justifyContent = this.extractStyle('justify-content', tryParseEditorSupportedJustifyContent);
-        this._alignItems = this.extractStyle('align-items', tryParseEditorSupportedAlignItems);
+        this._flexDirection = this.extractStyle('flexDirection');
+        this._justifyContent = this.extractStyle('justifyContent', this.replaceNormalTo('flex-start'));
+        this._alignItems = this.extractStyle('alignItems', this.replaceNormalTo('stretch'));
     }
 
-    private extractStyle<T>(key: string, parseFn: (val: string) => T | undefined): T | undefined {
-        return parseFn(getComputedStyle(this._node).getPropertyValue(key));
+    private extractStyle<T extends string>(
+        editorAllowedStyleKey: EditorAllowedCssKey,
+        convertFn?: (value: string) => T
+    ): T | undefined {
+        const cssKebabKey = kebabCase(editorAllowedStyleKey)!;
+        const computedStyleValue = getComputedStyle(this._node).getPropertyValue(cssKebabKey);
+        return isAllowedCssRule<T>(
+            editorAllowedStyleKey,
+            convertFn === undefined ? computedStyleValue : convertFn(computedStyleValue)
+        );
+    }
+
+    private replaceNormalTo<T extends string>(replacement: T): (val: string) => T {
+        return function (val: string): T {
+            return val === 'normal' ? replacement : val as T;
+        }
     }
 }

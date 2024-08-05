@@ -1,21 +1,17 @@
 import {observer} from "mobx-react-lite";
 import PicRadioGroup from "../../ui/formControllers/picRadioGroup";
 import {StyleEditorProps} from "./StyleEditorProps";
-import {
-    EditorSupportedAlignItems,
-    tryParseEditorSupportedAlignItems
-} from "../../../models/htmlNativeWrappers/EditorSupportedAlignItems";
 
 const options = [
-    {path: '/align-items--stretch.svg', value: EditorSupportedAlignItems.stretch},
-    {path: '/align-items--flex-start.svg', value: EditorSupportedAlignItems.flexStart},
-    {path: '/align-items--flex-end.svg', value: EditorSupportedAlignItems.flexEnd},
-    {path: '/align-items--center.svg', value: EditorSupportedAlignItems.center},
+    {path: '/align-items--stretch.svg', value: 'stretch'},
+    {path: '/align-items--flex-start.svg', value: 'flex-start'},
+    {path: '/align-items--flex-end.svg', value: 'flex-end'},
+    {path: '/align-items--center.svg', value: 'center'},
 ];
 
 const AlignItemsEditor = observer((props: StyleEditorProps) => {
     function valueChanged(value: string) {
-        props.style.alignItems = tryParseEditorSupportedAlignItems(value);
+        props.style.alignItems = value;
     }
 
     return (
