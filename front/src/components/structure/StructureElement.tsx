@@ -1,17 +1,18 @@
 import "./StructureElement.scss"
-import {DocumentNode} from "../../models/DocumentStructure/documentNode";
 import {StructIcon, StructIconType} from "../ui/StructIcon";
 import {observer} from "mobx-react-lite";
-import documentNodesStructure from "../../models/DocumentStructure/documentNodesStructure";
+import {TunaDocumentNode} from "../../models/DocumentStructure/TunaDocumentNode";
+import project from "../../models/DocumentStructure/tunaProject";
 
 export type LayerProps = {
-    node: DocumentNode,
-    parentIndex: string,
+    node: TunaDocumentNode,
 }
 
-const StructureElement = observer(({node, parentIndex}: LayerProps) => {
+const StructureElement = observer(({node}: LayerProps) => {
+    const selectedDocument = project?.selectedDocument;
+
     function headerClick() {
-        documentNodesStructure.select(node);
+        selectedDocument && selectedDocument.select(node.id);
     }
 
     function levelButtonClicked() {
@@ -23,13 +24,13 @@ const StructureElement = observer(({node, parentIndex}: LayerProps) => {
     function structIconType(): StructIconType {
         return node.children.length === 0
             ? 'circle'
-            : node.navigationCollapsed
+            : node.navCollapsed
                 ? 'triangleRight'
                 : 'triangleDown'
     }
 
     function childrenCssClass(cssClass: string = 'struct-element__children') {
-        return  node.navigationCollapsed
+        return node.navCollapsed
             ? `${cssClass} struct-element__children--collapsed`
             : cssClass;
     }
@@ -40,21 +41,17 @@ const StructureElement = observer(({node, parentIndex}: LayerProps) => {
                 <button className="struct-element__level-button" onClick={levelButtonClicked}>
                     <StructIcon type={structIconType()} filled={node.selected}/>
                 </button>
-                {node.name && <div className="struct-element__name">{node.name}</div>}
-                {!node.name &&
-					<div className="struct-element__name--tag-name">
+                <div className="struct-element__name--tag-name">
                         <span className="tag">
                             <span className="tag__brace">&lt;</span>
-                            <span className="tag__name">{node.nativeNode.tagName}</span>
+                            <span className="tag__name">{node.tag}</span>
                             <span className="tag__brace">&gt;</span>
                         </span>
-					</div>}
+                </div>
             </div>
             {!!node.children.length && <div className={childrenCssClass()}>
                 {node.children.map((childNode, index) =>
-                    <StructureElement key={`${node.name}_${parentIndex}_${index}`}
-                                      node={childNode}
-                                      parentIndex={`${parentIndex}-${index}`}/>)}
+                    <StructureElement key={`struct_nav_${node.id}`} node={childNode}/>)}
 			</div>}
         </div>
     );

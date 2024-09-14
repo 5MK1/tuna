@@ -7,21 +7,22 @@ import Properties from "../components/properties/Properties";
 import Cursor from "../components/cursor/Cursor";
 import "./tunaEditor.scss";
 import {useParams} from "react-router-dom";
-import documentNodesStructure from "../models/DocumentStructure/documentNodesStructure";
+import project from "../models/DocumentStructure/tunaProject";
+import {observer} from "mobx-react-lite";
 
-function TunaEditor() {
+const TunaEditor = observer(() => {
     const {docId} = useParams();
 
     useEffect(() => {
         if (docId !== undefined) {
-            documentNodesStructure.fetchDocument(docId).then();
+            project.fetch(docId).then();
         }
-    }, []);
+    }, [docId]);
 
     useEffect(() => {
         document.body.addEventListener('keydown', ({key}: { key: string }) => {
             if (key.toLocaleLowerCase() === 'escape') {
-                toolboxContext.setTool(undefined);
+                toolboxContext.unsetTool();
             }
         });
     }, []);
@@ -32,14 +33,15 @@ function TunaEditor() {
                 toolboxContext.setCursorPosition(Coordinates.from(e))
             }}>
             <main className="desktop">
-                <Board/>
-                {docId}
+                {project.documents && project.documents.map(
+                    doc => <Board document={doc} key={`document_board_${doc.id}`} /> 
+                )}
             </main>
             <Toolbox/>
             <Properties/>
             <Cursor/>
         </div>
     );
-}
+});
 
 export default TunaEditor;

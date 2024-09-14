@@ -12,7 +12,7 @@ const MyDocumentsPage = observer(() => {
     return (<>
         <ul className="tuna-list">
             {myDocuments.documents.map(doc =>
-                <li>
+                <li key={`documents_list_${doc.id}`}>
                     <Link to={routesPaths.editor.createPath(doc.id!)}>{doc.title ?? doc.id}</Link>
                 </li>
             )}

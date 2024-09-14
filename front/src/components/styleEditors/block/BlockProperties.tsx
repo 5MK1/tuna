@@ -1,26 +1,28 @@
 import {observer} from "mobx-react-lite";
 import DisplayEditor from "./DisplayEditor";
-import documentNodesStructure from "../../../models/DocumentStructure/documentNodesStructure";
 import "./BlockPorperties.scss"
 import FlexDirectionEditor from "./FlexDirectionEditor";
 import JustifyContentEditor from "./JustifyContentEditor";
 import AlignItemsEditor from "./AlignItemsEditor";
+import project from "../../../models/DocumentStructure/tunaProject";
 
 const BlockProperties = observer(() => {
-    const selectedNode = documentNodesStructure.selectedNode;
+    const selectedNodeStyles = project.selectedDocument
+        ?.selectedNode
+        ?.styles;
 
-    if (selectedNode === undefined) {
+    if (selectedNodeStyles === undefined) {
         return <></>;
     }
 
     return (
         <div className="properties-group">
-            <DisplayEditor style={selectedNode.style}/>
-            {selectedNode.style.display === 'flex'
+            <DisplayEditor styles={selectedNodeStyles}/>
+            {selectedNodeStyles.declaration.display === 'flex'
                 && <>
-					<FlexDirectionEditor style={selectedNode.style}/>
-					<JustifyContentEditor style={selectedNode.style}/>
-					<AlignItemsEditor style={selectedNode.style}/>
+					<FlexDirectionEditor styles={selectedNodeStyles}/>
+					<JustifyContentEditor styles={selectedNodeStyles}/>
+					<AlignItemsEditor styles={selectedNodeStyles}/>
 				</>
             }
         </div>

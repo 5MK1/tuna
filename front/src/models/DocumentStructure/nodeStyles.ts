@@ -1,6 +1,6 @@
 import {makeAutoObservable} from "mobx";
 import {
-    EditorAllowedCssKey, EditorSupportedAlignItems,
+    EditorAllowedCssValuesKey, EditorSupportedAlignItems,
     EditorSupportedCssDisplay, EditorSupportedFlexDirection, EditorSupportedJustifyContent,
     isAllowedCssRule
 } from "../htmlNativeWrappers/editorSupportedCssValues";
@@ -71,7 +71,7 @@ export class NodeStyles {
     }
 
     private extractStyle<T extends string>(
-        editorAllowedStyleKey: EditorAllowedCssKey,
+        editorAllowedStyleKey: EditorAllowedCssValuesKey,
         convertFn?: (value: string) => T
     ): T | undefined {
         const cssKebabKey = kebabCase(editorAllowedStyleKey)!;

@@ -1,21 +1,27 @@
 import {ToolboxTool} from "../../models/ToolboxContext/toolboxTool";
+import {TunaDocumentNode} from "../../models/DocumentStructure/TunaDocumentNode";
+import {CssBorder2} from "../../models/htmlNativeWrappers/CssBorder";
+import {BorderStyle} from "../../models/htmlNativeWrappers/BorderStyle";
 
 const dummyBlock = {
-    div: (): HTMLElement => {
-        const node = document.createElement('div');
-        node.style.padding = '10px';
-        node.style.border = '1px dotted grey';
-        return node;
+    div: (): TunaDocumentNode => {
+        const div = TunaDocumentNode.div();
+        div.styles.setValues({
+            'border':  new CssBorder2('1px', BorderStyle.solid, 'grey'),
+            'padding': '10Px'
+        });
+        return div;
     },
-    p: (): HTMLElement => {
-        const node = document.createElement('p');
-        node.innerText = 'Click to edit';
-        node.style.margin = '0 0 1em';
-        node.contentEditable = 'true';
-        node.style.border = '1px dotted lightblue';
-        return node;
+    p: (): TunaDocumentNode => {
+        const paragraph = TunaDocumentNode.paragraph();
+        paragraph.styles.setValues({
+            'border': new CssBorder2('1px', BorderStyle.dotted, 'lightblue'),
+            'padding': '10Px',
+            'margin': '0 0 1em'
+        });
+        return paragraph;
     },
-    fromTool: (tool: ToolboxTool): HTMLElement => {
+    fromTool: (tool: ToolboxTool): TunaDocumentNode => {
         switch (tool) {
             case ToolboxTool.flexbox:
                 return dummyBlock.div();
@@ -23,8 +29,9 @@ const dummyBlock = {
                 return dummyBlock.p();
             case ToolboxTool.image:
                 throw new Error('Image not implemented');
+            default:
+                throw new Error('Unsupported tool')
         }
-        throw new Error('Unsupported tool')
     }
 };
 export default dummyBlock;

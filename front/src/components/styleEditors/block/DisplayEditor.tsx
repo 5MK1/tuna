@@ -1,7 +1,6 @@
 import PicRadioGroup from "../../ui/formControllers/picRadioGroup";
-import {StyleEditorProps} from "./StyleEditorProps";
 import {observer} from "mobx-react-lite";
-import {EditorSupportedCssDisplay, isAllowedCssRule} from "../../../models/htmlNativeWrappers/editorSupportedCssValues";
+import {StyleEditorProps} from "./StyleEditorProps";
 
 const displayOptions = [
     {path: '/display--block.svg', value: 'block'},
@@ -10,19 +9,15 @@ const displayOptions = [
     {path: '/display--grid.svg', value: 'grid'}
 ];
 
-const DisplayEditor = observer((props: StyleEditorProps) => {
-    function valueChanged(value: string) {
-        props.style.display = isAllowedCssRule<EditorSupportedCssDisplay>('display', value)
-    }
-
+const DisplayEditor = observer(({styles}: StyleEditorProps) => {
     return (
         <div className="sidebar-form-item">
             <label className="sidebar-form-item__label">display:</label>
-            <strong className="sidebar-form-item__value">{props.style.display}</strong>
+            <strong className="sidebar-form-item__value">{styles.declaration.display}</strong>
             <div className="sidebar-item__editor">
                 <PicRadioGroup items={displayOptions}
-                               value={props.style.display}
-                               onChange={valueChanged}/>
+                               value={styles.declaration.display}
+                               onChange={(display) => styles.setValues({display})}/>
             </div>
         </div>
     );

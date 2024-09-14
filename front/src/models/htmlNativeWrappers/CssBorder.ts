@@ -15,6 +15,23 @@ export interface ICssBorder {
     style: BorderStyle | '';
 }
 
+export class CssBorder2 implements ICssBorder{
+    color: string;
+    width: string;
+    style: BorderStyle | '';
+
+    constructor(width: string = '', style: BorderStyle | '' = '', color: string = '') {
+        this.width = width;
+        this.style = style;
+        this.color = color;
+    }
+    
+    toCssString(): string {
+        return `${this.width} ${this.style} ${this.color}`;
+    }
+}
+
+// Useless anymore?
 export class CssBorder implements ICssBorder {
     color: string = '';
     width: string = '';

@@ -10,19 +10,15 @@ const options = [
     {path: '/justify-content--space-around.svg', value: 'space-around'}
 ];
 
-const JustifyContentEditor = observer((props: StyleEditorProps) => {
-    function valueChanged(value: string) {
-        props.style.justifyContent = value;
-    }
-
+const JustifyContentEditor = observer(({styles}: StyleEditorProps) => {
     return (
         <div className="sidebar-form-item">
             <label className="sidebar-form-item__label">justify&nbsp;content:</label>
-            <strong className="sidebar-form-item__value">{props.style.justifyContent}</strong>
+            <strong className="sidebar-form-item__value">{styles.declaration.justifyContent}</strong>
             <div className="sidebar-form-item__editor">
                 <PicRadioGroup items={options}
-                               value={props.style.justifyContent}
-                               onChange={valueChanged}/>
+                               value={styles.declaration.justifyContent}
+                               onChange={(justifyContent) => styles.setValues({justifyContent})}/>
             </div>
         </div>
     )

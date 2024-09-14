@@ -11,8 +11,12 @@ export class ToolboxContext {
         this.cursorPosition = Coordinates.origin();
     }
 
-    setTool(tool: ToolboxTool | undefined) {
+    setTool(tool: ToolboxTool) {
         this.tool = tool;
+    }
+
+    unsetTool() {
+        this.tool = undefined;
     }
 
     setCursorPosition(position: Coordinates) {

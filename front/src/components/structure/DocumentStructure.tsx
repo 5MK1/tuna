@@ -1,15 +1,15 @@
 import {observer} from "mobx-react-lite";
 
 import StructureElement from "./StructureElement";
-import documentNodesStructure from "../../models/DocumentStructure/documentNodesStructure";
+import project from "../../models/DocumentStructure/tunaProject";
 
 const DocumentStructure = observer(() => {
+    const rootNodes = project.selectedDocument?.rootNodes;
     return (
         <>
-            {documentNodesStructure.rootNodes.map((node, index) =>
-                <StructureElement key={`${node.name}_${index}`}
-                                  node={node}
-                                  parentIndex={index.toString()} />)}
+            {rootNodes &&
+                rootNodes.map((node, index) =>
+                    <StructureElement node={node} key={`struct_nav_${node.id}`} />)}
         </>
     );
 });

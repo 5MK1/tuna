@@ -9,19 +9,15 @@ const flexDirectionOptions = [
     {path: '/flex-direction--column-reverse.svg', value: 'column-reverse'},
 ];
 
-const FlexDirectionEditor = observer((props: StyleEditorProps) => {
-    function valueChanged(value: string) {
-        props.style.flexDirection = value;
-    }
-
+const FlexDirectionEditor = observer(({styles}: StyleEditorProps) => {
     return (
         <div className="sidebar-form-item">
             <label className="sidebar-form-item__label">direction:</label>
-            <strong className="sidebar-form-item__value">{props.style.flexDirection}</strong>
+            <strong className="sidebar-form-item__value">{styles.declaration.flexDirection}</strong>
             <div className="sidebar-form-item__editor">
                 <PicRadioGroup items={flexDirectionOptions}
-                               value={props.style.flexDirection}
-                               onChange={valueChanged}/>
+                               value={styles.declaration.flexDirection}
+                               onChange={(flexDirection) => styles.setValues({flexDirection})}/>
             </div>
         </div>
     );

@@ -14,9 +14,15 @@ const editorAllowedCssValues = {
     justifyContent
 };
 
-export type EditorAllowedCssKey = keyof typeof editorAllowedCssValues;
+export type EditorAllowedCssValuesKey = keyof typeof editorAllowedCssValues;
 
-export function isAllowedCssRule<T extends string>(key: EditorAllowedCssKey, value: string): T | undefined {
+export function isEditorAllowedCssValuesKey(key: string): EditorAllowedCssValuesKey | undefined {
+    return editorAllowedCssValues.hasOwnProperty(key)
+        ? key as EditorAllowedCssValuesKey
+        : undefined;
+}
+
+export function isAllowedCssRule<T extends string>(key: EditorAllowedCssValuesKey, value: string): T | undefined {
     return (key in editorAllowedCssValues) && (editorAllowedCssValues[key]).includes(value)
         ? value as T
         : undefined;

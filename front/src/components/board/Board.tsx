@@ -1,25 +1,22 @@
 import './Board.scss'
-import {DocumentNode} from "../../models/DocumentStructure/documentNode";
-import {useRef} from "react";
-import documentNodesStructure from "../../models/DocumentStructure/documentNodesStructure";
-import {ToolboxTool} from "../../models/ToolboxContext/toolboxTool";
 import {observer} from "mobx-react-lite";
 import toolboxContext from "../../models/ToolboxContext/toolboxContext";
 import dummyBlock from "./dummyBlock";
+import {TunaDocument} from "../../models/DocumentStructure/TunaDocument";
+import {DocumentNodeBlockComponent} from "./DocumentNodeBlockComponent";
+import StopPropagationEvent from "./StopPropagationEvent";
+import {TunaDocumentNode} from "../../models/DocumentStructure/TunaDocumentNode";
 
-interface InnerMouseEvent {
-    target: EventTarget | null,
-    stopPropagation: () => void
-}
+export type BoardProps = {
+    document: TunaDocument
+};
 
-const Board = observer(() => {
-    const canvas = useRef<HTMLDivElement>({} as unknown as HTMLDivElement);
-
-    function getTargetElement(e: InnerMouseEvent): HTMLElement {
+const Board = observer((props: BoardProps) => {
+    function getTargetElement(e: StopPropagationEvent): HTMLElement {
         return e.target! as HTMLElement;
     }
 
-    function handleMouseOver(e: InnerMouseEvent) {
+    function handleMouseOver(e: StopPropagationEvent) {
         if (toolboxContext.tool !== undefined) {
             getTargetElement(e).style.outline = "2px solid #4A90E2";
         }
@@ -29,45 +26,52 @@ const Board = observer(() => {
         element.style.outline = 'none';
     }
 
-    function handleMouseOut(e: InnerMouseEvent) {
+    function handleMouseOut(e: StopPropagationEvent) {
         unselectElement(getTargetElement(e));
     }
 
-    function createDummyBlock(tool: ToolboxTool): HTMLElement {
-        const node = dummyBlock.fromTool(tool);
-        node.addEventListener('click', handleClickInner);
-        return node;
+    function handleClickInner(e: StopPropagationEvent) {
+        e.stopPropagation();
+        if (toolboxContext.tool !== undefined) {
+            addNodeToDocument(dummyBlock.fromTool(toolboxContext.tool), undefined);
+            toolboxContext.unsetTool();
+        }
+        // const target = getTargetElement(e);
+        // if (toolboxContext.tool !== undefined) {
+        //     const node = createDummyBlock(toolboxContext.tool!);
+        //     target.appendChild(node);
+        //
+        //     toolboxContext.setTool(undefined);
+        //     unselectElement(target);
+        //
+        //     const documentNode = new DocumentNode(node);
+        //     documentNodesStructure
+        //         .add(documentNode, target === canvas.current ? undefined : target)
+        //         .select(documentNode);
+        // } else {
+        //     const documentNode = documentNodesStructure.tryGet(target);
+        //     if (documentNode) {
+        //         documentNodesStructure.select(documentNode);
+        //     }
+        // }
     }
 
-    function handleClickInner(e: InnerMouseEvent) {
-        e.stopPropagation();
-        const target = getTargetElement(e);
-        if (toolboxContext.tool !== undefined) {
-            const node = createDummyBlock(toolboxContext.tool!);
-            target.appendChild(node);
-
-            toolboxContext.setTool(undefined);
-            unselectElement(target);
-
-            const documentNode = new DocumentNode(node);
-            documentNodesStructure
-                .add(documentNode, target === canvas.current ? undefined : target)
-                .select(documentNode);
-        } else {
-            const documentNode = documentNodesStructure.tryGet(target);
-            if (documentNode) {
-                documentNodesStructure.select(documentNode);
-            }
-        }
+    function addNodeToDocument(node: TunaDocumentNode, parentNodeId: string | undefined) {
+        props.document.addNode(node, parentNodeId);
     }
 
     return (
         <div className="board">
             <div className="board__canvas"
-                 ref={canvas}
                  onClick={handleClickInner}
                  onMouseOver={handleMouseOver}
-                 onMouseOut={handleMouseOut} />
+                 onMouseOut={handleMouseOut}>
+                {props.document.rootNodes.map(
+                    node => <DocumentNodeBlockComponent node={node}
+                                                        addNodeToDocument={addNodeToDocument}
+                                                        key={`node_${node.id}`}/>
+                )}
+            </div>
         </div>
     );
 });
